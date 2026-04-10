@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{#
+  Intégration Giscus — commentaires par page via GitHub Discussions.
+
+  À remplir une fois que :
+    1. Le repo est poussé sur GitHub (public OU privé — Giscus fonctionne sur les deux
+       si l'app Giscus est installée sur le repo).
+    2. L'onglet "Discussions" est activé dans Settings → Features.
+    3. Le générateur https://giscus.app/fr a produit les valeurs data-repo, data-repo-id,
+       data-category et data-category-id.
+
+  Pour désactiver les commentaires sur une page donnée, ajouter ceci dans son front-matter :
+
+      ---
+      comments: false
+      ---
+#}
+
+{% block content %}
+  {{ super() }}
+
+  {% if page.meta.comments is not defined or page.meta.comments != false %}
+    <h2 id="__comments">Commentaires</h2>
+    <script src="https://giscus.app/client.js"
+            data-repo="OWNER/juju-aviatrice"
+            data-repo-id="REPO_ID_A_REMPLIR"
+            data-category="General"
+            data-category-id="CATEGORY_ID_A_REMPLIR"
+            data-mapping="pathname"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="fr"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+    </script>
+  {% endif %}
+{% endblock %}

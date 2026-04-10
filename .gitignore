@@ -1,0 +1,17 @@
+# BMAD stuff, including the skills and the data files
+_bmad/*
+.claude/skills/bmad*
+.claude/skills/gds*
+.claude/skills/wds*
+
+# MkDocs
+site/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
