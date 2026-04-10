@@ -16,6 +16,7 @@ Ces écoles constituent un **plan B** si les voies sponsorisées ne sont pas obt
 ## Principales écoles (avril 2026)
 
 ### Astonfly
+
 - **Localisation** : Toussus-le-Noble (Yvelines, région parisienne).
 - **Volume** : annonce **150+ pilotes formés/an** — parmi les plus gros opérateurs privés français.
 - **Durée** : formation intégrée annoncée en **moins de 18 mois**.
@@ -24,21 +25,25 @@ Ces écoles constituent un **plan B** si les voies sponsorisées ne sont pas obt
 - Site : [astonfly.com](https://astonfly.com/)
 
 ### Mermoz Academy
+
 - **Localisation** : multiples sites en France.
 - **Durée** : **24 à 28 mois** pour le cursus intégré ATP.
 - **Positionnement** : se présente comme « la première école française de formation de pilotes de ligne ».
 - Identifiée dans les comparateurs comme un acteur historique fiable.
 
 ### EPAG NG (École de Pilotage d'Airbus Group – New Generation)
+
 - **Localisation** : **Merville** (Nord).
 - **Positionnement** : rigoureuse, orientée besoins des compagnies, historiquement liée à Airbus.
 - Réputation de sérieux dans la communauté des pilotes.
 
 ### Aéropyrénées
+
 - **Localisation** : Pyrénées.
 - **Positionnement** : formation intégrée ATPL de qualité, structure de taille plus modeste.
 
 ### ESMA (Airways Aviation Academy) — ⚠️ en liquidation
+
 - **Statut** : **liquidation judiciaire effective au 23 janvier 2026**, suite à un incendie criminel survenu à l'aéroport Montpellier-Méditerranée le 20 mai 2025.
 - **Historiquement** : école privée majeure du paysage français, opérant à Montpellier.
 - **À retirer des options actives** pour 2026 et au-delà.
@@ -46,6 +51,7 @@ Ces écoles constituent un **plan B** si les voies sponsorisées ne sont pas obt
 ## CAE — Acteur de formation international basé en Europe
 
 **CAE** n'est pas une école française mais opère plusieurs centres en Europe utilisés comme partenaires par les programmes cadets :
+
 - **CAE Oxford** (Royaume-Uni) — formation pilote depuis 1963, partenaire easyJet, Ryanair, CityJet, Volotea.
 - **CAE Brussels** (Belgique).
 - **CAE Madrid**.

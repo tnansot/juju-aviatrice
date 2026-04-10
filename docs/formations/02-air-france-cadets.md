@@ -31,6 +31,7 @@ La sélection se déroule en **trois phases éliminatoires** :
 ### PSY 0 — Présélection en ligne
 
 Tests à distance sur :
+
 - **Logique / raisonnement**
 - **Culture générale aéronautique**
 - **Anglais**
@@ -40,6 +41,7 @@ Tests à distance sur :
 ### PSY 1 — Tests psychotechniques et psychomoteurs (Toulouse)
 
 Journée complète au **campus de l'ENAC** à Toulouse. Batterie de tests informatisés :
+
 - Calcul mental, raisonnement numérique
 - **Orientation / représentation spatiale**
 - **Attention partagée** (multitâche)
@@ -51,6 +53,7 @@ Journée complète au **campus de l'ENAC** à Toulouse. Batterie de tests inform
 ### PSY 2 — Entretiens et épreuve de groupe (Roissy CDG)
 
 Sur le site d'Air France à Roissy :
+
 - Deux **inventaires de personnalité**
 - **Épreuve de groupe** (observation de comportement collaboratif)
 - **Entretien individuel** face à un jury de psychologues et de pilotes expérimentés

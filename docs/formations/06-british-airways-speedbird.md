@@ -7,6 +7,7 @@
 La **Speedbird Pilot Academy**, lancée par British Airways en **2023**, est l'une des rares **formations pilote entièrement financées (fully-funded)** par une compagnie en Europe. Son objectif affiché : **supprimer les barrières financières** d'accès au métier.
 
 BA s'appuie sur deux partenaires de formation :
+
 - **Skyborne Airline Academy** (Royaume-Uni)
 - **FTE Jerez** (Espagne) — où les cadets BA côtoient des cadets d'autres compagnies du groupe IAG (Aer Lingus, BA Cityflyer, **Iberia**, **Vueling**).
 
@@ -22,6 +23,7 @@ BA s'appuie sur deux partenaires de formation :
 ## Processus de sélection
 
 Sélection BA en plusieurs étapes (les détails exacts peuvent varier entre éditions) :
+
 - **Formulaire de candidature** en ligne et CV
 - **Tests cognitifs et psychotechniques** en ligne
 - **Assessment center** : exercices de groupe, simulateur, entretien

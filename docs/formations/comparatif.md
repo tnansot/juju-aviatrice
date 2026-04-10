@@ -17,6 +17,7 @@
 | 09 | **Wizz Air WAPA** | 🇪🇺 | Secondaire | 18+ | 🇬🇧 anglais | ~14 k€ upfront + bonding | ~18 mois + 5–6 mois | **Wizz Air** (offre conditionnelle) | ★★★ |
 | 10 | **Brussels Airlines MPL** | 🇧🇪 | Secondaire scientifique | 18+ | 🇬🇧 anglais | Variable (préfinancement LH Group) | 19 mois | **Brussels Airlines** | ★★★★ (places très limitées) |
 | 11 | **Iberia Cadets / Vueling MAPS** | 🇪🇸 | Secondaire | 18+ | 🇬🇧 anglais (+🇪🇸) | ~40–50 k€ (50 % financés par Iberia) | ~18–24 mois | **Iberia / Vueling / IAG** | ★★★★ |
+| 12 | **Luxair Pilot Cadet Program** | 🇱🇺 | Secondaire (uni entrance) | 18+ | 🇬🇧 anglais | **Pré-financé** (jusqu'à ~80 k€ formation + 24 k€ logement, remboursés sur salaire) | ~18–20 mois | **Luxair** (First Officer, base Luxembourg) | ★★★★ (places très limitées) |
 
 ## Classement par attractivité pour un profil français (type Juju)
 
@@ -40,10 +41,11 @@
 8. **Ryanair Future Flyer** — Auto-financé avec offre conditionnelle.
 9. **Wizz Air WAPA** — Ticket d'entrée bas, mais bonding long chez une low-cost Est européen.
 10. **Brussels Airlines MPL** — Via groupe Lufthansa, places très limitées.
+11. **Luxair Pilot Cadet Program** — Pré-financement attractif (quasi intégral, remboursé sur salaire), mais petite compagnie → très peu de places et fenêtres de candidature rares.
 
 ### Tier 4 — À éviter ou en dernier recours
 
-11. **Écoles ATPL privées françaises sans sponsoring** — Coût élevé, aucune garantie d'emploi, sauf stratégie de financement solide et tolérance au risque.
+12. **Écoles ATPL privées françaises sans sponsoring** — Coût élevé, aucune garantie d'emploi, sauf stratégie de financement solide et tolérance au risque.
 
 ## Critères de décision
 
@@ -60,4 +62,5 @@ Pour orienter le choix, se poser les questions suivantes :
 - **ESMA** (historique, école française majeure) est en **liquidation judiciaire depuis le 23 janvier 2026** : à exclure des options.
 - **BA Speedbird** ne recrute qu'un nombre très limité de cadets par an et privilégie les résidents UK.
 - **Brussels Airlines MPL 2026** : candidatures fermées à avril 2026.
+- **Luxair Pilot Cadet Program** : candidatures fermées à avril 2026, prochaine fenêtre non annoncée — surveiller [luxair.lu/en/pilot](https://www.luxair.lu/en/pilot/).
 - Les fenêtres de candidature Iberia/Vueling sont **très courtes** (~2 semaines) : **mettre en place une veille active**.

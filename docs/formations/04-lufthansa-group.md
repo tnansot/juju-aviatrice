@@ -5,11 +5,13 @@
 ## Vue d'ensemble
 
 L'**European Flight Academy (EFA)** est née en 2017 de la fusion de :
+
 - **Lufthansa Flight Training**
 - **Swiss Aviation Training**
 - **Pilot Training Network**
 
 Elle est le **pipeline de recrutement exclusif** du groupe Lufthansa, qui englobe :
+
 - Lufthansa (mainline)
 - Lufthansa City Airlines
 - Eurowings
@@ -36,6 +38,7 @@ Le processus repose sur le **test DLR** (Deutsches Zentrum für Luft- und Raumfa
 ### Phase 1 — DLR BU/GU (tests psychotechniques)
 
 Tests informatisés éliminatoires évaluant :
+
 - **Cognitif** : logique, raisonnement numérique, mémoire, représentation spatiale
 - **Psychomoteur** : multitâche, coordination
 - **Connaissances techniques/physique** de base (niveau lycée scientifique)

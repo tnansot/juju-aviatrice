@@ -62,6 +62,7 @@ Calendrier officiel actualisé : [concours.enac.fr/calendrier](https://concours.
 ## Formation à l'issue
 
 Durée ~24 mois à l'ENAC Toulouse :
+
 - Tronc théorique ATPL
 - Vol sur monomoteur puis bimoteur
 - Simulateur et MCC (Multi-Crew Cooperation)

@@ -42,6 +42,7 @@ Vueling opère un programme cadet distinct de type **MAPS** (Mentored Airline Pi
 ## Écosystème IAG / FTE Jerez
 
 FTE Jerez est **un hub de formation pour plusieurs compagnies IAG** :
+
 - **British Airways** (via Speedbird)
 - **Iberia** (cadets programme)
 - **Vueling** (MAPS)

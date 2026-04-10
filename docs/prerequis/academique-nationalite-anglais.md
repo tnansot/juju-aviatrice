@@ -50,6 +50,7 @@ Cette fiche synthétise les **prérequis transverses non médicaux** communs aux
 | Iberia Cadets | Secondaire, vocation + aptitudes |
 
 **Pour Juju (1ère générale spés scientifiques)** :
+
 - Le **bac scientifique** débloque les programmes cadets sponsorisés (Air France Cadets, Lufthansa, KLM, easyJet…).
 - L'**ENAC EPL/S** nécessite en plus **au moins 1 an après le bac**, idéalement en **CPGE PCSI/MPSI** (ou licence scientifique solide avec validation de 60 ECTS).
 

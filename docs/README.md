@@ -12,11 +12,13 @@ Les conditions de sélection, calendriers et tarifs des formations pilote **évo
 ### [Formations](formations/comparatif.md) — Fiches par voie d'accès
 
 **France**
+
 - [01 — ENAC EPL](formations/01-enac-epl.md) — Concours public, 3 filières (S/U/P). **Cible prioritaire EPL/S pour Juju** (16–23 ans, post-bac scientifique).
 - [02 — Air France Cadets](formations/02-air-france-cadets.md) — Programme cadet sponsorisé, **formation gratuite**, sélection PSY0/1/2.
 - [03 — Écoles ATPL privées (France)](formations/03-ecoles-privees-france.md) — Astonfly, Mermoz Academy, EPAG NG, Aéropyrénées (ESMA en liquidation).
 
 **Europe**
+
 - [04 — Lufthansa Group / European Flight Academy](formations/04-lufthansa-group.md) — Pipeline LH, Swiss, Austrian, Brussels, Eurowings. Test DLR obligatoire.
 - [05 — KLM Flight Academy](formations/05-klm-flight-academy.md) — 80 cadets/an, parmi les plus sélectifs d'Europe.
 - [06 — British Airways Speedbird Pilot Academy](formations/06-british-airways-speedbird.md) — **Fully-funded** (rare).
@@ -25,8 +27,10 @@ Les conditions de sélection, calendriers et tarifs des formations pilote **évo
 - [09 — Wizz Air Pilot Academy (WAPA)](formations/09-wizz-air-academy.md) — Préfinancement partiel + bonding.
 - [10 — Brussels Airlines MPL](formations/10-brussels-airlines-mpl.md) — Via Skywings Antwerp (groupe Lufthansa).
 - [11 — Iberia & Vueling Cadets](formations/11-iberia-vueling.md) — Via FTE Jerez.
+- [12 — Luxair Pilot Cadet Program](formations/12-luxair-cadets.md) — Programme pré-financé (Luxembourg), formation chez BAA Barcelone / RWL Mönchengladbach.
 
 **Transverse**
+
 - [Comparatif des formations](formations/comparatif.md) — Tableau récapitulatif.
 
 ### [Prérequis](prerequis/medical-classe-1.md) — Conditions d'accès communes
@@ -55,6 +59,7 @@ Trois voies principales à cibler **en parallèle**, car elles sont peu ou pas a
 3. **Programmes cadets européens** — À explorer comme plans B (Lufthansa Group, KLM, BA Speedbird, Iberia…). Conditions, coût et langue de sélection variables.
 
 **Actions prioritaires, indépendantes de la voie choisie :**
+
 - Préparer et réussir le **Médical EASA Classe 1** dès que possible (prérequis bloquant).
 - Consolider **maths + physique** au niveau attendu (voir [epreuves/scientifiques-maths-physique.md](epreuves/scientifiques-maths-physique.md)).
 - Entraîner les **tests psychotechniques** tôt, car ils sont éliminatoires à tous les niveaux.

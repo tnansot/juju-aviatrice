@@ -39,6 +39,7 @@ D'autres axes (anglais aéronautique, culture aéro, préparation aux oraux…) 
 Une base documentaire complète sur les formations pilote de ligne visées par Juju se trouve dans [docs/](docs/). Elle doit être consultée comme **contexte de référence** pour toute discussion sur le contenu de l'application, l'ordre de priorité des sujets, les épreuves ciblées, etc.
 
 Points d'entrée utiles :
+
 - [docs/README.md](docs/README.md) — Index général et priorités pour Juju
 - [docs/formations/comparatif.md](docs/formations/comparatif.md) — Tableau comparatif des voies
 - [docs/formations/01-enac-epl.md](docs/formations/01-enac-epl.md) — Cible prioritaire (ENAC EPL/S)
@@ -53,3 +54,16 @@ Cette base est un instantané d'avril 2026 : les conditions de sélection et tar
 - Le projet est **personnel et familial** : la motivation est d'aider Juju concrètement, pas de bâtir un produit générique.
 - Rester **pragmatique** : privilégier ce qui est directement utile à sa préparation, éviter la sur-ingénierie.
 - Quand l'intention d'une décision n'est pas claire, **demander** plutôt que supposer — ce projet est en phase de cadrage.
+
+## Conventions Markdown
+
+La doc du projet est rendue par plusieurs parsers (MkDocs Material, export PDF, aperçu IDE). Certains sont stricts sur l'espacement autour des blocs. **À respecter systématiquement lors de toute création ou modification de `.md`** :
+
+- **Ligne vide avant toute liste** lorsque la ligne précédente n'est pas vide et n'est pas elle-même une puce. Cela inclut :
+  - une liste qui suit un titre (`#`, `##`, `###`…),
+  - une liste qui suit un pseudo-titre en gras (`**Section**`),
+  - une liste qui suit un paragraphe terminé par `:`.
+- **Ligne vide après une liste** avant tout nouveau paragraphe ou titre (même règle, symétrique).
+- **Ligne vide autour des blocs** : titres, blocs de code, citations, tableaux — toujours isolés par une ligne vide au-dessus et en dessous.
+
+Règle mémo : *si ce n'est pas une continuation de liste, une ligne vide sépare.* En cas de doute, ajouter la ligne vide.

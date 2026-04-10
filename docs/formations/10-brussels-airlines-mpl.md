@@ -21,6 +21,7 @@ Les premières promotions diplômées ont rejoint Brussels Airlines **à partir 
 ## Processus de sélection
 
 Sélection conjointe Brussels Airlines + Skywings :
+
 - Candidature en ligne
 - Tests cognitifs et psychotechniques
 - Entretiens et assessment

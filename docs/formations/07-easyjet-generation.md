@@ -23,6 +23,7 @@ Contrairement à BA Speedbird ou aux Cadets Air France, ce programme est **auto-
 ## Processus de sélection
 
 Sélection conjointe easyJet + CAE :
+
 - **Candidature en ligne** avec documents scolaires
 - **Tests cognitifs en ligne** (logique, raisonnement)
 - **Assessment day** avec CAE : exercices de groupe, simulateur, entretien

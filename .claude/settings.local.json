@@ -12,7 +12,12 @@
       "Bash(.venv/bin/mkdocs build:*)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "WebFetch(domain:luxtoday.lu)",
+      "WebFetch(domain:www.luxair.lu)",
+      "Bash(python3)",
+      "Read(//dev/**)",
+      "Bash(git push:*)"
     ]
   }
 }
