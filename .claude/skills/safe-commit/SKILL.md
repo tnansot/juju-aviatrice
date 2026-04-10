@@ -1,6 +1,6 @@
 ---
 name: safe-commit
-description: 'Commit avec audit de sensibilité. Inspecte le diff staged+unstaged à la recherche de données personnelles (PII de Juju et de sa famille), de secrets techniques (tokens, clés API, clés privées, credentials CF/GitHub/Giscus) et d''autres données sensibles (médicales, scolaires, financières, aviation, infra). Bloque ou avertit avant de lancer git commit. Use when the user asks to commit changes ("commit", "fais un commit", "commit ça", "prépare un commit").'
+description: 'Commit avec audit de sensibilité PUIS push systématique. Inspecte le diff staged+unstaged à la recherche de données personnelles (PII de Juju et de sa famille), de secrets techniques (tokens, clés API, clés privées, credentials CF/GitHub/Giscus) et d''autres données sensibles (médicales, scolaires, financières, aviation, infra). Bloque ou avertit avant de lancer git commit. Si le commit passe, pousse automatiquement sur origin (politique standing autorisée par le user pour ce repo). Use when the user asks to commit changes ("commit", "fais un commit", "commit ça", "prépare un commit", "push").'
 ---
 
 # safe-commit — Commit avec audit de données sensibles
@@ -16,6 +16,14 @@ Il y a donc un enjeu réel à ne pas committer :
 - **D'autres données sensibles** propres au projet (médical aéronautique, scolaire, concours, famille)
 
 Ce skill remplace le workflow commit par défaut dès que l'utilisateur demande de committer. **Ne jamais le court-circuiter**, même pour un diff trivial — c'est la discipline qui protège, pas le zèle ponctuel.
+
+### Politique de push automatique
+
+Le user a explicitement demandé (autorisation standing pour ce repo) que **chaque commit déclenche automatiquement un `git push`** vers `origin`. Le push n'est donc PAS une action à confirmer séparément — dès que le commit passe l'audit et est exécuté, le push suit immédiatement dans la foulée.
+
+Conséquence : **l'audit est la dernière ligne de défense**. Une fois que le rapport d'audit est validé et que le commit est lancé, le contenu est sur internet dans la seconde qui suit. Il n'y a pas de fenêtre "commité mais pas encore public" à exploiter pour un rattrapage. Cela rend l'étape d'audit d'autant plus critique — ne jamais la court-circuiter sous prétexte que "on pourra corriger avant de pusher".
+
+Cette politique ne s'applique qu'à ce repo (`juju-aviatrice`). Les `--force`, `--force-with-lease` sur `main` et autres pushes destructifs restent interdits par défaut sans demande explicite — voir la liste des interdits en fin d'Étape 5.
 
 ## Workflow
 
@@ -197,8 +205,8 @@ Langue : FR par défaut (le repo est en FR).
 
 Une fois l'utilisateur OK :
 
-- `git add <fichiers spécifiques>` — **jamais** `git add .` ni `git add -A`. Risque d'embarquer un fichier non tracké non détecté par l'audit.
-- `git commit` via HEREDOC pour préserver le formatting :
+1. **Stage** — `git add <fichiers spécifiques>`. **Jamais** `git add .` ni `git add -A`. Risque d'embarquer un fichier non tracké non détecté par l'audit.
+2. **Commit** — `git commit` via HEREDOC pour préserver le formatting :
 
 ```
 git commit -m "$(cat <<'EOF'
@@ -209,7 +217,16 @@ EOF
 )"
 ```
 
-- `git status` après, pour vérifier le résultat.
+3. **Push** — enchaîner immédiatement avec `git push` (voir "Politique de push automatique" ci-dessus). Utiliser la forme simple `git push` sur la branche courante. Si la branche locale n'a pas d'upstream configuré, utiliser `git push -u origin <branche>` pour l'attacher.
+4. **Vérification** — `git status` final pour confirmer que le working tree est clean et que la branche est à jour avec `origin/<branche>`.
+
+Pour minimiser les allers-retours de shell, les étapes 1+2+3 peuvent être chaînées en une seule commande Bash :
+
+```
+git add <fichiers> && git commit -m "..." && git push
+```
+
+Ainsi, si le commit échoue (ex: hook pre-commit), le push n'est pas tenté.
 
 **Interdits absolus (sauf demande explicite et argumentée de l'utilisateur)** :
 
@@ -218,13 +235,24 @@ EOF
 - `--force`, `--force-with-lease` sur `main`
 - `--no-gpg-sign`
 - Toute réécriture d'historique après push
+- Push sur une branche autre que celle sur laquelle on est (pas de `git push origin foo:bar`)
 
-Si un hook pre-commit échoue, NE PAS amender : corriger le problème, re-stage les fichiers, et créer un **nouveau** commit (le précédent n'a de toute façon pas eu lieu).
+Si un hook pre-commit échoue, NE PAS amender : corriger le problème, re-stage les fichiers, et créer un **nouveau** commit (le précédent n'a de toute façon pas eu lieu). Le push ne sera tenté qu'une fois le nouveau commit créé.
 
 ## Cas particuliers
 
-### "push" comme raccourci
-Si l'utilisateur dit simplement "push", faire le commit avec audit d'abord, puis **demander confirmation explicite** avant `git push` — le push est une action à effet externe qui rend le contenu visible publiquement.
+### "push" comme verbe principal
+Si l'utilisateur dit simplement "push", c'est traité comme un synonyme de "commit" : lancer le workflow complet (audit → rapport → confirmation → commit → push auto). Aucune confirmation séparée du push, puisque le push est de toute façon systématique après chaque commit.
+
+### Échec du push
+Si `git push` échoue après un commit réussi, NE PAS retenter aveuglément. Diagnostiquer la cause :
+
+- **`rejected: non-fast-forward`** → le remote a des commits que le local n'a pas. Signaler à l'utilisateur, proposer `git pull --rebase` mais ne PAS l'exécuter sans accord (peut créer des conflits à résoudre). Le commit local reste en place, rien n'est perdu.
+- **`Could not resolve host` / réseau** → signaler, suggérer de réessayer plus tard avec `git push`. Le commit reste en place.
+- **`remote rejected` par un hook de protection** (ex: email non masqué, secret détecté par push protection GitHub, branche protégée) → signaler l'erreur exacte et la raison. Ne pas tenter de contournement (`--no-verify` côté push n'existe pas, `--force` est interdit).
+- **Pas d'upstream** → relancer avec `git push -u origin <branche-courante>`.
+
+Dans tous les cas : le commit local reste intact. L'utilisateur peut reprendre le push plus tard une fois le blocage levé.
 
 ### "amende le commit précédent"
 Si le commit précédent n'a **pas** encore été pushé : audit sur les modifications courantes, puis `git commit --amend`. Si le commit a été pushé : refuser par défaut, expliquer que c'est destructif (les autres clones vont diverger) et demander confirmation explicite.
