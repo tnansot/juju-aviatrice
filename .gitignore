@@ -18,3 +18,10 @@ __pycache__/
 
 # Prompts et brouillons locaux (non versionnés)
 local/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
