@@ -4,9 +4,9 @@ site_author: Juju & Papa
 site_url: https://juju-aviatrice.pages.dev
 
 # TODO — à mettre à jour une fois le repo poussé sur GitHub :
-# repo_url: https://github.com/<OWNER>/juju-aviatrice
-# repo_name: juju-aviatrice
-# edit_uri: edit/main/docs/
+repo_url: https://github.com/tnansot/juju-aviatrice
+repo_name: juju-aviatrice
+edit_uri: edit/main/docs/
 
 docs_dir: docs
 
