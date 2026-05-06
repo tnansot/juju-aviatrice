@@ -3,6 +3,7 @@ _bmad/*
 .claude/skills/bmad*
 .claude/skills/gds*
 .claude/skills/wds*
+.claude/skills/pbm*
 
 # MkDocs
 site/
