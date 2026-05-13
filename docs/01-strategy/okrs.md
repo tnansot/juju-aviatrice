@@ -1,149 +1,144 @@
 # OKRs produit — juju-aviatrice
 
-> Objectives & Key Results structurés par **milestones produit** (et non par trimestres calendaires) pour s'aligner avec l'horizon itératif retenu en Vision.
->
-> **Date** : 2026-05-06 — **Auteur** : Thomas (Papa) avec assistance Claude
+> Objectives & Key Results par **milestones produit** (pas de trimestres calendaires — horizon itératif).
+> **2026-05-06** — Thomas (Papa) avec Claude
 
-## Format adopté
+Quatre milestones séquentiels sans dates fixes : **M0** (prototype validable, détaillé) · **M1** (MVP complet livré et adopté, détaillé) · **M2** (MVP+ : Terminale + psy élargi, esquissé) · **M3** (prépa concours assumée, placeholder).
 
-**Trois milestones produit séquentiels**, sans dates fixes :
+KRs quantitatifs (couverture, comptage, tests fonctionnels) + **qualitatifs consignés** via un skill d'entretien Juju (cf. section finale).
 
-| Milestone | Description | Détail OKRs |
-|---|---|---|
-| **M1 — MVP livré et adopté** | Premier prototype testable, validé par Juju en usage réel | Détaillé |
-| **M2 — MVP+ étendu** | Extension Terminale + élargissement psychotechniques | Objectives esquissés |
-| **M3 — Outil de prépa concours assumé** | Niveaux Post-bac/ENAC + calibrage par école | Placeholder |
-
-Les Key Results mélangent **mesures quantitatives** (couverture, comptage, tests fonctionnels) et **mesures qualitatives consignées** via un **skill d'entretien Juju** exécuté dans Claude Code à chaque jalon. Ce skill est un livrable annexe à concevoir avant M1 (cf. section finale).
-
-## Directive transverse — Pilier 5 « Ouverture multi-concours »
-
-Le pilier 5 de la Vision n'est pas instancié en OKR de milestone : il agit comme **garde-fou transverse** sur toutes les décisions de scope. Concrètement :
-
-- Aucun contenu spécifique à une école unique (PILAPT, DLR, PSY Air France) tant que Juju n'a pas explicitement tranché sa voie cible
-- Les choix de contenu doivent être justifiables comme « utiles à au moins 2 voies parmi {écoles psy européennes, ENAC EPL/S, Cadets AF} »
-- Toute spécialisation par école apparaîtra à partir de M3, en OKR explicite
+**Pilier 5 « Ouverture »** : pas d'OKR dédié — garde-fou transverse. Aucun contenu propre à une école unique tant que Juju n'a pas tranché ; tout contenu doit servir ≥ 2 voies parmi {écoles psy européennes, ENAC EPL/S, Cadets AF}. Première instanciation en M3.
 
 ---
 
-## Période 1 — Milestone M1 : MVP livré et adopté
+## M0 — Prototype validable
 
-### Pilier 1 — Scientifique multi-niveaux
+> Valide les hypothèses produit avec Juju avant d'investir dans la couverture exhaustive M1. Scope et critères de passage détaillés dans le [product-brief](../02-discovery/product-brief.md#périmètre-mvp-m0--prototype-validable).
 
-**Objective 1.1 — Couvrir intégralement le programme officiel de 1ère générale (spé maths + spé physique-chimie) de manière utilisable au quotidien**
+### Pilier 1 — Scientifique (Objective 1.0)
 
-| # | Key Result | Cible | Mesure |
-|---|---|---|---|
-| KR-1.1.1 | Couverture des chapitres du programme officiel **1ère spé maths** | 100 % | Checklist BO de l'Éducation nationale |
-| KR-1.1.2 | Couverture des chapitres du programme officiel **1ère spé physique-chimie** | 100 % | Checklist BO |
-| KR-1.1.3 | Diversité de formats par chapitre (recherche + flashcards + QCM chrono) | ≥ 3 formats / chapitre | Audit du contenu |
-
-### Pilier 2 — Psychotechnique démystifié
-
-**Objective 2.1 — Désarmer la peur de Juju face aux psychotechniques en couvrant logique + calcul mental**
+**Proposer un échantillon représentatif du cœur scientifique pour tester formats et engagement.**
 
 | # | Key Result | Cible | Mesure |
 |---|---|---|---|
-| KR-2.1.1 | Fiche méthode « c'est quoi, comment l'aborder » par type de test | 1 fiche pour logique + 1 pour calcul mental | Existe / n'existe pas |
-| KR-2.1.2 | Banque d'exercices par type, avec correction expliquée | ≥ 50 exos / type | Compte d'exercices validés |
-| KR-2.1.3 | Mode chronométré opérationnel pour les deux types | 100 % fonctionnel | Test fonctionnel |
-| KR-2.1.4 | Baisse perçue de la peur des psychotechniques chez Juju | Confirmation positive | Skill d'entretien Juju post-M1 (cf. section finale) |
+| KR-1.0.1 | Chapitres couverts (3 spé maths + 3 spé physique, choisis avec Juju) | 6 | Checklist |
+| KR-1.0.2 | Formats par chapitre (flashcards + QCM chrono) | 2 / chapitre | Audit contenu |
 
-### Pilier 3 — UX bienveillante
+### Pilier 2 — Psychotechnique (Objective 2.0)
 
-**Objective 3.1 — Garantir que l'usage quotidien ne décourage jamais Juju**
+**Démystifier les psy avec un premier contact encadré.**
 
 | # | Key Result | Cible | Mesure |
 |---|---|---|---|
-| KR-3.1.1 | Messages de l'application ressentis comme négatifs par Juju | 0 | Skill d'entretien Juju post-M1 (verbatims sur les messages) |
-| KR-3.1.2 | Mode session courte (15 min) opérationnel sur téléphone, mode session longue sur ordi | 100 % fonctionnel sur les deux supports | Test fonctionnel sur les 2 supports |
-| KR-3.1.3 | Suivi de progression visible mais non-anxiogène, validé par Juju | Confirmation positive | Skill d'entretien Juju post-M1 |
+| KR-2.0.1 | Fiches méthode (logique + calcul mental) | 2 | Existe / non |
+| KR-2.0.2 | Exercices avec correction | ~5 / type | Comptage |
+| KR-2.0.3 | Mode chronométré paramétrable | Opérationnel | Test fonctionnel |
+| KR-2.0.4 | Baisse perçue de la peur des psy chez Juju | Confirmation | Entretien post-M0 |
 
-### Pilier 4 — Engagement par le jeu
+### Pilier 3 — UX bienveillante (Objective 3.0)
 
-**Objective 4.1 — Donner envie de revenir, via mécaniques alignées avec le profil gameuse de Juju**
+**Valider que le ton et le format smartphone fonctionnent au quotidien.**
 
 | # | Key Result | Cible | Mesure |
 |---|---|---|---|
-| KR-4.1.1 | Avatar progressif fonctionnel, visible et réactif aux progrès | 100 % fonctionnel | Test fonctionnel |
-| KR-4.1.2 | Mécanisme de déblocage actif (chapitre/format/zone qui se débloque) | ≥ 1 mécanisme | Test fonctionnel |
-| KR-4.1.3 | Envie de revenir suscitée par les mécaniques de jeu, ressentie par Juju | Confirmation positive | Skill d'entretien Juju post-M1 |
+| KR-3.0.1 | UX smartphone optimisée 15 min | Opérationnel | Test fonctionnel |
+| KR-3.0.2 | Charte de ton appliquée à tous les messages | 100 % | Audit |
+| KR-3.0.3 | Messages ressentis comme négatifs | 0 | Entretien post-M0 |
+| KR-3.0.4 | Suivi motivant (compteur + avancement, pas de notation /20) | Confirmation | Entretien post-M0 |
+
+### Pilier 4 — Engagement par le jeu (Objective 4.0)
+
+**Tester les mécaniques minimales d'engagement.**
+
+| # | Key Result | Cible | Mesure |
+|---|---|---|---|
+| KR-4.0.1 | Avatar progressif minimal (3-4 états) | Opérationnel | Test fonctionnel |
+| KR-4.0.2 | Mécanisme de déblocage actif | 1 | Test fonctionnel |
+| KR-4.0.3 | Envie de revenir ressentie par Juju | Confirmation | Entretien post-M0 |
 
 ---
 
-## Période 2 — Milestone M2 : MVP+ étendu (Objectives esquissés)
+## M1 — MVP complet livré et adopté
 
-À détailler une fois M1 atteint et l'entretien Juju post-M1 dépouillé.
+### Pilier 1 — Scientifique (Objective 1.1)
 
-### Pilier 1 — Scientifique multi-niveaux
+**Couvrir intégralement le programme 1ère (spé maths + spé physique-chimie) de manière utilisable au quotidien.**
 
-- **Objective 1.2** — Étendre la couverture au programme officiel de **Terminale** (spé maths + spé physique-chimie), en anticipation de la rentrée septembre 2026
+| # | Key Result | Cible | Mesure |
+|---|---|---|---|
+| KR-1.1.1 | Couverture chapitres BO **spé maths** | 100 % | Checklist BO |
+| KR-1.1.2 | Couverture chapitres BO **spé physique-chimie** | 100 % | Checklist BO |
+| KR-1.1.3 | Diversité formats par chapitre (recherche + flashcards + QCM chrono) | ≥ 3 / chapitre | Audit contenu |
 
-### Pilier 2 — Psychotechnique démystifié
+### Pilier 2 — Psychotechnique (Objective 2.1)
 
-- **Objective 2.2** — Étendre la palette de psychotechniques aux types **mémoire**, **représentation spatiale** et **attention partagée** (les 3 grands manquants après logique/calcul mental)
+**Désarmer la peur de Juju face aux psychotechniques : logique + calcul mental.**
 
-### Pilier 3 — UX bienveillante
+| # | Key Result | Cible | Mesure |
+|---|---|---|---|
+| KR-2.1.1 | Fiche méthode par type de test | 2 fiches (logique + calcul mental) | Existe / non |
+| KR-2.1.2 | Banque d'exercices avec correction expliquée | ≥ 50 exos / type | Comptage |
+| KR-2.1.3 | Mode chronométré opérationnel | 100 % | Test fonctionnel |
+| KR-2.1.4 | Baisse perçue de la peur des psy chez Juju | Confirmation | Entretien post-M1 |
 
-- **Objective 3.2** — Affiner les modes de session et les écrans en fonction des retours de l'entretien Juju post-M1
+### Pilier 3 — UX bienveillante (Objective 3.1)
 
-### Pilier 4 — Engagement par le jeu
+**Garantir que l'usage quotidien ne décourage jamais Juju.**
 
-- **Objective 4.2** — Enrichir les mécaniques de jeu en fonction de ce qui a marché pour Juju en M1 (déblocages plus fréquents, customisation d'avatar, etc.)
+| # | Key Result | Cible | Mesure |
+|---|---|---|---|
+| KR-3.1.1 | Messages ressentis comme négatifs | 0 | Entretien post-M1 |
+| KR-3.1.2 | Modes session courte (téléphone) + longue (ordi) | 100 % | Test fonctionnel |
+| KR-3.1.3 | Suivi de progression non-anxiogène validé | Confirmation | Entretien post-M1 |
 
-### Nouveau pour M2 — Curation de ressources externes
+### Pilier 4 — Engagement par le jeu (Objective 4.1)
 
-- **Objective NEW.1** — Intégrer des liens curés vers les ressources vidéo de Yvan Monka (maths) et Pierre Olivier (physique) directement dans les chapitres correspondants
+**Donner envie de revenir via mécaniques alignées avec le profil gameuse.**
+
+| # | Key Result | Cible | Mesure |
+|---|---|---|---|
+| KR-4.1.1 | Avatar progressif fonctionnel | 100 % | Test fonctionnel |
+| KR-4.1.2 | Mécanisme de déblocage actif | ≥ 1 | Test fonctionnel |
+| KR-4.1.3 | Envie de revenir ressentie par Juju | Confirmation | Entretien post-M1 |
 
 ---
 
-## Période 3 — Milestone M3 : Outil de prépa concours assumé (Placeholder)
+## M2 — MVP+ étendu (esquissé)
 
-À détailler une fois M2 atteint et la voie cible de Juju clarifiée.
+À détailler post-M1 et entretien Juju.
 
-- **Objective 1.3** — Atteindre les niveaux **Post-bac (écoles psy européennes)** puis **ENAC PCSI/MPSI** sur maths/physique
-- **Objective 2.3** — Couvrir l'ensemble des tests psychotechniques attendus aux concours cibles (psychomoteur inclus)
-- **Objective 5.1** — Différencier les contenus par école cible (PILAPT vs DLR vs PSY Air France) — première instanciation explicite du pilier 5
-- **Objective NEW.2** — Module culture aéronautique pour préparer les oraux (si la voie Cadets AF / ENAC se confirme)
+- **O-1.2** : programme **Terminale** spé maths + physique-chimie (anticipation rentrée sept 2026)
+- **O-2.2** : psychotechniques **mémoire, représentation spatiale, attention partagée**
+- **O-3.2** : affiner UX selon retours entretien M1
+- **O-4.2** : enrichir mécaniques de jeu selon ce qui a marché en M1
+- **O-NEW.1** : curation de liens vidéo Yvan Monka / Pierre Olivier dans les chapitres
+
+## M3 — Prépa concours assumée (placeholder)
+
+- **O-1.3** : niveaux Post-bac + ENAC PCSI/MPSI
+- **O-2.3** : tous les tests psy concours (psychomoteur inclus)
+- **O-5.1** : différenciation par école (PILAPT / DLR / PSY AF) — 1ère instanciation du pilier 5
+- **O-NEW.2** : module culture aéro pour oraux (si voie ENAC/AF confirmée)
 
 ---
 
-## Skill d'entretien Juju — livrable annexe
+## Skills d'entretien Juju
 
-Plutôt que des questionnaires écrits, les mesures qualitatives s'appuient sur un **skill Claude Code dédié à entretenir Juju**, dans la même logique que l'entretien initial qui a produit `cadrage-brouillon/besoins-juju.md`. Le skill est exécuté par Thomas dans VS Code, en présence de Juju, et consigne ses retours dans le repo.
+Outil de mesure qualitative des KRs ressenti. Skill Claude Code conversationnel exécuté par Thomas en présence de Juju à chaque jalon. Avantages : conversationnel (pas de questionnaire froid), adaptatif, cohérent avec l'outillage projet.
 
-Avantages de cette approche par rapport à un questionnaire :
+**Spec `juju-entretien-m0`** (à concevoir avant livraison M0) :
 
-- **Conversationnelle** : adaptée à Juju, qui ne veut pas être « fliquée » par des dashboards ou questionnaires froids
-- **Adaptative** : le skill peut creuser un sujet selon les réponses, là où un questionnaire est figé
-- **Cohérente avec l'outillage projet** : tout passe déjà par Claude Code (commits, refactor, doc)
-- **Léger côté Juju** : pas de formulaire à remplir, juste une discussion guidée
+- **Nom** : `juju-entretien-m0` · **Localisation** : `.claude/skills/juju-entretien-m0/`
+- **Workflow** : charger contexte M0 → discussion semi-structurée → consigner dans `cadrage-brouillon/entretien-jalon-m0.md` → synthèse vs KRs M0
+- **Thèmes** : peur des psy (KR-2.0.4) · ressenti des messages (KR-3.0.3) · suivi motivant (KR-3.0.4) · envie de revenir (KR-4.0.3) · avatar/déblocage suscitent un intérêt · psy démystifiés · ouverture libre
+- **Pattern à réutiliser** : workflow structuré du skill `safe-commit` (étapes + AskUserQuestion)
 
-### Spec du skill (à concevoir avant la livraison M1)
+**Spec `juju-entretien-m1`** (à concevoir avant livraison M1, initiative I-3.1.5) :
 
-**Nom proposé** : `juju-entretien-jalon` (paramétrable par milestone : M1, M2, M3) ou `juju-entretien-m1` (un skill par jalon, plus simple).
-
-**Localisation** : `.claude/skills/juju-entretien-*/` (skill métier, à versionner — pas de pattern d'exclusion gitignore correspondant).
-
-**Comportement attendu** :
-
-1. Charger le contexte du milestone (Vision, OKRs, ce qui a été livré)
-2. Conduire une discussion semi-structurée avec Juju via le terminal Claude Code
-3. Couvrir les thèmes mappés sur les KRs qualitatifs du milestone
-4. Consigner les retours dans `cadrage-brouillon/entretien-jalon-<M>.md` (ou un dossier `cadrage-brouillon/jalons/`)
-5. Synthétiser les findings et les rapprocher des KRs cibles pour aider Thomas à statuer sur leur atteinte
-
-**Thèmes à couvrir pour le skill `juju-entretien-m1`** :
-
-1. **Peur des psychotechniques** : avant vs après usage du MVP (mappe sur KR-2.1.4)
-2. **Ressenti des messages de l'app** : positifs / neutres / négatifs, avec verbatims (mappe sur KR-3.1.1)
-3. **Suivi de progression** : visible / invisible / anxiogène / motivant (mappe sur KR-3.1.3)
-4. **Envie de revenir et plaisir d'utilisation** : intensité, déclencheurs (mappe sur KR-4.1.3)
-5. **Avatar et déblocages** : ressenti, envie d'aller plus loin (mappe sur KR-4.1.3)
-6. **Sessions courtes vs longues** : laquelle marche mieux pour elle, quels obstacles
-7. **Ouverture libre** : ce qui marche, ce qui ne marche pas, ce qui manque, ce qui décourage
-
-**Conception du skill** : à programmer dans le plan d'implémentation, avant la livraison M1. Pourra réutiliser les patterns du skill `safe-commit` (workflow structuré en étapes + AskUserQuestion).
+- **Nom** : `juju-entretien-m1` · **Localisation** : `.claude/skills/juju-entretien-m1/`
+- **Workflow** : charger contexte milestone → discussion semi-structurée → consigner dans `cadrage-brouillon/entretien-jalon-m1.md` → synthèse vs KRs
+- **Thèmes** : peur des psy (KR-2.1.4) · ressenti des messages (KR-3.1.1) · suivi de progression (KR-3.1.3) · envie de revenir (KR-4.1.3) · avatar/déblocages · sessions courtes vs longues · ouverture libre
+- **Pattern à réutiliser** : workflow structuré du skill `safe-commit` (étapes + AskUserQuestion)
 
 ---
 
@@ -152,7 +147,7 @@ Avantages de cette approche par rapport à un questionnaire :
 | Dépendance | Référence |
 |---|---|
 | Vision produit | [vision-produit.md](vision-produit.md) |
-| Notes brutes de cadrage (priorités, ressentis, format souhaité) | [cadrage-brouillon/besoins-juju.md](../../cadrage-brouillon/besoins-juju.md) |
-| Étapes envisagées (logique + calcul mental en premier) | [cadrage-brouillon/prochaines-etapes.md](../../cadrage-brouillon/prochaines-etapes.md) |
+| Notes brutes de cadrage | [cadrage-brouillon/besoins-juju.md](../../cadrage-brouillon/besoins-juju.md) |
+| Étapes envisagées | [cadrage-brouillon/prochaines-etapes.md](../../cadrage-brouillon/prochaines-etapes.md) |
 | Profil utilisatrice (gameuse) | Mémoire `project_juju_profile.md` |
-| Pattern de skill conversationnel à réutiliser | [.claude/skills/safe-commit/SKILL.md](../../.claude/skills/safe-commit/SKILL.md) |
+| Pattern de skill conversationnel | [.claude/skills/safe-commit/SKILL.md](../../.claude/skills/safe-commit/SKILL.md) |

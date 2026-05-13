@@ -1,115 +1,76 @@
 # Vision produit — juju-aviatrice
 
-> Document de référence pour la phase Strategy. Cadre toutes les phases aval (Discovery, Design, Plan, Implementation, Run).
->
-> **Date** : 2026-05-06 — **Auteur** : Thomas (Papa) avec assistance Claude
+> Phase Strategy — cadre toutes les phases aval.
+> **2026-05-06** — Thomas (Papa) avec Claude
 
 ## Ultimate Goal
 
 > **Permettre à Juju de transformer sa peur des concours pilote en confiance, en construisant ses réflexes scientifiques et psychotechniques jour après jour.**
 
-L'enjeu n'est pas seulement de la préparer techniquement aux épreuves : c'est de désarmer la peur qu'elle a exprimée pendant l'entretien du 11 avril 2026, en lui donnant un outil qui la fait progresser visiblement, sans jamais la décourager.
+L'enjeu n'est pas seulement technique : c'est de désarmer la peur exprimée par Juju (entretien 11/04/2026) en lui donnant un outil qui la fait progresser visiblement, sans jamais la décourager.
 
 ## Positionnement
 
-**Ni soutien scolaire générique, ni prépa concours intensive.** Un compagnon personnalisé qui sert d'abord l'école au quotidien (programme officiel actuel) et étend progressivement vers le niveau concours, en gardant l'engagement vivant grâce à une expérience **bienveillante par design** et alignée avec le terrain naturel de Juju (gameuse).
+**Ni soutien scolaire générique, ni prépa concours intensive.** Un compagnon personnalisé qui sert l'école au quotidien et étend progressivement vers le niveau concours, grâce à une expérience **bienveillante par design** alignée avec le terrain naturel de Juju (gameuse).
 
-**Différenciateurs clés** :
-
-- **Dual-usage école + concours** — Utile dès aujourd'hui pour les contrôles de 1ère, pas seulement pour un objectif lointain. Chaque session investie sert deux buts à la fois.
-- **Progression sur 4 niveaux** — 1ère → Terminale → Post-bac (écoles psy européennes) → ENAC (PCSI/MPSI). Le contenu monte avec Juju, jamais l'inverse.
-- **Bienveillant par design** — Règle d'or « ne jamais décourager » incarnée dans toutes les mécaniques : suivi minimaliste, scoring non-stigmatisant, formulations positives.
-- **Engagement par le jeu** — Avatar progressif, déblocages, célébration des avancées : aligne avec le profil gameuse de Juju, pas plaqué contre.
-- **Adaptable aux contextes** — 15 min en semaine sur téléphone (fatigue, soir) vs sessions longues le week-end sur ordi. Deux modes natifs, pas un compromis bancal.
-- **Multi-formats** — Exercices de recherche (compréhension profonde), flashcards (ancrage des formules), QCM chronométrés (conditions concours). Chaque format sert un usage précis.
+**Différenciateurs** : dual-usage école + concours (utile dès aujourd'hui pour les contrôles) · progression sur 4 niveaux (1ère → Term → Post-bac → ENAC) · bienveillance incarnée dans chaque mécanique · engagement par le jeu (avatar, déblocages) · adaptation session courte 15 min / longue week-end · multi-formats (recherche, flashcards, QCM chrono).
 
 ## Piliers stratégiques
 
-### 1. Scientifique multi-niveaux
+### Pilier 1 — Scientifique multi-niveaux
 
-Couvrir maths + physique du programme officiel actuel jusqu'au niveau ENAC, par paliers gradués sur **4 niveaux** : **1ère** (point de départ, programme actuel) → **Terminale** (anticipation rentrée septembre 2026) → **Post-bac généraliste** (cible écoles psy européennes type Luxair, Lufthansa DLR) → **ENAC PCSI/MPSI** (cible ENAC EPL/S).
+Maths + physique du programme officiel 1ère jusqu'au niveau ENAC, par **4 niveaux** : 1ère → Terminale → Post-bac (écoles psy européennes) → ENAC PCSI/MPSI. Bénéfice immédiat (contrôles/bac) + long terme (concours) dans la même session.
 
-Bénéfice immédiat : aide pour les contrôles et le bac. Bénéfice long terme : prépa concours scientifique. La même session sert les deux à la fois.
+### Pilier 2 — Psychotechnique démystifié
 
-### 2. Psychotechnique démystifié
+Désarmer la peur de Juju face à ces tests inconnus. Méthode en 3 temps : **comprendre** (explications, méthode) → **s'entraîner** (sans chrono) → **conditions réelles** (QCM chronométré).
 
-Désarmer la peur de Juju face à ces tests qu'elle ne connaît pas (« je n'ai aucune idée de ce que sont les tests psychotechniques »). Méthode en 3 temps :
+### Pilier 3 — UX bienveillante
 
-1. **Comprendre** — explications claires de ce qu'est chaque type de test, ce qu'il évalue, comment l'aborder
-2. **S'entraîner progressivement** — sans chronomètre d'abord, pour acquérir la méthode
-3. **Conditions réelles** — QCM chronométré in fine, pour habituer aux conditions concours
+Règle d'or « ne jamais décourager » : suivi simple (pas de graphiques anxiogènes), scoring non-stigmatisant, formulations positives, deux modes session (15 min téléphone / longue ordi), pas de friction superflue.
 
-### 3. UX bienveillante
+### Pilier 4 — Engagement par le jeu
 
-Incarner la règle d'or **« ne jamais décourager »** dans chaque détail de l'interface :
+Aligné avec le profil gameuse de Juju : avatar progressif, déblocages, célébration des avancées, streaks doux (encourager sans punir). **Pas de gamification compétitive ni de pression sociale** — auto-progression uniquement.
 
-- Suivi simple (pas de graphiques anxiogènes ni de leaderboards)
-- Scoring non-stigmatisant (pas de « note sur 20 » qui flippe)
-- Formulations qui valorisent l'effort et le progrès, jamais l'échec
-- Adaptation native aux deux modes de session (15 min vs sessions longues)
-- Pas de friction superflue (chargement rapide, navigation évidente)
+### Pilier 5 — Ouverture multi-concours
 
-### 4. Engagement par le jeu
+Garder ouvertes en parallèle écoles psy européennes + ENAC EPL/S + Cadets AF sans trancher prématurément. **Décision parentale assumée** — voir « Tensions à acter ».
 
-Aligner les mécaniques de progression avec le **terrain naturel de Juju, gameuse**. L'engagement n'est pas obtenu par culpabilisation ou pression, mais par les ressorts qu'elle apprécie déjà dans ses jeux :
+## Stratégie de livraison
 
-- **Avatar progressif** qui évolue visiblement avec le travail accompli
-- **Déblocages** de contenu, de niveaux, de formats au fil des progrès
-- **Célébration positive** des avancées (jamais de réprimande des absences)
-- **Streaks doux** : encourager la régularité sans punir les ruptures
+> Deux vagues : M0 valide les hypothèses produit avec Juju, M1 couvre intégralement le programme. Détail du scope M0 dans le [product-brief](../02-discovery/product-brief.md).
 
-Limite explicite : **pas de gamification compétitive ni de pression sociale.** L'objectif est l'auto-progression, pas la comparaison.
+### M0 — Prototype validable
 
-### 5. Ouverture multi-concours
+Périmètre réduit pour tester les hypothèses fondamentales (envie de revenir, ton bienveillant, psy démystifiés) avant d'investir dans la couverture exhaustive :
 
-Garder ouvertes en parallèle les voies **psy européennes (Luxair, KLM, BA, Lufthansa, easyJet…) + ENAC EPL/S + Cadets AF** sans trancher prématurément. Le contenu doit servir chacune de ces voies — c'est le rôle du calibrage 4 niveaux du pilier 1 et de la palette élargie de psychotechniques (à terme) du pilier 2.
+- **Pilier 1** : 3 chapitres spé maths + 3 spé physique-chimie, 2 formats (flashcards + QCM chrono). Exercices de recherche longs reportés en M1.
+- **Pilier 2** : 2 fiches méthode (logique + calcul mental) + ~5 exos chacun. Mode entraînement + chronométré.
+- **Pilier 3** : smartphone uniquement (15 min max). Charte de ton, suivi simple. Pas de mode ordi ni session longue.
+- **Pilier 4** : avatar minimal (3-4 états), un mécanisme de déblocage, célébration sobre.
+- **Pilier 5** : implicite — le contenu choisi sert toutes les voies.
 
-> **Note** : ce pilier formalise une **décision parentale assumée** — voir section « Tensions à acter » plus bas.
+Critères de passage M0 → M1 détaillés dans le [product-brief](../02-discovery/product-brief.md#critères-de-succès-m0--m1).
 
-## Périmètre MVP
+### M1 — MVP complet
 
-### Inclus
+- **Pilier 1** : programme officiel 1ère spé maths + spé physique-chimie, 3 formats (recherche + flashcards + QCM chrono). Niveau 1 uniquement.
+- **Pilier 2** : logique + calcul mental — fiches méthode + entraînement progressif + mode chronométré. ≥ 50 exos/type.
+- **Pilier 3** : suivi simple, scoring non-stigmatisant, modes session courte/longue, responsive.
+- **Pilier 4** : avatar progressif basique + déblocages de chapitres.
+- **Pilier 5** : implicite — le contenu choisi sert toutes les voies sans spécialisation.
 
-- **Pilier 1 (Scientifique)** : programme officiel **1ère générale spé maths + spé physique-chimie**, dans tous les formats (exercices de recherche + flashcards + QCM chronométré). Niveau 1 uniquement (1ère).
-- **Pilier 2 (Psychotechnique)** : **1 à 2 types de tests** (proposition initiale : **logique + calcul mental**, conformément à `cadrage-brouillon/prochaines-etapes.md`), avec explications de méthode + entraînement progressif.
-- **Pilier 3 (UX bienveillante)** : suivi simple (compteur d'exercices, indicateur d'avancement par chapitre), scoring non-stigmatisant, modes session courte (téléphone) et longue (ordi), navigation responsive.
-- **Pilier 4 (Engagement par le jeu)** : avatar progressif basique (évolue avec le travail), déblocages de chapitres au fil de l'avancement.
-- **Pilier 5 (Ouverture)** : implicite dans le MVP — le contenu choisi (programme 1ère + logique/calcul mental) sert toutes les voies cibles sans spécialisation prématurée.
-
-### Exclus du MVP (MVP+ ultérieurs)
-
-- **Niveaux Terminale / Post-bac / ENAC** pour maths/physique (à ajouter par paliers selon adoption et progression de Juju)
-- **Autres types psychotechniques** : mémoire, représentation spatiale, attention partagée, tests psychomoteurs
-- **Anglais** (hors scope global, confirmé par Juju et par décision projet)
-- **Culture aéronautique** pour les oraux
-- **Mode hors-ligne**
-- **Vidéos intégrées** : on s'appuie d'abord sur les ressources YouTube externes que Juju utilise déjà (Yvan Monka pour les maths, Pierre Olivier pour la physique), via liens curés
-- **Calibrage par école spécifique** : PILAPT vs DLR vs PSY Air France — différenciation différée jusqu'à ce que Juju ait choisi une voie principale
-- **Mécaniques de game design avancées** : achievements complexes, économie virtuelle, customisation poussée d'avatar (le MVP a juste le strict nécessaire)
+**Exclus (MVP+ ultérieurs)** : niveaux Term/Post-bac/ENAC · autres psychotechniques (mémoire, spatial, attention, psychomoteur) · anglais · culture aéro · mode hors-ligne · vidéos intégrées (appui sur YouTube : Yvan Monka, Pierre Olivier) · calibrage par école (PILAPT/DLR/PSY) · game design avancé (achievements, économie virtuelle, customisation poussée).
 
 ## Tensions à acter
 
-> **Décision parentale assumée — à revisiter avec Juju quand le premier prototype sera prêt** (cf. `cadrage-brouillon/prochaines-etapes.md`, point n°4).
+> Décisions parentales assumées — à revisiter avec Juju au premier prototype (cf. `cadrage-brouillon/prochaines-etapes.md` point n°4).
 
-Deux décisions structurantes ont été prises par le porteur du projet (Papa) en s'écartant de ce que Juju a explicitement dit pendant l'entretien du 11 avril 2026 :
-
-| Sujet | Ce que Juju a dit | Ce qui a été décidé | Rationnel |
+| Sujet | Juju a dit | Décidé | Rationnel |
 |---|---|---|---|
-| **Ordre des priorités** | Psychotechniques en n°1, maths/physique en n°2 | **Maths/physique en n°1, psychotechniques en n°2** | Le dual usage école + concours rend l'investissement maths/physique immédiatement utile, ce qui maintient l'engagement quotidien sans dépendre d'un objectif lointain |
-| **Périmètre concours** | Préfère écoles psy européennes (« je ne me sens pas au niveau pour ENAC/AF ») | **Périmètre élargi : psy européennes + ENAC EPL/S + Cadets AF** | Ne pas fermer prématurément les portes ; la PPL en cours, le travail sur 4 niveaux et un horizon de 12-24 mois rendent l'ENAC/AF accessible si Juju progresse |
-
-**Action prévue** : présenter ces décisions à Juju quand le premier prototype sera testable (étape 4 du plan dans `cadrage-brouillon/prochaines-etapes.md`), pour qu'elle valide ou réoriente sur la base d'une expérience concrète plutôt qu'en abstrait.
-
-## Périmètre futur (au-delà du MVP)
-
-Sans engagement de calendrier (horizon itératif retenu), les axes d'élargissement prévisibles :
-
-- **Maths/physique niveau Terminale** dès la rentrée septembre 2026 (anticipation programme officiel)
-- **Maths/physique niveaux Post-bac et ENAC** au fil de la progression de Juju et de la clarification de sa cible concours
-- **Élargissement psychotechniques** : mémoire, représentation spatiale, attention partagée, psychomoteur (alignement avec les tests des écoles cibles : PILAPT, DLR, PSY)
-- **Calibrage par école** une fois la cible principale identifiée
-- **Mode hors-ligne** si l'usage révèle un besoin
-- **Module culture aéronautique** pour préparer les oraux (si la voie Cadets AF / ENAC se confirme)
+| **Ordre des priorités** | Psy n°1, maths n°2 | **Maths n°1, psy n°2** | Dual-usage école + concours maintient l'engagement quotidien |
+| **Périmètre concours** | Préfère écoles psy (« pas au niveau pour ENAC/AF ») | **Périmètre élargi** | Ne pas fermer les portes ; PPL + 4 niveaux + horizon 12-24 mois rendent ENAC/AF accessibles |
 
 ---
 
@@ -120,6 +81,6 @@ Sans engagement de calendrier (horizon itératif retenu), les axes d'élargissem
 | Notes brutes de cadrage | [cadrage-brouillon/besoins-juju.md](../../cadrage-brouillon/besoins-juju.md) |
 | Étapes envisagées par le porteur | [cadrage-brouillon/prochaines-etapes.md](../../cadrage-brouillon/prochaines-etapes.md) |
 | Questions ouvertes | [cadrage-brouillon/questions-ouvertes.md](../../cadrage-brouillon/questions-ouvertes.md) |
-| Base documentaire formations cibles | [wiki/](../../wiki/) (publié sur Cloudflare Pages) |
-| Profil utilisatrice (gameuse) | Confirmé par le porteur le 2026-05-06 (mémoire `project_juju_profile.md`) |
+| Base documentaire formations cibles | [wiki/](../../wiki/) |
+| Profil utilisatrice (gameuse) | Confirmé 2026-05-06 (mémoire `project_juju_profile.md`) |
 | Contexte projet et conventions | [CLAUDE.md](../../CLAUDE.md) |

@@ -2,11 +2,11 @@
 
 # Persona : Papa — porteur, builder et intervieweur
 
-> Second utilisateur du produit en M0. Pas un utilisateur du contenu d'entraînement (réservé à Juju), mais utilisateur du skill d'entretien et du pilotage du projet.
+> Second utilisateur du produit en M0. Utilise le skill d'entretien et le pilotage projet, pas le contenu d'entraînement.
 
 ## Identité et profil
 
-- **Nom** : Thomas (« Papa » dans le projet — désigné ainsi pour rappeler la posture relationnelle)
+- **Nom** : Thomas (« Papa » — posture relationnelle)
 - **Âge** : adulte parent
 - **Rôle** : porteur du projet, builder principal, intervieweur jalon, gardien du périmètre
 - **Localisation** : France, foyer familial
@@ -16,130 +16,88 @@
 
 ### Situation personnelle
 
-Père de Juju. Investit du temps personnel pour construire un outil sur mesure qui aide sa fille à transformer sa peur des concours pilote en confiance. Pas de retour sur investissement attendu (pas de mise en marché, code ouvert et personnel).
-
-Connaît bien sa fille : son terrain naturel de gameuse, sa peur exprimée pendant l'entretien du 11 avril 2026, son rythme (semaine fatiguée / week-end motivée), ses ressources spontanées (Yvan Monka, Pierre Olivier).
+Père de Juju. Investit du temps personnel pour construire un outil sur mesure — pas de mise en marché, code personnel. Connaît bien sa fille : profil gameuse, peur exprimée (entretien 11/04/2026), rythme semaine/week-end, ressources spontanées (Yvan Monka, Pierre Olivier).
 
 ### Environnement de pilotage
 
-- **Outillage projet** : VS Code + Claude Code (CLI Anthropic), framework **PBM** (Product Builder Method) du module BMAD
-- **Repo Git** : `juju-aviatrice` (main branch, push systématique via skill `safe-commit`)
-- **Phases produit** : Strategy ✅ → Discovery (en cours) → Design → Plan → Implementation → Run
-- **Posture builder** : assume des **décisions parentales** sur deux tensions explicites (priorité maths > psy, périmètre concours élargi), à re-soumettre à Juju quand un prototype sera testable
+- **Outillage** : VS Code + Claude Code, framework PBM (BMAD), Git, Cloudflare Pages (wiki)
+- **Phases** : Strategy ✅ → Discovery (en cours) → Design → Plan → Implementation → Run
+- **Posture** : assume des décisions parentales sur deux tensions explicites (priorité maths > psy, périmètre élargi), à re-soumettre à Juju au premier prototype
 
-### Fréquence d'utilisation de la plateforme
+### Usage prévu
 
-- [ ] Quotidienne (pas du produit lui-même — du repo / Claude Code, oui)
-- [ ] Hebdomadaire
-- [x] Mensuelle (skill d'entretien aux jalons M0/M1/M2/M3)
-- [x] Ponctuelle (revues, ajustements de scope, observation des retours de Juju)
+**Mensuel** (skill d'entretien aux jalons) + **ponctuel** (revues, ajustements de scope, observation retours Juju).
 
 ## Objectifs et motivations
 
-### Objectifs principaux
+**Objectifs** :
 
-1. **Aider Juju concrètement** dans sa préparation aux concours pilote sans jamais la décourager — règle d'or absolue.
-2. **Bâtir un outil qui dure 2-3 ans** : qui sert l'école d'aujourd'hui (1ère) et accompagne Juju jusqu'aux concours (Terminale → post-bac → concours actifs).
-3. **Mesurer le ressenti de Juju aux jalons** via le skill d'entretien, sans la fliquer ni la sur-solliciter.
-4. **Garder le projet pragmatique** : ne pas sur-ingénier, ne pas fermer prématurément des options, livrer de la valeur tôt et itérer sur retours réels.
+1. **Aider Juju concrètement** sans jamais la décourager — règle d'or absolue.
+2. **Bâtir un outil qui dure 2-3 ans** : école d'aujourd'hui → concours (1ère → Terminale → post-bac → concours actifs).
+3. **Mesurer le ressenti de Juju aux jalons** via le skill d'entretien, sans la fliquer.
+4. **Garder le projet pragmatique** : pas de sur-ingénierie, livrer tôt, itérer sur retours réels.
 
-### Motivations profondes
-
-- **Amour parental** et conviction que son ingénierie peut servir directement le rêve de sa fille.
-- **Refus de la posture parentale autoritaire** : pas question de pousser Juju, mais lui donner un outil qui la tire vers le haut par elle-même.
-- **Plaisir d'ingénieur** à construire quelque chose d'utile et de soigné, avec une finalité claire et personnelle.
-- **Conviction stratégique** que Juju a plus de potentiel qu'elle ne le croit, et qu'un outil bien conçu peut le révéler — d'où les tensions actées.
+**Motivations profondes** : amour parental · refus de la posture autoritaire (donner un outil qui tire vers le haut, pas pousser) · plaisir d'ingénieur à construire quelque chose d'utile · conviction que Juju a plus de potentiel qu'elle ne le croit.
 
 ## Frustrations et pain points
 
-### Obstacles actuels
+1. **Risque de sur-construire** un produit générique (le framework PBM peut pousser vers l'exhaustivité).
+2. **Manque de retours** tant que Juju n'utilise pas réellement → arriver vite à un prototype M0 testable.
+3. **Tensions non validées** : les deux décisions parentales pourraient être désavouées par Juju.
+4. **Stack non tranchée** : bloque le passage Design/Implementation.
+5. **Dosage de l'implication de Juju** : elle préfère laisser construire, mais ses retours sont essentiels.
 
-1. **Risque de sur-construire** un produit générique au lieu d'un outil sur mesure — le framework PBM peut pousser vers l'exhaustivité, à recadrer en permanence.
-2. **Manque de retours utilisateur direct** tant que Juju n'utilise pas réellement le produit — d'où l'importance d'arriver vite à un prototype M0 testable.
-3. **Tensions actées non encore validées** : les deux décisions parentales (priorité, périmètre) pourraient être désavouées par Juju quand elle testera ; ne pas trop investir dans une direction avant le verdict.
-4. **Friction technique du choix de stack** non encore tranché : bloque le passage en Design/Implementation.
-5. **Difficulté à doser l'implication de Juju** : elle préfère laisser construire, mais ses retours sont essentiels — ne pas la sur-solliciter, ne pas avancer trop loin sans avis.
-
-### Conséquences
-
-- Risque de gaspillage si la voie initiale ne convient pas à Juju (ex. une stack inadaptée à son usage réel).
-- Tension parent/enfant si l'outil pousse Juju là où elle bloque, ou si elle perçoit l'outil comme un instrument de surveillance.
-- Risque d'abandon du projet si l'écart entre l'effort de construction et l'usage réel devient trop grand.
+**Conséquences** : gaspillage si la voie initiale ne convient pas · tension parent/enfant si l'outil est perçu comme surveillance · risque d'abandon si l'écart effort/usage devient trop grand.
 
 ## Besoins fonctionnels
 
-### Besoins prioritaires (M0)
+**Prioritaires (M0)** :
 
-1. **Lancer le skill `juju-entretien-m0`** à la livraison du prototype et en consigner les retours dans `cadrage-brouillon/entretien-jalon-M0.md`.
-2. **Présenter les tensions actées** à Juju avec le prototype, et capter sa position explicite.
-3. **Observer l'usage de Juju** sans la fliquer — uniquement via le ressenti recueilli en entretien, **pas** de dashboard de surveillance comportementale (interdit par règle d'or).
-4. **Pouvoir publier des mises à jour** de l'outil de manière simple et sans interrompre Juju (CI/CD léger, prévu en initiative I-T.1).
-5. **Garder une vision claire** de l'avancement par milestone (M0 → M1 → M2 → M3) et de la couverture pédagogique (chapitres BO, exos psy).
+1. Lancer le skill `juju-entretien-m0` à la livraison du prototype, consigner dans `cadrage-brouillon/entretien-jalon-M0.md`
+2. Présenter les tensions actées à Juju, capter sa position explicite
+3. Observer l'usage **uniquement** via le ressenti en entretien — **pas de dashboard de surveillance** (interdit par règle d'or)
+4. Publier des mises à jour simplement (CI/CD léger, initiative I-T.1)
+5. Vision claire avancement par milestone et couverture pédagogique
 
-### Besoins secondaires (M1 et au-delà)
-
-- Skill d'entretien adapté à chaque milestone (`juju-entretien-m1`, `juju-entretien-m2`, …)
-- Outil de propagation d'impact entre les phases PBM (déjà disponible via `pbm-impact`)
-- Vue produit consolidée des feedbacks de Juju au fil du temps (verbatims comparés)
-- Templates de contenu pédagogique réutilisables (pour produire la banque vite quand le scope s'étend)
+**Secondaires (M1+)** : skill entretien adapté par milestone · propagation d'impact entre phases PBM · vue consolidée des feedbacks Juju · templates de contenu réutilisables.
 
 ## Compétences numériques
 
-- **Niveau général** : Expert
-- **Outils maîtrisés** : Git, VS Code, Claude Code, CI/CD GitHub, Cloudflare Pages (wiki déjà déployé), MkDocs, framework BMAD/PBM
-- **Appétence technologique** : Forte — concepteur et utilisateur de skills Claude Code (cf. `safe-commit`)
+**Expert** : Git, VS Code, Claude Code, CI/CD GitHub, Cloudflare Pages, MkDocs, framework BMAD/PBM. Concepteur de skills Claude Code.
 
-## Besoins d'accessibilité
+## Accessibilité
 
-Aucun besoin spécifique identifié.
+Aucun besoin spécifique. Exigence associée : RGAA / WCAG AA sur l'app livrée à Juju.
 
-### Exigences d'accessibilité associées
+## Canaux de communication
 
-- Cohérence avec les standards techniques du projet (RGAA / WCAG niveau AA sur l'app livrée à Juju, pour ne pas créer de barrière même s'il n'y a pas de besoin direct exprimé)
-
-## Canaux de communication préférés
-
-- [x] Email (tnansot@gmail.com)
-- [ ] Téléphone
-- [ ] SMS
-- [ ] Notification plateforme
-- [x] Messagerie instantanée (Claude Code, terminal — canal principal de travail sur le projet)
-- [ ] Courrier postal
-- **Autre** : **commits Git** comme journal de bord du projet (`safe-commit` pousse systématiquement)
+**Email** (tnansot@gmail.com) + **Claude Code** (canal principal de travail) + **commits Git** via `safe-commit` (journal de bord du projet).
 
 ## Parcours utilisateurs associés
 
-À compléter en étape 3 (journeys). Anticipation :
+À compléter (journeys) :
 
-- Journey **entretien-jalon-M0** : exécution du skill avec Juju à la livraison du prototype
-- Journey **propagation-impact** : ajustement des artefacts en aval quand un livrable amont change
-- Journey **scope-protection** (interne porteur, optionnel) : décision de ne pas étendre M0 si un signal de Juju manque
+- **entretien-jalon-M0** : skill avec Juju à la livraison du prototype
+- **propagation-impact** : ajustement artefacts aval quand un livrable amont change
+- **scope-protection** (optionnel) : décision de ne pas étendre M0 si un signal manque
 
 ## Priorité
 
-- [x] **MVP (M0)** : persona indispensable dès la première version (sans elle, pas de skill d'entretien donc pas de mesure qualitative possible)
-- [ ] MVP+ : persona pour les versions suivantes
+**MVP (M0)** : persona indispensable (sans elle, pas de skill d'entretien donc pas de mesure qualitative).
 
 ## Notes complémentaires
 
-**Posture explicitement non-surveillante** : Papa n'aura **jamais** accès à un dashboard de comportement de Juju (temps passé, scores, sessions ratées…). C'est une décision de produit, pas une limitation technique. Le canal de mesure est **uniquement** l'entretien semi-structuré conduit en face à face via le skill `juju-entretien-*`.
+**Posture non-surveillante** : Papa n'aura **jamais** accès à un dashboard comportemental (temps, scores, sessions…). Décision de produit. Canal unique : entretien semi-structuré face à face via skill `juju-entretien-*`.
 
-**Articulation avec le repo** : Papa pilote le projet via le repo `juju-aviatrice` :
-
-- `wiki/` (publié sur Cloudflare Pages) — base documentaire métier pour Juju et lui en lecture
-- `docs/` — artefacts PBM (strategy ✅, discovery en cours, design/plan/run à venir)
-- `cadrage-brouillon/` — notes brutes, dont les comptes-rendus d'entretien
-- `src/` (à créer en Implementation) — code de l'app
-
-**Style projet** : pragmatique, personnel et familial. Pas de jargon corporate, pas de roadmap calendaire artificielle, pas de KPIs cosmétiques. Tout doit servir Juju directement.
+**Style projet** : pragmatique, personnel et familial. Pas de jargon corporate, pas de roadmap calendaire, pas de KPIs cosmétiques.
 
 ## Traçabilité
 
 | Dépendance | Référence |
-|------------|-----------|
+|---|---|
 | product-brief | [Product Brief](../product-brief.md) |
-| vision produit (Ultimate Goal, posture, tensions) | [vision-produit.md](../../01-strategy/vision-produit.md) |
-| OKRs (skill juju-entretien-jalon) | [okrs.md](../../01-strategy/okrs.md) |
+| vision produit | [vision-produit.md](../../01-strategy/vision-produit.md) |
+| OKRs (skill entretien) | [okrs.md](../../01-strategy/okrs.md) |
 | initiatives (I-T.1, I-3.1.5) | [initiatives.md](../../01-strategy/initiatives.md) |
-| contexte projet et conventions | [CLAUDE.md](../../../CLAUDE.md) |
-| pattern de skill conversationnel | [.claude/skills/safe-commit/SKILL.md](../../../.claude/skills/safe-commit/SKILL.md) |
+| contexte projet | [CLAUDE.md](../../../CLAUDE.md) |
+| pattern skill conversationnel | [safe-commit/SKILL.md](../../../.claude/skills/safe-commit/SKILL.md) |
