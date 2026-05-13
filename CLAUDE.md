@@ -84,12 +84,12 @@ Phases PBM : **Strategy → Discovery → Design → Plan → Implementation →
 | Phase | Statut | Livrables attendus |
 |---|---|---|
 | Setup repo & wiki | ✅ Fait | Wiki déployé, Giscus actif, cadrage initial collecté |
-| 1. Strategy | ⏳ À lancer | `docs/strategy/` : vision-produit, OKRs, initiatives, glossaire |
-| 2. Discovery | ⏳ À lancer | `docs/discovery/` : product-brief, personas, journeys |
-| 3. Design | ⏳ À venir | `docs/design/` : exigences, domaine, wireframes, API, **ADR stack technique** |
-| 4. Plan | ⏳ À venir | `docs/plan/` : features, stories, definition of done |
+| 1. Strategy | ⏳ À lancer | `docs/01-strategy/` : vision-produit, OKRs, initiatives, glossaire |
+| 2. Discovery | ⏳ À lancer | `docs/02-discovery/` : product-brief, personas, journeys |
+| 3. Design | ⏳ À venir | `docs/03-design/` : exigences, domaine, wireframes, API, **ADR stack technique** |
+| 4. Plan | ⏳ À venir | `docs/04-plan/` : features, stories, definition of done |
 | 5. **Implementation (build)** | ⏳ À venir | Code dans `src/`, CI/CD, tests |
-| 6. Run | ⏳ À venir | `docs/run/` : observabilité, runbooks, support |
+| 6. Run | ⏳ À venir | `docs/06-run/` : observabilité, runbooks, support |
 
 **Préparation à la phase Build** : avant d'écrire la moindre ligne de code dans `src/`, faire passer le projet par Strategy → Discovery → Design → Plan. La phase Design tranchera la stack (ADR), la phase Plan structurera les features et stories. C'est seulement à la phase Implementation que `src/` sera scaffoldé.
 
@@ -116,7 +116,7 @@ Les notes de cadrage avec Juju (interview besoins, prochaines étapes, questions
 
 ## Artefacts produit (PBM)
 
-Le module PBM ([_bmad/pbm/README.md](_bmad/pbm/README.md)) écrit ses livrables dans [docs/](docs/) organisés par phase : `docs/strategy/`, `docs/discovery/`, `docs/design/`, `docs/plan/`, `docs/run/`, `docs/proposals/`. Ces sous-répertoires sont créés au premier lancement de chaque skill PBM.
+Le module PBM ([_bmad/pbm/README.md](_bmad/pbm/README.md)) écrit ses livrables dans [docs/](docs/) organisés par phase : `docs/01-strategy/`, `docs/02-discovery/`, `docs/03-design/`, `docs/04-plan/`, `docs/06-run/`, `docs/99-proposals/`. Les préfixes numériques rendent la chronologie des phases visible dans l'arborescence ; on saute le `05-` car la phase 5 (Implementation) vit dans [src/](src/). Ces sous-répertoires sont créés au premier lancement de chaque skill PBM.
 
 ## Ton & posture
 
