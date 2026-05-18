@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FO-01 Onboarding Bienvenue</title>
+  <style>
+    /* ===== SHELL WIREFRAME ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #333; }
+    a { color: #4a90d9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wf-bar { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.75rem; color: #999; }
+    .wf-bar .wf-label { text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; flex: 1; min-width: 0; }
+    .wf-bar .wf-badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 3px; margin-left: 8px; text-transform: none; letter-spacing: 0; font-weight: 600; }
+    .wf-bar .wf-badge-mobile { background: #dcedc8; color: #558b2f; }
+    .wf-bar .wf-controls { display: flex; gap: 8px; align-items: center; }
+    .wf-bar a { color: #999; font-size: 0.75rem; }
+    .wf-bar a:hover { color: #666; }
+    .wf-btn { padding: 3px 10px; border: 1px solid #ccc; border-radius: 3px; background: #fff; cursor: pointer; font-size: 0.7rem; color: #999; font-family: inherit; }
+    .wf-btn.active { background: #555; color: #fff; border-color: #555; }
+    .wf-container { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 0 1px #bbb; }
+    .wf-container.desktop { max-width: 100%; box-shadow: none; }
+    @media (max-width: 768px) {
+      .wf-container { max-width: 100% !important; box-shadow: none; }
+      .wf-bar .wf-badge { display: none; }
+    }
+    /* ===== FIN SHELL ===== */
+
+    /* ===== CSS SPECIFIQUE ===== */
+    .onboarding-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - 40px); padding: 32px 24px; text-align: center; }
+    .avatar-placeholder { width: 120px; height: 120px; border-radius: 50%; background: #e0e0e0; border: 3px solid #bbb; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+    .avatar-placeholder span { font-size: 0.75rem; color: #999; }
+    .greeting { font-size: 1.5rem; font-weight: 600; margin-bottom: 12px; }
+    .subtitle { font-size: 1rem; color: #666; margin-bottom: 48px; line-height: 1.5; max-width: 280px; }
+    .btn-primary { display: block; width: 100%; max-width: 280px; padding: 14px 24px; background: #555; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-bottom: 16px; text-align: center; text-decoration: none; }
+    .btn-primary:hover { background: #444; text-decoration: none; }
+    .btn-skip { font-size: 0.85rem; color: #999; cursor: pointer; background: none; border: none; font-family: inherit; text-decoration: none; }
+    .btn-skip:hover { color: #666; text-decoration: underline; }
+  </style>
+</head>
+<body data-wf-default="mobile">
+
+  <div class="wf-bar">
+    <span class="wf-label">Ecran front-office - FO-01 Onboarding Bienvenue<span class="wf-badge wf-badge-mobile">mobile-first</span></span>
+    <div class="wf-controls">
+      <a href="index.html">Index</a>
+      <button class="wf-btn" onclick="wfSet('mobile')">Mobile</button>
+      <button class="wf-btn" onclick="wfSet('desktop')">Desktop</button>
+    </div>
+  </div>
+
+  <div class="wf-container">
+    <div class="onboarding-screen">
+      <div class="avatar-placeholder"><span>Avatar stade 1</span></div>
+      <div class="greeting">Salut Juju</div>
+      <div class="subtitle">Ton compagnon d'entraînement est prêt. Il va progresser avec toi.</div>
+      <a href="fo-02-onboarding-piliers.html" class="btn-primary">Continuer</a>
+      <a href="fo-04-accueil.html" class="btn-skip">Passer</a>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var def = document.body.getAttribute('data-wf-default') || 'mobile';
+    var params = new URLSearchParams(window.location.search);
+    var mql = window.matchMedia('(max-width: 768px)');
+    window.wfSet = function(m) {
+      var c = document.querySelector('.wf-container');
+      var btns = document.querySelectorAll('.wf-btn');
+      if (!c) return;
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      if (m === 'desktop') { c.classList.add('desktop'); document.body.style.background = '#fff'; if (btns[1]) btns[1].classList.add('active'); }
+      else { c.classList.remove('desktop'); document.body.style.background = '#d5d5d5'; if (btns[0]) btns[0].classList.add('active'); }
+      var path = window.location.pathname.split('/').pop() || '';
+      history.replaceState(null, '', path + '?wf=' + m);
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        if (a.closest('.wf-controls')) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+        var base = href.split('?')[0];
+        a.setAttribute('href', base + '?wf=' + m);
+      });
+    };
+    var initial = params.get('wf') || (mql.matches ? 'mobile' : def);
+    wfSet(initial);
+    mql.addEventListener('change', function(e) { wfSet(e.matches ? 'mobile' : def); });
+  })();
+  </script>
+</body>
+</html>

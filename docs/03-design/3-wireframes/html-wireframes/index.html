@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>juju-aviatrice - Index des wireframes</title>
+  <style>
+    /* ===== SHELL WIREFRAME INDEX (ne pas modifier) ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; color: #333; background: #fff; line-height: 1.6; }
+    a { color: #4a90d9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wf-bar { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #999; }
+    .wf-bar .wf-label { text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+    .wf-bar .wf-badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 3px; margin-left: 8px; text-transform: none; letter-spacing: 0; font-weight: 600; background: #e8f5e9; color: #2e7d32; }
+    /* ===== FIN SHELL ===== */
+
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+    h1 { font-size: 1.5rem; margin-bottom: 8px; }
+    .subtitle { color: #666; font-size: 0.95rem; margin-bottom: 32px; }
+    h2 { font-size: 1.1rem; margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #e0e0e0; color: #555; }
+    .screen-list { list-style: none; }
+    .screen-list li { padding: 8px 0; border-bottom: 1px solid #f0f0f0; display: flex; align-items: baseline; gap: 12px; }
+    .screen-list li:last-child { border-bottom: none; }
+    .screen-id { font-family: monospace; font-size: 0.8rem; color: #999; min-width: 50px; }
+    .screen-name { flex: 1; }
+    .screen-status { font-size: 0.75rem; padding: 2px 8px; border-radius: 3px; }
+    .status-done { background: #e8f5e9; color: #2e7d32; }
+    .status-pending { background: #fff3e0; color: #e65100; }
+    .legend { margin-top: 32px; padding: 16px; background: #f9f9f9; border-radius: 4px; font-size: 0.85rem; color: #666; }
+    .legend strong { color: #333; }
+  </style>
+</head>
+<body>
+
+  <div class="wf-bar">
+    <span class="wf-label">juju-aviatrice - Index des wireframes<span class="wf-badge">Mobile-first</span></span>
+  </div>
+
+  <div class="container">
+    <h1>Wireframes — juju-aviatrice</h1>
+    <p class="subtitle">Compagnon d'entraînement scientifique et psychotechnique pour Juju — M0 Prototype validable</p>
+
+    <h2>Onboarding (J1 — Première utilisation)</h2>
+    <ul class="screen-list">
+      <li><span class="screen-id">FO-01</span><span class="screen-name"><a href="fo-01-onboarding-bienvenue.html">Onboarding — Bienvenue</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-02</span><span class="screen-name"><a href="fo-02-onboarding-piliers.html">Onboarding — Piliers</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-03</span><span class="screen-name"><a href="fo-03-onboarding-flashcard.html">Onboarding — Mini-exercice</a></span><span class="screen-status status-done">Généré</span></li>
+    </ul>
+
+    <h2>Usage quotidien (J2 — Soir semaine smartphone)</h2>
+    <ul class="screen-list">
+      <li><span class="screen-id">FO-04</span><span class="screen-name"><a href="fo-04-accueil.html">Accueil</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-05</span><span class="screen-name"><a href="fo-05-flashcard.html">Flashcard</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-06</span><span class="screen-name"><a href="fo-06-qcm.html">QCM</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-07</span><span class="screen-name"><a href="fo-07-bilan.html">Bilan Mini-session</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-08</span><span class="screen-name"><a href="fo-08-deblocage.html">Déblocage</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-09</span><span class="screen-name"><a href="fo-09-choix-activite.html">Choix Activité</a></span><span class="screen-status status-done">Généré</span></li>
+    </ul>
+
+    <h2>Découverte psychotechniques (J3)</h2>
+    <ul class="screen-list">
+      <li><span class="screen-id">FO-10</span><span class="screen-name"><a href="fo-10-psy-bienvenue.html">Psy — Bienvenue</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-11</span><span class="screen-name"><a href="fo-11-fiche-methode.html">Fiche Méthode</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-12</span><span class="screen-name"><a href="fo-12-proposition-chrono.html">Proposition Chrono</a></span><span class="screen-status status-done">Généré</span></li>
+      <li><span class="screen-id">FO-13</span><span class="screen-name"><a href="fo-13-recap-psy.html">Récap Séquence Psy</a></span><span class="screen-status status-done">Généré</span></li>
+    </ul>
+
+    <h2>Sécurité</h2>
+    <ul class="screen-list">
+      <li><span class="screen-id">FO-14</span><span class="screen-name"><a href="fo-14-acces-refuse.html">Accès Refusé</a></span><span class="screen-status status-done">Généré</span></li>
+    </ul>
+
+    <div class="legend">
+      <strong>Légende :</strong> <span class="screen-status status-done">Généré</span> = wireframe disponible — <span class="screen-status status-done">Généré</span> = wireframe à créer<br>
+      <strong>Stratégie responsive :</strong> Mobile-first. Utilisez les boutons Mobile / Desktop sur chaque écran pour basculer.<br>
+      <strong>Périmètre :</strong> M0 — smartphone uniquement. Pas de back-office (contenu géré en code). Pas d'email transactionnel.
+    </div>
+  </div>
+
+</body>
+</html>

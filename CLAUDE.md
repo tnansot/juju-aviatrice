@@ -124,6 +124,18 @@ Le module PBM ([_bmad/pbm/README.md](_bmad/pbm/README.md)) écrit ses livrables 
 - Rester **pragmatique** : privilégier ce qui est directement utile à sa préparation, éviter la sur-ingénierie.
 - Quand l'intention d'une décision n'est pas claire, **demander** plutôt que supposer — ce projet est en phase de cadrage.
 
+## Conventions de rédaction `docs/`
+
+Les artefacts PBM dans `docs/` sont chargés en contexte par Claude Code. **Rédiger de manière synthétique** pour limiter l'empreinte sur la fenêtre de contexte, sans perdre d'information :
+
+- **Prose concise** : resserrer les formulations, supprimer les mots inutiles.
+- **Tables et listes inline** plutôt que paragraphes verbeux ou listes à puces longues.
+- **Renvois plutôt que répétitions** : si une information existe déjà dans un autre doc, y référer au lieu de la dupliquer.
+- **Journeys compacts** : chaque étape en un seul paragraphe dense (pas de format 4 lignes Action / Système / Émotion / Touchpoint séparées). Pas de table Touchpoints ni de diagramme courbe émotionnelle séparés — intégrer l'essentiel dans les étapes.
+- **Sections redondantes** : supprimer toute section dont le contenu est intégralement couvert par un autre fichier du même livrable.
+- **Toujours conserver la section Traçabilité** en fin de document — c'est le graphe de dépendances entre livrables.
+- **Codes et abréviations lisibles** : utiliser des codes (ex. « Pilier 1 », « KR-1.0.1 ») mais éviter les raccourcis ambigus qui risquent la confusion avec une autre codification (ex. ne pas écrire « P1 » pour un pilier — pourrait être confondu avec une priorité).
+
 ## Conventions Markdown
 
 La doc du projet est rendue par plusieurs parsers (MkDocs Material, export PDF, aperçu IDE). Certains sont stricts sur l'espacement autour des blocs. **À respecter systématiquement lors de toute création ou modification de `.md`** :

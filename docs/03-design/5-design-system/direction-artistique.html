@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DA Proposition 2 — Horizon Doré</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-primary: #2563EB;
+      --color-primary-light: #3B82F6;
+      --color-primary-soft: #DBEAFE;
+      --color-secondary: #7C3AED;
+      --color-secondary-soft: #EDE9FE;
+      --color-accent: #F97316;
+      --color-accent-light: #FDBA74;
+      --color-accent-soft: #FFF7ED;
+      --color-warm-50: #FFFBEB;
+      --color-warm-100: #FEF3C7;
+      --color-neutral-100: #F5F5F4;
+      --color-neutral-200: #E7E5E4;
+      --color-neutral-300: #D6D3D1;
+      --color-neutral-400: #A8A29E;
+      --color-neutral-600: #57534E;
+      --color-neutral-700: #44403C;
+      --color-neutral-800: #292524;
+      --color-neutral-900: #1C1917;
+      --color-success: #22C55E;
+      --color-error: #EF4444;
+
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+
+      --radius-sm: 10px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 100px;
+
+      --shadow-sm: 0 2px 8px rgba(28, 25, 23, 0.04);
+      --shadow-md: 0 4px 16px rgba(28, 25, 23, 0.06);
+      --shadow-lg: 0 8px 32px rgba(28, 25, 23, 0.08);
+      --shadow-glow: 0 4px 24px rgba(249, 115, 22, 0.2);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-warm-50);
+      color: var(--color-neutral-800);
+      min-height: 100vh;
+    }
+
+    .da-header {
+      text-align: center;
+      padding: 32px 24px 16px;
+      background: linear-gradient(135deg, #F97316 0%, #F59E0B 50%, #EAB308 100%);
+      color: white;
+    }
+    .da-header h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .da-header p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .da-content {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .da-section {
+      margin-bottom: 32px;
+    }
+    .da-section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-neutral-400);
+      margin-bottom: 16px;
+    }
+
+    /* Palette */
+    .palette {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .swatch {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: flex-end;
+      padding: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+    .swatch span {
+      font-size: 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .swatch.light span { color: var(--color-neutral-600); text-shadow: none; }
+
+    /* Typography showcase */
+    .typo-showcase h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.25rem;
+      letter-spacing: -0.04em;
+      color: var(--color-neutral-900);
+      margin-bottom: 8px;
+      line-height: 1.05;
+    }
+    .typo-showcase h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .typo-showcase p {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--color-neutral-600);
+      margin-bottom: 16px;
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--color-accent), #FB923C);
+      color: white;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-glow);
+      transition: all 0.25s ease-out;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(249, 115, 22, 0.3);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      background: white;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent-light);
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: all 0.25s ease-out;
+    }
+    .btn-secondary:hover {
+      background: var(--color-accent-soft);
+      border-color: var(--color-accent);
+    }
+
+    /* Card */
+    .card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--color-neutral-200);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      box-shadow: 0 3px 12px rgba(249, 115, 22, 0.2);
+    }
+    .card-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--color-neutral-900);
+      letter-spacing: -0.02em;
+    }
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--color-neutral-400);
+    }
+    .card-body {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--color-neutral-600);
+      margin-bottom: 16px;
+    }
+    .card-progress {
+      height: 8px;
+      background: var(--color-warm-100);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .card-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+      border-radius: var(--radius-full);
+      width: 65%;
+    }
+    .card-progress-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-neutral-400);
+    }
+
+    /* Avatar mock */
+    .avatar-mock {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      box-shadow: 0 6px 24px rgba(249, 115, 22, 0.25);
+      font-size: 2.2rem;
+      border: 4px solid white;
+    }
+
+    /* Suggestion card */
+    .suggestion {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 2px solid var(--color-warm-100);
+    }
+    .suggestion-label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: 8px;
+    }
+    .suggestion-text {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-neutral-900);
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 14px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .badge-science {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+    }
+    .badge-psy {
+      background: var(--color-secondary-soft);
+      color: var(--color-secondary);
+    }
+    .badge-success {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--color-success);
+    }
+
+    .da-label {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      background: var(--color-neutral-900);
+      color: white;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="da-header">
+    <h1>Proposition 2 — Horizon Doré</h1>
+    <p>Chaleureux, lumineux, optimisme du lever de soleil</p>
+  </div>
+
+  <div class="da-content">
+
+    <div class="da-section">
+      <div class="da-section-title">Palette</div>
+      <div class="palette">
+        <div class="swatch" style="background: #2563EB;"><span>Primary</span></div>
+        <div class="swatch" style="background: #7C3AED;"><span>Secondary</span></div>
+        <div class="swatch" style="background: #F97316;"><span>Accent</span></div>
+        <div class="swatch" style="background: #22C55E;"><span>Success</span></div>
+        <div class="swatch light" style="background: #FFFBEB; border: 1px solid #FEF3C7;"><span>Warm</span></div>
+        <div class="swatch" style="background: #1C1917;"><span>Dark</span></div>
+      </div>
+    </div>
+
+    <div class="da-section typo-showcase">
+      <div class="da-section-title">Typographie</div>
+      <h2>Salut Juju</h2>
+      <h3>Stade 2 — Exploratrice</h3>
+      <p>Poursuis Géométrie avec 4 flashcards. Tu as déjà fait 12 sessions et 47 exercices — chaque pas compte.</p>
+      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <span class="badge badge-science">Sciences</span>
+        <span class="badge badge-psy">Psychotechniques</span>
+        <span class="badge badge-success">Logique maîtrisée</span>
+      </div>
+    </div>
+
+    <div class="da-section">
+      <div class="da-section-title">Boutons</div>
+      <div class="btn-row">
+        <button class="btn-primary">Go</button>
+        <button class="btn-secondary">Changer</button>
+      </div>
+    </div>
+
+    <div class="da-section">
+      <div class="da-section-title">Aperçu écran accueil</div>
+      <div style="background: linear-gradient(180deg, #FFF7ED 0%, #FFFBEB 100%); border-radius: var(--radius-xl); padding: 24px;">
+
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div class="avatar-mock">✈️</div>
+          <div style="font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--color-neutral-900); letter-spacing: -0.03em;">Juju</div>
+          <div style="font-family: var(--font-display); font-size: 0.8rem; color: var(--color-accent); font-weight: 600;">Stade 2 — Exploratrice</div>
+        </div>
+
+        <div class="suggestion">
+          <div class="suggestion-label">Suggestion</div>
+          <div class="suggestion-text">Poursuis Géométrie : 4 flashcards</div>
+          <button class="btn-primary" style="width: 100%;">Go</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 16px;">
+          <a href="#" style="font-family: var(--font-display); font-size: 0.85rem; color: var(--color-neutral-400); text-decoration: none; font-weight: 600;">Changer d'activité</a>
+        </div>
+
+        <div style="display: flex; gap: 24px; justify-content: center; margin-top: 32px;">
+          <div style="text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--color-accent); letter-spacing: -0.03em;">12</div>
+            <div style="font-size: 0.75rem; color: var(--color-neutral-400);">sessions</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--color-accent); letter-spacing: -0.03em;">47</div>
+            <div style="font-size: 0.75rem; color: var(--color-neutral-400);">exercices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="da-section">
+      <div class="da-section-title">Carte de contenu</div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">📐</div>
+          <div>
+            <div class="card-title">Géométrie dans l'espace</div>
+            <div class="card-subtitle">Spé Maths 1ère — 8 exercices</div>
+          </div>
+        </div>
+        <div class="card-body">
+          Vecteurs, plans et droites de l'espace. Flashcards et QCM courts pour ancrer les automatismes.
+        </div>
+        <div class="card-progress">
+          <div class="card-progress-bar"></div>
+        </div>
+        <div class="card-progress-label">5 / 8 exercices</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="da-label">2 / 3 — Horizon Doré</div>
+
+</body>
+</html>

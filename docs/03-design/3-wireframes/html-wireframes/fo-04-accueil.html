@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FO-04 Accueil</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #333; }
+    a { color: #4a90d9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wf-bar { background: #f0f0f0; border-bottom: 1px solid #ccc; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.75rem; color: #999; }
+    .wf-bar .wf-label { text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; flex: 1; min-width: 0; }
+    .wf-bar .wf-badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 3px; margin-left: 8px; text-transform: none; letter-spacing: 0; font-weight: 600; }
+    .wf-bar .wf-badge-mobile { background: #dcedc8; color: #558b2f; }
+    .wf-bar .wf-controls { display: flex; gap: 8px; align-items: center; }
+    .wf-bar a { color: #999; font-size: 0.75rem; }
+    .wf-bar a:hover { color: #666; }
+    .wf-btn { padding: 3px 10px; border: 1px solid #ccc; border-radius: 3px; background: #fff; cursor: pointer; font-size: 0.7rem; color: #999; font-family: inherit; }
+    .wf-btn.active { background: #555; color: #fff; border-color: #555; }
+    .wf-container { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 0 1px #bbb; }
+    .wf-container.desktop { max-width: 100%; box-shadow: none; }
+    @media (max-width: 768px) {
+      .wf-container { max-width: 100% !important; box-shadow: none; }
+      .wf-bar .wf-badge { display: none; }
+    }
+
+    /* ===== CSS SPECIFIQUE ===== */
+    .screen { display: flex; flex-direction: column; align-items: center; padding: 32px 24px; min-height: calc(100vh - 40px); }
+    .avatar-zone { text-align: center; margin-bottom: 32px; }
+    .avatar { width: 100px; height: 100px; border-radius: 50%; background: #e0e0e0; border: 3px solid #bbb; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .avatar span { font-size: 0.65rem; color: #999; }
+    .avatar-name { font-size: 1.25rem; font-weight: 600; margin-bottom: 4px; }
+    .avatar-stade { font-size: 0.8rem; color: #999; }
+
+    .suggestion-card { width: 100%; max-width: 320px; border: 2px solid #ddd; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 16px; }
+    .suggestion-label { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .suggestion-text { font-size: 1rem; font-weight: 500; margin-bottom: 20px; line-height: 1.4; }
+    .btn-go { display: block; width: 100%; padding: 14px 24px; background: #555; color: #fff; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; letter-spacing: 0.02em; }
+    .btn-go:hover { background: #444; text-decoration: none; }
+
+    .btn-change { display: block; text-align: center; margin-top: 12px; font-size: 0.85rem; color: #999; text-decoration: none; }
+    .btn-change:hover { color: #666; text-decoration: underline; }
+
+    .stats { display: flex; gap: 24px; justify-content: center; margin-top: auto; padding-top: 32px; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: #555; }
+    .stat-label { font-size: 0.75rem; color: #999; }
+  </style>
+</head>
+<body data-wf-default="mobile">
+
+  <div class="wf-bar">
+    <span class="wf-label">Ecran front-office - FO-04 Accueil<span class="wf-badge wf-badge-mobile">mobile-first</span></span>
+    <div class="wf-controls">
+      <a href="index.html">Index</a>
+      <button class="wf-btn" onclick="wfSet('mobile')">Mobile</button>
+      <button class="wf-btn" onclick="wfSet('desktop')">Desktop</button>
+    </div>
+  </div>
+
+  <div class="wf-container">
+    <div class="screen">
+
+      <div class="avatar-zone">
+        <div class="avatar"><span>Avatar stade 2</span></div>
+        <div class="avatar-name">Juju</div>
+        <div class="avatar-stade">Stade 2 — Exploratrice</div>
+      </div>
+
+      <div class="suggestion-card">
+        <div class="suggestion-label">Suggestion</div>
+        <div class="suggestion-text">Poursuis Géométrie : 4 flashcards</div>
+        <a href="fo-05-flashcard.html" class="btn-go">Go</a>
+      </div>
+
+      <a href="fo-09-choix-activite.html" class="btn-change">Changer d'activité</a>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value">12</div>
+          <div class="stat-label">sessions</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">47</div>
+          <div class="stat-label">exercices</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var def = document.body.getAttribute('data-wf-default') || 'mobile';
+    var params = new URLSearchParams(window.location.search);
+    var mql = window.matchMedia('(max-width: 768px)');
+    window.wfSet = function(m) {
+      var c = document.querySelector('.wf-container');
+      var btns = document.querySelectorAll('.wf-btn');
+      if (!c) return;
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      if (m === 'desktop') { c.classList.add('desktop'); document.body.style.background = '#fff'; if (btns[1]) btns[1].classList.add('active'); }
+      else { c.classList.remove('desktop'); document.body.style.background = '#d5d5d5'; if (btns[0]) btns[0].classList.add('active'); }
+      var path = window.location.pathname.split('/').pop() || '';
+      history.replaceState(null, '', path + '?wf=' + m);
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        if (a.closest('.wf-controls')) return;
+        var href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+        var base = href.split('?')[0];
+        a.setAttribute('href', base + '?wf=' + m);
+      });
+    };
+    var initial = params.get('wf') || (mql.matches ? 'mobile' : def);
+    wfSet(initial);
+    mql.addEventListener('change', function(e) { wfSet(e.matches ? 'mobile' : def); });
+  })();
+  </script>
+</body>
+</html>
