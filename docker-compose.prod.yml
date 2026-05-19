@@ -12,6 +12,7 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - DATABASE_URL=./data/juju-aviatrice.sqlite
+      - CORS_ORIGIN=https://app.juju-aviatrice.uk
     restart: always
 
 volumes:
