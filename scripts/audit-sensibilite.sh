@@ -187,9 +187,13 @@ scan_pattern "IBAN" \
   '[A-Z]{2}[0-9]{2}([[:space:]]?[0-9]{4}){4,6}' \
   "Cat.E"
 
-scan_pattern "N° carte bancaire (16 chiffres)" \
-  '[0-9]{4}[[:space:]-]?[0-9]{4}[[:space:]-]?[0-9]{4}[[:space:]-]?[0-9]{4}' \
-  "Cat.E"
+# N° carte bancaire — exclut les UUID (faux positifs Drizzle, etc.)
+while IFS= read -r match; do
+  [[ -z "$match" ]] && continue
+  add_blocker "contenu — Cat.E — N° carte bancaire (16 chiffres) : $(echo "$match" | head -c 120)"
+done < <(grep -nE '[0-9]{4}[[:space:]-]?[0-9]{4}[[:space:]-]?[0-9]{4}[[:space:]-]?[0-9]{4}' "$SCAN_CONTENT" 2>/dev/null \
+  | grep -vE '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}' \
+  | head -5)
 
 # --- Catégorie F : Identifiants infrastructure ---
 

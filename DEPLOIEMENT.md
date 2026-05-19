@@ -1,6 +1,8 @@
 # Déploiement
 
-Doc d'opérations pour le maintien du site `juju-aviatrice.pages.dev`. Pas destinée à Juju (c'est pour ça qu'elle vit à la racine et pas dans [wiki/](wiki/), qui est rendu dans le site).
+Doc d'opérations pour le maintien du wiki (`juju-aviatrice.pages.dev`) et de l'app d'entraînement (frontend SPA + API backend). Pas destinée à Juju.
+
+## Partie 1 — Wiki (MkDocs sur Cloudflare Pages)
 
 ## Vue d'ensemble
 
@@ -197,3 +199,104 @@ Le site est statique. Pour quitter Cloudflare :
 - **Vers self-hosted** : `mkdocs build` → upload `site/` vers n'importe quel serveur web statique. Auth via nginx + auth_request, ou Authelia.
 
 Aucun lock-in : tout l'investissement est dans les `.md`, qui sont portables tels quels.
+
+---
+
+## Partie 2 — App d'entraînement (SPA React + API Hono)
+
+### Vue d'ensemble app
+
+```mermaid
+flowchart LR
+    A[Repo GitHub<br/>tnansot/juju-aviatrice] -->|merge main| B[Cloudflare Pages<br/>2e projet — build SPA]
+    A -->|merge main<br/>paths: apps/api/**| C[GitHub Actions CD<br/>SSH → VPS]
+    B -->|déploie| D["app-juju-aviatrice.pages.dev<br/>(ou domaine custom)"]
+    C -->|docker compose up| E["VPS Scaleway<br/>API + SQLite"]
+    E -->|Caddy reverse proxy<br/>TLS auto| F["api.{domaine}"]
+    D -->|HTTPS /api| F
+```
+
+### Frontend SPA — Cloudflare Pages (2e projet)
+
+Un **second projet Cloudflare Pages** (distinct du wiki) déploie le frontend React.
+
+**Configuration dans le dashboard CF Pages :**
+
+| Paramètre | Valeur |
+|---|---|
+| Production branch | `main` |
+| Build command | `corepack enable && pnpm install --frozen-lockfile && pnpm --filter @juju-aviatrice/web build` |
+| Build output directory | `apps/web/dist` |
+| Root directory | _(vide)_ |
+| Node.js version | `22` (variable d'env `NODE_VERSION`) |
+
+**Variables d'environnement :**
+
+| Nom | Valeur | Scope |
+|---|---|---|
+| `NODE_VERSION` | `22` | Production + Preview |
+| `VITE_API_URL` | `https://api.{domaine}` | Production |
+| `VITE_API_URL` | `https://api-preview.{domaine}` (ou localhost) | Preview |
+
+Pas de workflow CD nécessaire — Cloudflare Pages build automatiquement au push sur `main` (et preview sur chaque branche).
+
+### API Backend — VPS Scaleway via GitHub Actions
+
+Le workflow [`.github/workflows/cd.yml`](.github/workflows/cd.yml) se déclenche au merge dans `main` quand des fichiers API changent. Il se connecte en SSH au VPS, pull le code, rebuild et relance Docker Compose.
+
+**Secrets GitHub Actions à configurer :**
+
+| Secret | Valeur |
+|---|---|
+| `VPS_HOST` | IP publique du VPS Scaleway |
+| `VPS_USER` | `root` (ou user dédié) |
+| `VPS_SSH_KEY` | Clé privée SSH (Ed25519 recommandé) |
+
+**Environment GitHub** : créer un environment `production` dans Settings → Environments.
+
+### Reverse proxy — Caddy
+
+Le fichier [`Caddyfile`](Caddyfile) configure Caddy comme reverse proxy devant l'API sur le VPS. TLS automatique via Let's Encrypt.
+
+Après provisionnement, copier le Caddyfile et définir le domaine :
+
+```bash
+# Sur le VPS
+export DOMAIN_API=api.{votre-domaine}
+cp /opt/juju-aviatrice/Caddyfile /etc/caddy/Caddyfile
+# Éditer pour remplacer {$DOMAIN_API:api.localhost} par le vrai domaine
+systemctl restart caddy
+```
+
+### Provisionnement VPS
+
+Le script [`scripts/setup-vps.sh`](scripts/setup-vps.sh) installe Docker, Caddy, configure le firewall et clone le repo sur un VPS Ubuntu 24.04 neuf.
+
+```bash
+ssh root@<IP_VPS> 'bash -s' < scripts/setup-vps.sh
+```
+
+### Dependabot
+
+Configuré dans [`.github/dependabot.yml`](.github/dependabot.yml) : mises à jour hebdomadaires des dépendances npm et GitHub Actions.
+
+### DNS — À configurer
+
+| Enregistrement | Type | Valeur | Usage |
+|---|---|---|---|
+| `app.{domaine}` | CNAME | `app-juju-aviatrice.pages.dev` | Frontend SPA |
+| `api.{domaine}` | A | `<IP_VPS>` | API backend |
+
+### Dépannage app
+
+**Le CD a échoué sur GitHub Actions** : vérifier les secrets (VPS_HOST, VPS_USER, VPS_SSH_KEY) dans Settings → Secrets → Actions. Vérifier que le VPS est accessible en SSH.
+
+**L'API ne répond pas après déploiement** : se connecter en SSH au VPS et vérifier les logs :
+
+```bash
+cd /opt/juju-aviatrice
+docker compose -f docker-compose.prod.yml logs api
+curl -s http://localhost:3000/health
+```
+
+**Le frontend ne se connecte pas à l'API** : vérifier la variable `VITE_API_URL` dans les settings CF Pages et que le CORS est configuré côté API (`CORS_ORIGIN`).

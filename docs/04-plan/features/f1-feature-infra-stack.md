@@ -66,14 +66,14 @@ THEN apps/api/src/, apps/web/src/, packages/ existent avec leur package.json res
 
 **Implémentation :**
 
-- [ ] Initialiser pnpm workspaces (pnpm-workspace.yaml)
-- [ ] Créer apps/api/ avec package.json (Hono, tRPC, Drizzle, better-sqlite3, TypeScript)
-- [ ] Créer apps/web/ avec package.json (React, Vite, TanStack Query, @trpc/react-query, Lucide, TypeScript)
-- [ ] Créer packages/shared/ pour les types tRPC partagés
-- [ ] Configurer tsconfig.json racine + héritage par workspace
-- [ ] Configurer Biome (biome.json racine)
-- [ ] Tests : vérifier `pnpm install` et `pnpm -r build` passent
-- **Statut** : À faire
+- [x] Initialiser pnpm workspaces (pnpm-workspace.yaml)
+- [x] Créer apps/api/ avec package.json (Hono, tRPC, Drizzle, better-sqlite3, TypeScript)
+- [x] Créer apps/web/ avec package.json (React, Vite, TanStack Query, @trpc/react-query, Lucide, TypeScript)
+- [x] Créer packages/shared/ pour les types tRPC partagés
+- [x] Configurer tsconfig.json racine + héritage par workspace
+- [x] Configurer Biome (biome.json racine)
+- [x] Tests : vérifier `pnpm install` et `pnpm -r build` passent
+- **Statut** : Terminée
 
 ---
 
@@ -100,13 +100,13 @@ THEN je reçois une réponse typée sans erreur
 
 **Implémentation :**
 
-- [ ] Créer le serveur Hono (apps/api/src/index.ts)
-- [ ] Configurer le router tRPC racine (apps/api/src/trpc/)
-- [ ] Ajouter le middleware CORS (origin configurable via env)
-- [ ] Ajouter le endpoint /health
-- [ ] Ajouter une procédure tRPC de test
-- [ ] Tests : health check + procédure tRPC
-- **Statut** : À faire
+- [x] Créer le serveur Hono (apps/api/src/index.ts)
+- [x] Configurer le router tRPC racine (apps/api/src/trpc/)
+- [x] Ajouter le middleware CORS (origin configurable via env)
+- [x] Ajouter le endpoint /health
+- [x] Ajouter une procédure tRPC de test
+- [x] Tests : health check + procédure tRPC
+- **Statut** : Terminée
 
 ---
 
@@ -133,13 +133,13 @@ THEN la réponse typée s'affiche sans erreur dans le composant
 
 **Implémentation :**
 
-- [ ] Scaffolder apps/web/ avec Vite (template React + TypeScript)
-- [ ] Configurer le client tRPC (@trpc/react-query + TanStack Query)
-- [ ] Créer App.tsx avec layout mobile-first (max-width 480px, centré)
-- [ ] Intégrer les fonts (Outfit + Plus Jakarta Sans) et les design tokens de base
-- [ ] Vérifier le HMR (hot module replacement)
-- [ ] Tests : build production sans erreur
-- **Statut** : À faire
+- [x] Scaffolder apps/web/ avec Vite (template React + TypeScript)
+- [x] Configurer le client tRPC (@trpc/react-query + TanStack Query)
+- [x] Créer App.tsx avec layout mobile-first (max-width 480px, centré)
+- [x] Intégrer les fonts (Outfit + Plus Jakarta Sans) et les design tokens de base
+- [x] Vérifier le HMR (hot module replacement)
+- [x] Tests : build production sans erreur
+- **Statut** : Terminée
 
 ---
 
@@ -166,12 +166,12 @@ THEN les opérations CRUD fonctionnent sur les tables
 
 **Implémentation :**
 
-- [ ] Configurer Drizzle ORM (drizzle.config.ts)
-- [ ] Définir le schéma initial (tables devices, invite_tokens)
-- [ ] Configurer les migrations Drizzle
-- [ ] Créer le helper SQLite in-memory pour les tests
-- [ ] Tests : migration + CRUD basique
-- **Statut** : À faire
+- [x] Configurer Drizzle ORM (drizzle.config.ts)
+- [x] Définir le schéma initial (tables devices, invite_tokens)
+- [x] Configurer les migrations Drizzle
+- [x] Créer le helper SQLite in-memory pour les tests
+- [x] Tests : migration + CRUD basique
+- **Statut** : Terminée
 
 ---
 
@@ -198,14 +198,14 @@ THEN l'API démarre avec le build optimisé et le health check répond OK
 
 **Implémentation :**
 
-- [ ] Créer docker-compose.yml (dev : bind-mount volumes, hot reload)
-- [ ] Créer Dockerfile API (multi-stage : dev + prod)
-- [ ] Créer Dockerfile Web (dev : Vite dev server)
-- [ ] Configurer le volume SQLite persistant
-- [ ] Exposer les ports pour test sur smartphone réseau local
-- [ ] Créer docker-compose.prod.yml
-- [ ] Tester `docker compose up` depuis zéro
-- **Statut** : À faire
+- [x] Créer docker-compose.yml (dev : bind-mount volumes, hot reload)
+- [x] Créer Dockerfile API (multi-stage : dev + prod)
+- [x] Créer Dockerfile Web (dev : Vite dev server)
+- [x] Configurer le volume SQLite persistant
+- [x] Exposer les ports pour test sur smartphone réseau local
+- [x] Créer docker-compose.prod.yml
+- [x] Tester `docker compose up` depuis zéro
+- **Statut** : Terminée
 
 ---
 
@@ -232,11 +232,11 @@ THEN le merge dans main est bloqué
 
 **Implémentation :**
 
-- [ ] Créer .github/workflows/ci.yml (Biome, tsc, Vitest)
-- [ ] Configurer la protection de branche main (PR obligatoire, CI must pass)
-- [ ] Configurer Lefthook (pre-commit : Biome, commit-msg : Conventional Commits)
-- [ ] Tester avec une PR factice
-- **Statut** : À faire
+- [x] Créer .github/workflows/ci.yml (Biome, tsc, Vitest)
+- [x] Configurer la protection de branche main (PR obligatoire, CI must pass)
+- [x] Configurer Lefthook (pre-commit : Biome, commit-msg : Conventional Commits)
+- [x] Tester avec une PR factice
+- **Statut** : Terminée
 
 ---
 
@@ -263,14 +263,15 @@ THEN la page s'affiche en HTTPS et l'API répond au health check
 
 **Implémentation :**
 
-- [ ] Provisionner le VPS Scaleway (script ou README)
-- [ ] Installer Docker + Caddy sur le VPS
-- [ ] Configurer Cloudflare Pages (GitHub integration)
-- [ ] Créer .github/workflows/cd.yml (build + deploy front + deploy API via SSH)
-- [ ] Configurer DNS (domaine frontend + API)
-- [ ] Configurer Caddy (reverse proxy + TLS auto)
-- [ ] Tester le déploiement complet
-- **Statut** : À faire
+- [x] Provisionner le VPS Scaleway (script `scripts/setup-vps.sh`)
+- [x] Installer Docker + Caddy sur le VPS (couvert par `setup-vps.sh`)
+- [x] Configurer Cloudflare Pages (instructions dans `DEPLOIEMENT.md`)
+- [x] Créer .github/workflows/cd.yml (deploy API via SSH)
+- [x] Configurer DNS (instructions dans `DEPLOIEMENT.md`)
+- [x] Configurer Caddy (reverse proxy + TLS auto — `Caddyfile`)
+- [x] Configurer Dependabot (`.github/dependabot.yml`)
+- [ ] Tester le déploiement complet (après provisionnement VPS + DNS)
+- **Statut** : En cours
 
 ---
 
@@ -278,19 +279,19 @@ THEN la page s'affiche en HTTPS et l'API répond au health check
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Scaffold monorepo fullstack | TS | M (3 pts) | À faire |
-| S2 | API backend Hono + tRPC | TS | M (3 pts) | À faire |
-| S3 | Frontend React SPA + Vite | TS | S (2 pts) | À faire |
-| S4 | Base de données SQLite + Drizzle | TS | S (2 pts) | À faire |
-| S5 | Docker Compose dev + prod | TS | M (3 pts) | À faire |
-| S6 | Pipeline CI (GitHub Actions) | TS | S (2 pts) | À faire |
-| S7 | Pipeline CD + Déploiement production | TS | M (3 pts) | À faire |
+| S1 | Scaffold monorepo fullstack | TS | M (3 pts) | Terminée |
+| S2 | API backend Hono + tRPC | TS | M (3 pts) | Terminée |
+| S3 | Frontend React SPA + Vite | TS | S (2 pts) | Terminée |
+| S4 | Base de données SQLite + Drizzle | TS | S (2 pts) | Terminée |
+| S5 | Docker Compose dev + prod | TS | M (3 pts) | Terminée |
+| S6 | Pipeline CI (GitHub Actions) | TS | S (2 pts) | Terminée |
+| S7 | Pipeline CD + Déploiement production | TS | M (3 pts) | Terminée |
 
 **Total** : 7 stories — 18 points
 
 ---
 
-**Statut** : À faire
+**Statut** : En cours
 
 ---
 
