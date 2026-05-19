@@ -40,124 +40,24 @@ Si aucun changement n'est à committer, stopper et le dire. Ne pas créer de com
 
 ### Étape 2 — Audit de sensibilité
 
-L'audit porte sur **les lignes ajoutées dans le diff** (pas les lignes supprimées, qui partent). Parcourir chaque hunk et appliquer les six catégories ci-dessous. Pour chaque finding, noter `fichier:ligne — catégorie — motif détecté`.
+Exécuter le script d'audit automatisé sur les fichiers stagés :
 
-#### Catégorie A — Fichiers bloqués par nom
+```bash
+./scripts/audit-sensibilite.sh --diff
+```
 
-Bloquer systématiquement si l'un de ces chemins apparaît dans le diff :
+Le script scanne les lignes ajoutées dans le diff staged et applique 6 catégories de patterns (fichiers bloqués, secrets techniques, PII, données projet, financier, infra). Il produit un rapport avec bloquants (exit 1) et warnings (exit 2).
 
-- `.env`, `.env.local`, `.env.production`, `.env.*` — **sauf** `.env.example`, `.env.sample`, `.env.template`
-- `credentials.json`, `secrets.json`, `serviceAccountKey.json`, `gcp-key.json`, `firebase-adminsdk*.json`
-- `*.pem`, `*.key`, `*.p12`, `*.pfx`, `*.keystore`, `*.jks`
-- `id_rsa`, `id_ed25519`, `id_ecdsa`, `id_dsa` (clés privées). Les `.pub` correspondants sont OK.
-- `.aws/credentials`, `.ssh/<fichier>` (sauf `known_hosts`, `authorized_keys` s'ils sont explicitement voulus)
-- Tout fichier dans un dossier nommé `secrets/`, `private/`, `confidential/`, `.secrets/`
+**Après le scan automatisé**, appliquer un **jugement contextuel** sur les éléments que le script ne peut pas détecter par pattern :
 
-#### Catégorie B — Secrets techniques dans le contenu
-
-Grep sur les lignes ajoutées. Les patterns ci-dessous sont indicatifs — si un match est trouvé, c'est **bloquant sauf preuve du contraire** (placeholder, test fixture, valeur d'exemple évidente).
-
-| Type | Pattern |
-|---|---|
-| GitHub PAT classic | `ghp_[A-Za-z0-9]{36}` |
-| GitHub fine-grained PAT | `github_pat_[A-Za-z0-9_]{80,}` |
-| GitHub OAuth / app / server tokens | `gh[osur]_[A-Za-z0-9]{36,}` |
-| GitHub webhook secret (contexte) | `webhook_secret\s*=\s*["'][^"']+["']` |
-| OpenAI API key | `sk-[A-Za-z0-9]{20,}` |
-| Anthropic API key | `sk-ant-[A-Za-z0-9_-]{20,}` |
-| Google API key | `AIza[A-Za-z0-9_-]{35}` |
-| AWS access key ID | `AKIA[A-Z0-9]{16}` |
-| AWS secret (contexte) | 40 car. base64 à proximité de `aws_secret_access_key` |
-| Slack token | `xox[baprs]-[A-Za-z0-9-]{10,}` |
-| Stripe | `sk_live_[A-Za-z0-9]{24,}` |
-| Cloudflare API token | `[A-Za-z0-9_-]{40,}` à proximité de `CF_API_TOKEN`, `CLOUDFLARE_API_TOKEN`, `cloudflare_api_token` |
-| Cloudflare Global API Key | 37 car. hex à proximité de `CF_API_KEY`, `X-Auth-Key` |
-| JWT | `eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+` |
-| Clé privée PEM | `-----BEGIN (RSA\|OPENSSH\|DSA\|EC\|PGP\|ENCRYPTED\| )?PRIVATE KEY-----` |
-| URL avec credentials | `https?://[^\s:@/]+:[^\s@/]+@` |
-| Connection string DB | `(mysql\|postgres\|postgresql\|mongodb\|redis)://[^:]+:[^@]+@` |
-| Basic auth header | `Authorization:\s*Basic\s+[A-Za-z0-9+/=]+` |
-| Bearer token | `Authorization:\s*Bearer\s+[A-Za-z0-9._-]{20,}` |
-
-Pour les assignements génériques type `password = "..."`, `api_key = "..."`, `secret = "..."`, `token = "..."` : warning, sauf si la valeur est manifestement un placeholder (`<YOUR_KEY>`, `changeme`, `xxx`, `...`, `REPLACE_ME`, `TODO`).
-
-**Cas Giscus** : les valeurs `data-repo-id` et `data-category-id` exposées par le générateur giscus.app sont **publiques par design** (elles sont visibles dans le HTML rendu du site) — ce n'est pas un secret, juste un identifiant. Ne pas bloquer. En revanche, `data-repo="<OWNER>/juju-aviatrice"` révèle le nom du propriétaire GitHub : OK car le repo est public, le login l'est aussi.
-
-#### Catégorie C — Données personnelles (PII)
-
-Contextuel. Le repo est familial mais public → règles :
-
-**Autorisé (ne pas bloquer)** :
-- Le prénom "Juju" (pseudo, déjà public dans le repo)
-- Le nom "Nansot Thomas" tel qu'il apparaît dans `git config user.name` (inévitable dans les métadonnées git — impossible à cacher sans changer d'identité git)
-- Les emails génériques / d'exemple : `exemple@exemple.com`, `noreply@...`, `user@example.com`
-
-**Warning (signaler, demander confirmation)** :
-- Autres prénoms ou surnoms familiaux
-- Noms de famille non déjà publics
-- Emails perso qui n'apparaissent pas déjà dans git log
-
-**Bloquant** :
-- Adresse postale : `\d+\s+(rue|avenue|boulevard|place|chemin|impasse|allée|route|square|cours)\s+` (case-insensitive)
-- Téléphone FR : `(?:\+33\s?|0)[1-9](?:[\s.-]?\d{2}){4}`
-- Numéro de sécurité sociale FR : `[12]\s?\d{2}\s?\d{2}\s?\d{2}\s?\d{3}\s?\d{3}\s?\d{2}`
-- Date de naissance précise `JJ/MM/AAAA` ou `JJ-MM-AAAA` avec année ≤ année courante − 5
-- N° passeport / CNI dans un contexte évoquant "passeport", "CNI", "carte d'identité", "pièce d'identité"
-- Nom d'un établissement scolaire précis que fréquente Juju (lycée X, collège Y) — les références génériques à "son lycée" sont OK
-- Bulletins, notes précises, appréciations nominatives
-
-#### Catégorie D — Données sensibles spécifiques au projet
-
-**Médical aéronautique**
-- Statut réel d'aptitude EASA Classe 1 de Juju (réussite / échec / réserve / aptitude conditionnelle)
-- Conditions médicales personnelles (visuelles, auditives, cardio, psychiques…)
-- Contenu du dossier aéromédical, comptes-rendus d'examen
-- Médicaments, traitements
-→ Bloquant. Les généralités sur le contenu de l'épreuve médicale sont OK (elles sont déjà dans [docs/prerequis/medical-classe-1.md](../../../docs/prerequis/medical-classe-1.md)), seuls les résultats personnels sont sensibles.
-
-**Aviation / PPL**
-- Numéro de licence PPL de Juju
-- Numéro élève DGAC / numéro FCL
-- Logbook détaillé (dates + lieux + aéronefs) → warning, car peut révéler habitudes et localisation
-- Immatriculations d'aéronefs régulièrement utilisés → warning
-
-**Scolaire**
-- Numéro INE
-- Notes précises, résultats du bac, classement
-- Appréciations des enseignants
-- Nom de l'établissement
-→ Bloquant
-
-**Candidatures concours**
-- Identifiants candidat ENAC, Air France, DLR, PSY Air France
-- Identifiants de session / numéros de dossier
-- Résultats individuels aux concours
-→ Bloquant
-
-**Familial**
-- Noms complets, âges précis, emails, téléphones des autres membres de la famille
-- Lieu de résidence (ville OK si générique et ne permet pas l'identification ; adresse précise = bloquant)
-→ Warning à bloquant selon la précision
-
-#### Catégorie E — Données financières
-
-Bloquant dans tous les cas :
-
-- IBAN : `[A-Z]{2}\d{2}(?:[\s]?\d{4}){4,6}`
-- Numéro de carte bancaire (16 chiffres contigus passant le check de Luhn)
-- Couple code banque + guichet + compte
-- Montants précis liés à un compte personnel identifiable (solde, virement, etc.)
-
-Les montants génériques des formations (prix ENAC, coût ATPL privé) dans la doc sont évidemment OK.
-
-#### Catégorie F — Identifiants infrastructure
-
-Warning par défaut, bloquant si un contexte d'exploitation est évident :
-
-- Cloudflare Account ID, Zone ID en clair → warning (pas un secret, mais facilite le ciblage en cas de fuite de token ailleurs)
-- URLs d'admin internes non publiques (dashboards, pi-hole, NAS, routeur) → bloquant
-- IPs privées du réseau domestique (`192.168.*`, `10.*`, `172.16-31.*`) dans un contexte applicatif → warning
-- Tunnel tokens Cloudflare, ngrok tokens → bloquant
+- **Cas Giscus** : `data-repo-id` et `data-category-id` sont publics par design → ne pas bloquer
+- **PII contextuels** : prénoms/surnoms familiaux autres que Juju, emails perso non publics → warning
+- **Médical aéronautique** : résultats d'aptitude personnels, conditions médicales → bloquant (les généralités sont OK)
+- **Scolaire** : notes précises, appréciations, numéro INE, nom d'établissement → bloquant
+- **Candidatures** : identifiants candidat ENAC/Air France/DLR, résultats individuels → bloquant
+- **Financier** : montants liés à un compte personnel → bloquant (prix génériques des formations OK)
+- **Dates de naissance** précises `JJ/MM/AAAA` avec année ≤ année courante − 5 → bloquant
+- **Logbook aviation** détaillé (dates + lieux + aéronefs) → warning
 
 ### Étape 3 — Rapport à l'utilisateur
 
