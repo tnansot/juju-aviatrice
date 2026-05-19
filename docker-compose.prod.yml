@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+      target: prod
+    ports:
+      - "3000:3000"
+    volumes:
+      - api-data:/app/apps/api/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=./data/juju-aviatrice.sqlite
+    restart: always
+
+volumes:
+  api-data:

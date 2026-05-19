@@ -1,0 +1,22 @@
+{
+  "name": "juju-aviatrice",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "docker compose up",
+    "build": "pnpm -r build",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:coverage": "pnpm -r test:coverage"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "pnpm@11.1.3",
+  "engines": {
+    "node": ">=22"
+  }
+}

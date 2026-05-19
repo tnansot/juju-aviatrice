@@ -50,9 +50,9 @@ D'autres axes (anglais aéronautique, culture aéro, préparation aux oraux…) 
 
 ## Format technique
 
-**Stack non encore arrêtée.** Le choix (web, mobile, ou les deux) sera fait avec Juju en fonction de ses usages réels et de ses préférences. Ne pas présumer d'une stack tant que ce point n'est pas tranché — la décision sera prise et tracée pendant la phase **Design** de PBM (ADR architecture).
+**Stack arrêtée** (phase Design — 13 ADR) : monorepo fullstack TypeScript avec Hono + tRPC (backend), React + Vite (frontend SPA), SQLite + Drizzle (BDD). Détail complet dans les [ADR](docs/03-design/2-architecture/adr/).
 
-Par convention PBM, le code de l'app vivra dans [src/](src/) (cf. `pbm_code_roots` dans `_bmad/_config/custom/pbm/module.yaml`).
+Le code de l'app vit dans [apps/](apps/) et [packages/](packages/) (cf. `pbm_code_roots` dans `_bmad/pbm/config.yaml`).
 
 ## Structure du repository
 
@@ -61,7 +61,7 @@ Le projet produit deux artefacts indépendants. **Toujours raisonner en gardant 
 | Territoire | Rôle | Public |
 |---|---|---|
 | [wiki/](wiki/) | Base documentaire **domaine** (formations, épreuves, prérequis pilote) — publiée sur Cloudflare Pages | Juju et son père, en lecture |
-| [src/](src/) (à créer) | Code de l'**app d'entraînement** (maths, physique, psychotechniques) | Juju, en utilisation |
+| [apps/](apps/) + [packages/](packages/) | Code de l'**app d'entraînement** (maths, physique, psychotechniques) | Juju, en utilisation |
 
 Et trois territoires de pilotage produit :
 
@@ -84,14 +84,12 @@ Phases PBM : **Strategy → Discovery → Design → Plan → Implementation →
 | Phase | Statut | Livrables attendus |
 |---|---|---|
 | Setup repo & wiki | ✅ Fait | Wiki déployé, Giscus actif, cadrage initial collecté |
-| 1. Strategy | ⏳ À lancer | `docs/01-strategy/` : vision-produit, OKRs, initiatives, glossaire |
-| 2. Discovery | ⏳ À lancer | `docs/02-discovery/` : product-brief, personas, journeys |
-| 3. Design | ⏳ À venir | `docs/03-design/` : exigences, domaine, wireframes, API, **ADR stack technique** |
-| 4. Plan | ⏳ À venir | `docs/04-plan/` : features, stories, definition of done |
-| 5. **Implementation (build)** | ⏳ À venir | Code dans `src/`, CI/CD, tests |
+| 1. Strategy | ✅ Fait | `docs/01-strategy/` : vision-produit, OKRs, initiatives, glossaire |
+| 2. Discovery | ✅ Fait | `docs/02-discovery/` : product-brief, personas, journeys |
+| 3. Design | ✅ Fait | `docs/03-design/` : exigences, domaine DDD, wireframes, API, 13 ADR |
+| 4. Plan | ✅ Fait | `docs/04-plan/` : 10 features, 48 stories, definition of done |
+| 5. **Implementation (build)** | ⏳ En cours | Code dans `apps/`, CI/CD, tests — F1 Infra en cours |
 | 6. Run | ⏳ À venir | `docs/06-run/` : observabilité, runbooks, support |
-
-**Préparation à la phase Build** : avant d'écrire la moindre ligne de code dans `src/`, faire passer le projet par Strategy → Discovery → Design → Plan. La phase Design tranchera la stack (ADR), la phase Plan structurera les features et stories. C'est seulement à la phase Implementation que `src/` sera scaffoldé.
 
 À chaque démarrage de session, vérifier où en est le projet en regardant le contenu de [docs/](docs/) (présence/absence de sous-dossiers et fichiers).
 
@@ -116,7 +114,7 @@ Les notes de cadrage avec Juju (interview besoins, prochaines étapes, questions
 
 ## Artefacts produit (PBM)
 
-Le module PBM ([_bmad/pbm/README.md](_bmad/pbm/README.md)) écrit ses livrables dans [docs/](docs/) organisés par phase : `docs/01-strategy/`, `docs/02-discovery/`, `docs/03-design/`, `docs/04-plan/`, `docs/06-run/`, `docs/99-proposals/`. Les préfixes numériques rendent la chronologie des phases visible dans l'arborescence ; on saute le `05-` car la phase 5 (Implementation) vit dans [src/](src/). Ces sous-répertoires sont créés au premier lancement de chaque skill PBM.
+Le module PBM ([_bmad/pbm/README.md](_bmad/pbm/README.md)) écrit ses livrables dans [docs/](docs/) organisés par phase : `docs/01-strategy/`, `docs/02-discovery/`, `docs/03-design/`, `docs/04-plan/`, `docs/06-run/`, `docs/99-proposals/`. Les préfixes numériques rendent la chronologie des phases visible dans l'arborescence ; on saute le `05-` car la phase 5 (Implementation) vit dans [apps/](apps/) et [packages/](packages/). Ces sous-répertoires sont créés au premier lancement de chaque skill PBM.
 
 ## Ton & posture
 

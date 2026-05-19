@@ -7,37 +7,97 @@ Le projet produit **deux artefacts complémentaires** :
 | Artefact | Rôle | Public | Source |
 |---|---|---|---|
 | **Wiki** | Base documentaire de référence sur les formations, épreuves et prérequis | Juju (et son père) | [wiki/](wiki/) → publié sur [juju-aviatrice.pages.dev](https://juju-aviatrice.pages.dev) |
-| **App d'entraînement** | Outil interactif de révision (maths, physique, tests psychotechniques) | Juju | [src/](src/) — **à construire** |
+| **App d'entraînement** | Outil interactif de révision (maths, physique, tests psychotechniques) | Juju | [apps/](apps/) |
 
 ## Structure du repository
 
 ```
 juju-aviatrice/
-├── wiki/                 # Sources du wiki (Markdown rendu par MkDocs Material)
-├── cadrage-brouillon/    # Notes brutes de discovery (entretien Juju) → matière première PBM
-├── docs/                 # Artefacts produit générés par PBM (vides pour l'instant)
-│   ├── strategy/         #   vision, OKRs, initiatives, glossaire
-│   ├── discovery/        #   product brief, personas, journeys
-│   ├── design/           #   exigences, domaine, wireframes, API, architecture
-│   ├── plan/             #   features, stories, definition of done
-│   ├── run/              #   observabilité, runbooks, incidents, SLA
-│   └── proposals/        #   propositions commerciales (non utilisé ici)
-├── src/                  # Code de l'app d'entraînement (à créer en phase Implementation)
-├── _bmad/                # Module PBM installé (gitignored)
-├── overrides/            # Override de template MkDocs (intégration Giscus)
-├── mkdocs.yml            # Config du wiki
-├── requirements.txt      # Deps Python pour le build du wiki
-├── DEPLOIEMENT.md        # Doc d'opérations Cloudflare Pages / Access / Giscus
-└── CLAUDE.md             # Instructions et contexte pour les assistants IA
+├── apps/
+│   ├── api/              # Backend Hono + tRPC + SQLite (Drizzle)
+│   └── web/              # Frontend React SPA + Vite
+├── packages/
+│   └── shared/           # Types partagés entre apps
+├── wiki/                 # Sources du wiki (MkDocs Material)
+├── docs/                 # Artefacts produit PBM (strategy → plan)
+├── cadrage-brouillon/    # Notes brutes de discovery (entretien Juju)
+├── docker-compose.yml    # Dev local (hot reload)
+├── docker-compose.prod.yml
+└── CLAUDE.md
 ```
+
+## Stack technique
+
+| Composant | Technologie |
+|---|---|
+| Backend | Hono + tRPC + TypeScript |
+| Frontend | React SPA + Vite |
+| Base de données | SQLite + better-sqlite3 + Drizzle ORM |
+| Dev local | Docker Compose (OrbStack sur macOS) |
+| CI | GitHub Actions (Biome + tsc + Vitest) |
+| Hébergement | Cloudflare Pages (front) + VPS Scaleway (API) |
+
+## Développement local
+
+### Prérequis
+
+- Node.js >= 22
+- pnpm (`corepack enable`)
+- Docker + OrbStack (macOS)
+
+### Démarrer (Docker)
+
+```bash
+pnpm install
+docker compose up
+```
+
+### Démarrer (sans Docker)
+
+```bash
+pnpm install
+
+# Terminal 1 — API
+cd apps/api && pnpm dev
+
+# Terminal 2 — Frontend
+cd apps/web && pnpm dev
+```
+
+| URL | Service |
+|---|---|
+| http://localhost:5173 | Frontend |
+| http://localhost:3000 | API |
+| http://localhost:3000/health | Health check |
+| http://localhost:3000/panel | tRPC Panel (dev uniquement) |
+
+### Commandes
+
+| Commande | Description |
+|---|---|
+| `pnpm lint` | Biome check (lint + format) |
+| `pnpm lint:fix` | Biome auto-fix |
+| `pnpm typecheck` | tsc --noEmit sur tous les workspaces |
+| `pnpm test` | Vitest sur tous les workspaces |
+| `pnpm build` | Build tous les workspaces |
+
+### Migrations
+
+```bash
+cd apps/api
+npx drizzle-kit generate   # Générer une migration
+npx drizzle-kit migrate     # Appliquer les migrations
+```
+
+### Variables d'environnement
+
+Voir [.env.example](.env.example).
 
 ## État d'avancement
 
-- ✅ **Wiki en ligne** : 12 fiches formations + 3 fiches épreuves + 2 fiches prérequis publiées sur Cloudflare Pages, accès restreint via Cloudflare Access, commentaires Giscus actifs.
-- ✅ **Cadrage initial avec Juju** : interview besoins, prochaines étapes et questions ouvertes consignées dans [cadrage-brouillon/](cadrage-brouillon/).
-- ✅ **Méthodologie produit** : module **PBM** (Product Builder Method) installé, prêt à être lancé.
-- ⏳ **Prochaine étape — phase Strategy** : lancer `/pbm-strategy` puis `/pbm-discovery` pour formaliser vision, OKRs, product brief et personas en s'appuyant sur le cadrage existant.
-- ⏳ **Phase Build** : choix de stack technique (web / mobile / les deux) à co-décider avec Juju, puis implémentation dans `src/` à partir des features définies en phase Plan.
+- ✅ **Wiki en ligne** : fiches formations + épreuves publiées sur Cloudflare Pages avec Giscus.
+- ✅ **Phases Strategy → Plan** : vision, discovery, design (13 ADR), plan (10 features, 48 stories).
+- ⏳ **Phase Implementation** : scaffolding du monorepo fullstack en cours (F1).
 
 ## Méthodologie : PBM (Product Builder Method)
 
@@ -51,13 +111,13 @@ Chaque phase produit des livrables structurés dans le sous-répertoire `docs/<p
 
 Détails du module : [_bmad/pbm/README.md](_bmad/pbm/README.md).
 
-## Démarrage local (wiki)
+## Wiki (MkDocs)
 
 ```bash
-.venv/bin/mkdocs serve   # preview live sur http://127.0.0.1:8000
+.venv/bin/mkdocs serve   # http://127.0.0.1:8000
 ```
 
-Pour publier : `git push origin main` → Cloudflare Pages rebuild automatiquement (~1 min). Détails opérationnels dans [DEPLOIEMENT.md](DEPLOIEMENT.md).
+Publier : `git push origin main` → Cloudflare Pages rebuild (~1 min). Voir [DEPLOIEMENT.md](DEPLOIEMENT.md).
 
 ## Liens utiles
 

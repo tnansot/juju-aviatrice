@@ -1,0 +1,17 @@
+pre-commit:
+  commands:
+    biome-check:
+      glob: "*.{ts,tsx,js,jsx,json}"
+      run: npx biome check --staged {staged_files}
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: |
+        msg=$(head -1 {1})
+        if ! echo "$msg" | grep -qE '^(feat|fix|refactor|test|chore|docs|style)(\(.+\))?: .+'; then
+          echo "Le message de commit doit suivre Conventional Commits :"
+          echo "  type(scope): message"
+          echo "  Types : feat, fix, refactor, test, chore, docs, style"
+          exit 1
+        fi

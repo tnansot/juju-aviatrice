@@ -17,6 +17,22 @@ __pycache__/
 # macOS
 .DS_Store
 
+# Node.js (node_modules/ sans chemin → matche à tous les niveaux)
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+*.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# SQLite data
+apps/api/data/
+
 # Prompts et brouillons locaux (non versionnés)
 local/
 
