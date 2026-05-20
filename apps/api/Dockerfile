@@ -26,8 +26,12 @@ RUN cd apps/api && pnpm build
 
 # --- prod stage ---
 FROM base AS prod
+ARG GIT_SHA=dev
+ARG BUILD_DATE=unknown
 RUN apt-get update && apt-get install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 ENV NODE_ENV=production
+ENV GIT_SHA=$GIT_SHA
+ENV BUILD_DATE=$BUILD_DATE
 COPY --from=build /app/pnpm-lock.yaml /app/pnpm-workspace.yaml /app/package.json ./
 COPY --from=build /app/apps/api/package.json apps/api/
 COPY --from=build /app/packages/shared/package.json packages/shared/

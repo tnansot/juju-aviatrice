@@ -1,8 +1,13 @@
 // bc-identite — point d'entrée app avec garde device
 import { AccessRefused } from "./identite/AccessRefused.js";
 import { DeviceGuard } from "./identite/DeviceGuard.js";
+import { VersionPage } from "./version/VersionPage.js";
 
 export function App() {
+  if (window.location.pathname === "/version") {
+    return <VersionPage />;
+  }
+
   return (
     <DeviceGuard fallback={<AccessRefused />}>
       <div
