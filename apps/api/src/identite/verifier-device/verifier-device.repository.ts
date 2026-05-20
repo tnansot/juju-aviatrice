@@ -11,7 +11,7 @@ export function createVerifierDeviceRepository(db: Db) {
 
     updateLastSeen(deviceId: string) {
       db.update(devices)
-        .set({ lastSeenAt: new Date() })
+        .set({ derniereActivite: new Date() })
         .where(eq(devices.id, deviceId))
         .run();
     },

@@ -1,7 +1,6 @@
 // bc-identite — tests middleware auth device (ADR-005, ADR-006)
-import { eq } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
-import { devices, inviteTokens } from "../shared/db/schema.js";
+import { devices } from "../shared/db/schema.js";
 import { createTestDb } from "../shared/db/test-client.js";
 import {
   createCallerFactory,
@@ -33,7 +32,7 @@ function setup() {
 function seedDevice(db: ReturnType<typeof createTestDb>, deviceId: string) {
   const now = new Date();
   db.insert(devices)
-    .values({ id: deviceId, createdAt: now, lastSeenAt: now })
+    .values({ id: deviceId, dateCreation: now, derniereActivite: now })
     .run();
 }
 

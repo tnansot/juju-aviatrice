@@ -15,6 +15,13 @@
       "when": 1779523200000,
       "tag": "0001_auth_device_invite_tokens",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1779537600000,
+      "tag": "0002_rename_columns_french",
+      "breakpoints": true
     }
   ]
 }

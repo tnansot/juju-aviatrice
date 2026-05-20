@@ -10,14 +10,14 @@ export function createTestDb() {
     CREATE TABLE devices (
       id TEXT PRIMARY KEY NOT NULL,
       label TEXT,
-      created_at INTEGER NOT NULL,
-      last_seen_at INTEGER NOT NULL
+      date_creation INTEGER NOT NULL,
+      derniere_activite INTEGER NOT NULL
     );
     CREATE TABLE invite_tokens (
       token TEXT PRIMARY KEY NOT NULL,
       max_utilisations INTEGER NOT NULL DEFAULT 3,
       utilisations INTEGER NOT NULL DEFAULT 0,
-      created_at INTEGER NOT NULL
+      date_creation INTEGER NOT NULL
     );
   `);
 

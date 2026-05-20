@@ -20,7 +20,7 @@ export function createEnregistrerDeviceRepository(db: Db) {
     insertDevice(deviceId: string) {
       const now = new Date();
       db.insert(devices)
-        .values({ id: deviceId, createdAt: now, lastSeenAt: now })
+        .values({ id: deviceId, dateCreation: now, derniereActivite: now })
         .run();
     },
 

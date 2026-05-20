@@ -198,8 +198,8 @@ describe("identite.verifierDevice", () => {
       .where(eq(devices.id, DEVICE_ID))
       .get();
 
-    expect(after?.lastSeenAt.getTime()).toBeGreaterThanOrEqual(
-      before?.lastSeenAt.getTime() ?? 0,
+    expect(after?.derniereActivite.getTime()).toBeGreaterThanOrEqual(
+      before?.derniereActivite.getTime() ?? 0,
     );
   });
 
