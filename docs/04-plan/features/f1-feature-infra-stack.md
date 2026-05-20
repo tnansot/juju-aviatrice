@@ -270,8 +270,8 @@ THEN la page s'affiche en HTTPS et l'API répond au health check
 - [x] Configurer DNS (instructions dans `DEPLOIEMENT.md`)
 - [x] Configurer Caddy (reverse proxy + TLS auto — `Caddyfile`)
 - [x] Configurer Dependabot (`.github/dependabot.yml`)
-- [ ] Tester le déploiement complet (après provisionnement VPS + DNS)
-- **Statut** : En cours
+- [x] Tester le déploiement complet (après provisionnement VPS + DNS)
+- **Statut** : Terminée
 
 ---
 
@@ -291,7 +291,7 @@ THEN la page s'affiche en HTTPS et l'API répond au health check
 
 ---
 
-**Statut** : En cours
+**Statut** : Terminée
 
 ---
 

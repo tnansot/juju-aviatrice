@@ -17,7 +17,7 @@
 
 | Prio | Feature | Stories | Points | Statut |
 |------|---------|---------|--------|--------|
-| **Must** | [F1 — Infrastructure & Stack](features/f1-feature-infra-stack.md) | 0 US + 7 TS | 18 | En cours |
+| **Must** | [F1 — Infrastructure & Stack](features/f1-feature-infra-stack.md) | 0 US + 7 TS | 18 | Terminée |
 | **Must** | [F2 — Accès sécurisé par device](features/f2-feature-auth-device.md) | 2 US + 2 TS | 8 | À faire |
 | **Must** | [F3 — Parcours de bienvenue](features/f3-feature-onboarding-bienvenue.md) | 5 US + 0 TS | 11 | À faire |
 | **Must** | [F4 — Session d'entraînement courte](features/f4-feature-session-entrainement.md) | 5 US + 1 TS | 14 | À faire |
