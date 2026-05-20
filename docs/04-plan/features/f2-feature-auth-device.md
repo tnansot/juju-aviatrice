@@ -68,11 +68,11 @@ THEN le device ID existant est lu et envoyé au backend via le header X-Device-I
 
 **Implémentation :**
 
-- [ ] Créer le hook useDeviceId() (lecture/écriture localStorage)
-- [ ] Injecter le header X-Device-Id dans le client tRPC
-- [ ] Créer le composant DeviceGuard (vérifie l'identification au chargement)
+- [x] Créer le hook useDeviceId() (lecture/écriture localStorage)
+- [x] Injecter le header X-Device-Id dans le client tRPC
+- [x] Créer le composant DeviceGuard (vérifie l'identification au chargement)
 - [ ] Tests : génération UUID, lecture/écriture localStorage
-- **Statut** : À faire
+- **Statut** : Terminée
 
 ---
 
@@ -99,13 +99,13 @@ THEN le backend retourne UNAUTHORIZED et le device n'est pas créé
 
 **Implémentation :**
 
-- [ ] Créer le schéma Drizzle : table invite_tokens (id, token, max_usages, usages_courant)
-- [ ] Créer le schéma Drizzle : table devices (id, date_creation, derniere_activite)
-- [ ] Implémenter la procédure identite.enregistrerDevice
-- [ ] Implémenter la procédure identite.verifierDevice
-- [ ] Créer un script seed pour insérer un jeton initial
-- [ ] Tests d'intégration : création device, jeton valide/invalide/épuisé
-- **Statut** : À faire
+- [x] Créer le schéma Drizzle : table invite_tokens (id, token, max_usages, usages_courant)
+- [x] Créer le schéma Drizzle : table devices (id, date_creation, derniere_activite)
+- [x] Implémenter la procédure identite.enregistrerDevice
+- [x] Implémenter la procédure identite.verifierDevice
+- [x] Créer un script seed pour insérer un jeton initial
+- [x] Tests d'intégration : création device, jeton valide/invalide/épuisé
+- **Statut** : Terminée
 
 ---
 
@@ -132,11 +132,11 @@ THEN la requête est rejetée avec TRPCError UNAUTHORIZED
 
 **Implémentation :**
 
-- [ ] Créer le middleware tRPC authDevice
-- [ ] Appliquer le middleware sur toutes les procédures sauf enregistrerDevice et verifierDevice
+- [x] Créer le middleware tRPC authDevice
+- [x] Appliquer le middleware sur toutes les procédures sauf enregistrerDevice et verifierDevice
 - [ ] Ajouter le rate limiting (60 req/min auth, 5 req/15min register, 10 req/min non-auth)
-- [ ] Tests : device valide, device invalide, header absent
-- **Statut** : À faire
+- [x] Tests : device valide, device invalide, header absent
+- **Statut** : Terminée
 
 ---
 
@@ -164,11 +164,11 @@ THEN aucune donnée de contenu ni de progression n'est exposée
 
 **Implémentation :**
 
-- [ ] Créer le composant AccessRefused (FO-14)
-- [ ] Intégrer dans le DeviceGuard : rediriger vers FO-14 si UNAUTHORIZED
-- [ ] Retirer le paramètre `?invite` de l'URL après traitement (history.replaceState)
+- [x] Créer le composant AccessRefused (FO-14)
+- [x] Intégrer dans le DeviceGuard : rediriger vers FO-14 si UNAUTHORIZED
+- [x] Retirer le paramètre `?invite` de l'URL après traitement (history.replaceState)
 - [ ] Tests : affichage correct, pas de données exposées
-- **Statut** : À faire
+- **Statut** : Terminée
 
 ---
 
@@ -176,16 +176,16 @@ THEN aucune donnée de contenu ni de progression n'est exposée
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Génération et stockage du device ID | US | S (2 pts) | À faire |
-| S2 | Jeton d'invitation et enregistrement backend | TS | M (3 pts) | À faire |
-| S3 | Middleware auth tRPC | TS | S (2 pts) | À faire |
-| S4 | Écran accès refusé (FO-14) | US | XS (1 pt) | À faire |
+| S1 | Génération et stockage du device ID | US | S (2 pts) | Terminée |
+| S2 | Jeton d'invitation et enregistrement backend | TS | M (3 pts) | Terminée |
+| S3 | Middleware auth tRPC | TS | S (2 pts) | Terminée |
+| S4 | Écran accès refusé (FO-14) | US | XS (1 pt) | Terminée |
 
 **Total** : 4 stories — 8 points
 
 ---
 
-**Statut** : À faire
+**Statut** : En cours
 
 ---
 

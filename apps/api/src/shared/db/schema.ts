@@ -13,9 +13,9 @@ export const devices = sqliteTable("devices", {
 
 export const inviteTokens = sqliteTable("invite_tokens", {
   token: text("token").primaryKey(),
-  usedByDeviceId: text("used_by_device_id").references(() => devices.id),
+  maxUtilisations: integer("max_utilisations").notNull().default(3),
+  utilisations: integer("utilisations").notNull().default(0),
   createdAt: integer("created_at", { mode: "timestamp" })
     .notNull()
     .$defaultFn(() => new Date()),
-  usedAt: integer("used_at", { mode: "timestamp" }),
 });

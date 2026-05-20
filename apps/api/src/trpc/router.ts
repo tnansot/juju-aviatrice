@@ -1,9 +1,8 @@
-import { publicProcedure, router } from "./trpc.js";
+import { identiteRouter } from "../identite/identite.router.js";
+import { router } from "./trpc.js";
 
 export const appRouter = router({
-  hello: publicProcedure.query(() => {
-    return { message: "Bienvenue sur l'application juju-aviatrice !" };
-  }),
+  identite: identiteRouter,
 });
 
 export type AppRouter = typeof appRouter;
