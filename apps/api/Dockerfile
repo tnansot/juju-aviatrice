@@ -26,6 +26,7 @@ RUN cd apps/api && pnpm build
 
 # --- prod stage ---
 FROM base AS prod
+RUN apt-get update && apt-get install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 ENV NODE_ENV=production
 COPY --from=build /app/pnpm-lock.yaml /app/pnpm-workspace.yaml /app/package.json ./
 COPY --from=build /app/apps/api/package.json apps/api/
