@@ -2,6 +2,6 @@
   "name": "app-juju-aviatrice",
   "compatibility_date": "2025-01-01",
   "assets": {
-    "directory": "./dist"
+    "directory": "./apps/web/dist"
   }
 }
