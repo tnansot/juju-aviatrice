@@ -29,17 +29,25 @@ const apiVersion = {
 app.get("/health", (c) => {
   try {
     db.run(sql`SELECT 1`);
-    const row = db.get<{ hash: string }>(
-      sql`SELECT hash FROM __drizzle_migrations ORDER BY id DESC LIMIT 1`,
-    );
-    return c.json({
-      status: "ok",
-      version: apiVersion,
-      db: { lastMigration: row?.hash ?? "none" },
-    });
   } catch {
     return c.json({ status: "error", version: apiVersion }, 503);
   }
+
+  let lastMigration = "unknown";
+  try {
+    const row = db.get<{ hash: string }>(
+      sql`SELECT hash FROM __drizzle_migrations ORDER BY id DESC LIMIT 1`,
+    );
+    lastMigration = row?.hash ?? "none";
+  } catch {
+    // table absente (migrations non exécutées)
+  }
+
+  return c.json({
+    status: "ok",
+    version: apiVersion,
+    db: { lastMigration },
+  });
 });
 
 app.use(

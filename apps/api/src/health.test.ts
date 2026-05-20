@@ -14,17 +14,25 @@ function createHealthApp(db: ReturnType<typeof drizzle>) {
   app.get("/health", (c) => {
     try {
       db.run(sql`SELECT 1`);
-      const row = db.get<{ hash: string }>(
-        sql`SELECT hash FROM __drizzle_migrations ORDER BY id DESC LIMIT 1`,
-      );
-      return c.json({
-        status: "ok",
-        version: apiVersion,
-        db: { lastMigration: row?.hash ?? "none" },
-      });
     } catch {
       return c.json({ status: "error", version: apiVersion }, 503);
     }
+
+    let lastMigration = "unknown";
+    try {
+      const row = db.get<{ hash: string }>(
+        sql`SELECT hash FROM __drizzle_migrations ORDER BY id DESC LIMIT 1`,
+      );
+      lastMigration = row?.hash ?? "none";
+    } catch {
+      // table absente
+    }
+
+    return c.json({
+      status: "ok",
+      version: apiVersion,
+      db: { lastMigration },
+    });
   });
 
   return app;
@@ -86,5 +94,17 @@ describe("GET /health", () => {
     const res = await app.request("/health");
     const body = await res.json();
     expect(body.db.lastMigration).toBe("none");
+  });
+
+  it("retourne 'unknown' si la table __drizzle_migrations n'existe pas", async () => {
+    const freshSqlite = new Database(":memory:");
+    const freshDb = drizzle(freshSqlite);
+    const app = createHealthApp(freshDb);
+
+    const res = await app.request("/health");
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body.status).toBe("ok");
+    expect(body.db.lastMigration).toBe("unknown");
   });
 });
