@@ -1,6 +1,11 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { db } from "./shared/db/client.js";
 
-migrate(db, { migrationsFolder: "./drizzle" });
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const migrationsFolder = path.resolve(__dirname, "../drizzle");
+
+migrate(db, { migrationsFolder });
 
 console.log("Migrations appliquées avec succès.");
