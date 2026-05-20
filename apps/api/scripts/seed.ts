@@ -2,7 +2,8 @@ import { eq } from "drizzle-orm";
 import { db } from "../src/shared/db/client.js";
 import { inviteTokens } from "../src/shared/db/schema.js";
 
-const TOKEN = process.argv[2] ?? process.env.INVITE_TOKEN ?? "juju-aviatrice-2026";
+const TOKEN =
+  process.argv[2] ?? process.env.INVITE_TOKEN ?? "juju-aviatrice-2026";
 const MAX = Number(process.env.INVITE_MAX ?? 3);
 
 const existing = db
@@ -13,7 +14,7 @@ const existing = db
 
 if (existing) {
   console.error(
-    `Erreur : le jeton "${TOKEN}" existe déjà (${existing.utilisations}/${existing.maxUtilisations} utilisations).`
+    `Erreur : le jeton "${TOKEN}" existe déjà (${existing.utilisations}/${existing.maxUtilisations} utilisations).`,
   );
   console.error("Supprimez-le d'abord ou choisissez un autre nom.");
   process.exit(1);
