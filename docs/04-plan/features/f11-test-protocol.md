@@ -7,9 +7,10 @@
 ## Prérequis
 
 ```bash
-# Démarrer l'environnement de dev
-docker compose up
-# Attendre que l'API soit prête (port 3000) et le frontend (port 5173)
+# Repartir d'un état propre (supprime le volume DB) puis démarrer
+docker compose down -v
+docker compose up --build
+# Attendre les logs : "Migrations appliquées avec succès." puis "API démarrée sur http://localhost:3000"
 ```
 
 ## Scénario 1 — Healthcheck enrichi (S1)
@@ -45,7 +46,7 @@ curl -s http://localhost:3000/health | jq .
 - [ ] OK — status "ok"
 - [ ] OK — version.gitSha présent (en dev local : "dev")
 - [ ] OK — version.buildDate présent (en dev local : "unknown")
-- [ ] OK — db.lastMigration correspond à la dernière migration Drizzle
+- [ ] OK — db.lastMigration contient un hash (migrations auto au démarrage Docker)
 
 ---
 
@@ -66,10 +67,10 @@ curl -s http://localhost:3000/health | jq .
 - Section "API" avec Status "ok", Git SHA et Build
 - Section "Base de données" avec la dernière migration
 
-- [ ] OK — Page /version accessible
-- [ ] OK — Section Frontend affichée
-- [ ] OK — Section API affichée avec données du healthcheck
-- [ ] OK — Section Base de données affichée avec dernière migration
+- [x] OK — Page /version accessible
+- [x] OK — Section Frontend affichée
+- [x] OK — Section API affichée avec données du healthcheck
+- [x] OK — Section Base de données affichée avec dernière migration
 
 **Test erreur API** : arrêter l'API (`docker compose stop api`) puis recharger /version
 

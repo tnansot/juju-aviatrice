@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile
 COPY packages/shared/ packages/shared/
 COPY tsconfig.json ./
 COPY apps/api/tsconfig.json apps/api/
-CMD ["pnpm", "--filter", "@juju-aviatrice/api", "dev"]
+CMD ["sh", "-c", "pnpm --filter @juju-aviatrice/api exec tsx src/migrate.ts && pnpm --filter @juju-aviatrice/api dev"]
 
 # --- build stage ---
 FROM base AS build
