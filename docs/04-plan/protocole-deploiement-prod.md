@@ -93,10 +93,10 @@ curl -s https://api.juju-aviatrice.uk/health
 | Paramètre | Valeur |
 |---|---|
 | Build command | `corepack enable && pnpm install --frozen-lockfile && pnpm --filter @juju-aviatrice/web build` |
-| Deploy command | `npx wrangler deploy --config apps/web/wrangler.toml` |
+| Deploy command | `cd apps/web && npx wrangler versions upload` |
 | Path | `/` |
 
-> Le fichier `apps/web/wrangler.toml` configure le nom du projet, la compatibility date et le répertoire d'assets (`./dist`) avec le SPA routing (`not_found_handling = "single-page-application"`).
+> Le fichier `apps/web/wrangler.jsonc` configure le nom du projet, la compatibility date et le répertoire d'assets (`./dist`). Le SPA routing sera configuré séparément si nécessaire.
 
 - [x] Variables d'environnement :
 
