@@ -185,7 +185,7 @@ THEN aucune donnée de contenu ni de progression n'est exposée
 
 ---
 
-**Statut** : En cours
+**Statut** : Terminée
 
 ---
 
