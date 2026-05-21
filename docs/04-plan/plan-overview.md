@@ -7,11 +7,11 @@
 
 | Métrique | Valeur |
 |----------|--------|
-| Features | 10 |
-| User stories (US) | 27 |
-| Stories techniques (TS) | 21 |
-| Total stories | 48 |
-| Points totaux | 116 |
+| Features | 11 |
+| User stories (US) | 28 |
+| Stories techniques (TS) | 23 |
+| Total stories | 51 |
+| Points totaux | 122 |
 
 ## Features par priorité
 
@@ -27,6 +27,7 @@
 | **Must** | [F8 — Avatar & Progression](features/f8-feature-avatar-progression.md) | 3 US + 3 TS | 15 | À faire |
 | **Should** | [F9 — Suggestion contextuelle](features/f9-feature-suggestion.md) | 2 US + 2 TS | 10 | À faire |
 | **Must** | [F10 — Skill entretien jalon M0](features/f10-feature-skill-entretien.md) | 0 US + 3 TS | 8 | À faire |
+| **Must** | [F11 — Diagnostic de version](features/f11-feature-version-diagnostic.md) | 1 US + 2 TS | 6 | En cours |
 
 ## Planning
 

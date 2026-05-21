@@ -33,7 +33,9 @@ jobs:
             cd /opt/juju-aviatrice
             git fetch origin main
             git reset --hard origin/main
-            docker compose -f docker-compose.prod.yml build --no-cache
+            GIT_SHA=$(git rev-parse --short HEAD)
+            BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            docker compose -f docker-compose.prod.yml build --no-cache --build-arg GIT_SHA=$GIT_SHA --build-arg BUILD_DATE=$BUILD_DATE
             docker compose -f docker-compose.prod.yml run --rm api node apps/api/dist/migrate.js
             docker compose -f docker-compose.prod.yml up -d
             sleep 5
@@ -59,6 +61,8 @@ jobs:
         run: pnpm --filter @juju-aviatrice/web build
         env:
           VITE_API_URL: https://api.juju-aviatrice.uk
+          VITE_GIT_SHA: ${{ github.sha }}
+          VITE_BUILD_DATE: ${{ github.event.head_commit.timestamp }}
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy
