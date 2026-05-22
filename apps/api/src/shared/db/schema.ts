@@ -19,3 +19,18 @@ export const inviteTokens = sqliteTable("invite_tokens", {
     .notNull()
     .$defaultFn(() => new Date()),
 });
+
+// bc-onboarding — état du parcours de bienvenue (model-etat-onboarding)
+export const onboarding = sqliteTable("onboarding", {
+  deviceId: text("device_id")
+    .primaryKey()
+    .references(() => devices.id),
+  etat: text("etat").notNull().default("non_demarre"),
+  etapeCourante: integer("etape_courante"),
+  premierAccesPsyFait: integer("premier_acces_psy_fait", { mode: "boolean" })
+    .notNull()
+    .default(false),
+  dateMaj: integer("date_maj", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});

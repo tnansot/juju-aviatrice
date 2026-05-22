@@ -1,0 +1,178 @@
+/* bc-onboarding — styles FO-03 flashcard (direction-artistique, tokens) */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.flashcardPhase {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+}
+
+.stepLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  color: var(--color-neutral-400);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: var(--space-4);
+}
+
+.introText {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-2);
+}
+
+.introSub {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-neutral-600);
+  margin-bottom: var(--space-6);
+}
+
+.flashcard {
+  border: var(--border-medium) solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  margin-bottom: var(--space-6);
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-neutral-50);
+  transition: background var(--duration-fast) var(--ease-out);
+  width: 100%;
+  font-family: inherit;
+}
+
+.flashcard:hover {
+  background: var(--color-warm-50);
+}
+
+.flipped {
+  cursor: default;
+  background: var(--color-warm-50);
+  border-color: var(--color-accent-light);
+}
+
+.flashcardQuestion {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-4);
+}
+
+.flashcardHint {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-400);
+}
+
+.flashcardAnswerLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  color: var(--color-neutral-400);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: var(--space-2);
+}
+
+.flashcardAnswerText {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-3);
+}
+
+.flashcardCorrection {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-neutral-600);
+}
+
+.progressionPhase {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.avatarSmall {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-neutral-200);
+  border: var(--border-medium) solid var(--color-neutral-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+
+.avatarLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  color: var(--color-neutral-400);
+}
+
+.progressionMsg {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-2);
+}
+
+.progressionSub {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-600);
+  margin-bottom: var(--space-8);
+}
+
+.btnPrimary {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-accent);
+  color: var(--color-warm-50);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  margin: 0 auto;
+  transition: background var(--duration-fast) var(--ease-out);
+  min-height: var(--touch-min);
+}
+
+.btnPrimary:hover {
+  background: var(--color-accent-dark);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -19,6 +19,14 @@ export function createTestDb() {
       utilisations INTEGER NOT NULL DEFAULT 0,
       date_creation INTEGER NOT NULL
     );
+    CREATE TABLE onboarding (
+      device_id TEXT PRIMARY KEY NOT NULL,
+      etat TEXT NOT NULL DEFAULT 'non_demarre',
+      etape_courante INTEGER,
+      premier_acces_psy_fait INTEGER NOT NULL DEFAULT 0,
+      date_maj INTEGER NOT NULL,
+      FOREIGN KEY (device_id) REFERENCES devices(id)
+    );
   `);
 
   return drizzle(sqlite, { schema });

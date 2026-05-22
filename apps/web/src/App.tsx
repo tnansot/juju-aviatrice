@@ -1,6 +1,9 @@
-// bc-identite — point d'entrée app avec garde device
+// bc-identite, bc-onboarding — point d'entrée app avec garde device et routing onboarding
+import { useState } from "react";
+import { HomeScreen } from "./accueil/HomeScreen.js";
 import { AccessRefused } from "./identite/AccessRefused.js";
 import { DeviceGuard } from "./identite/DeviceGuard.js";
+import { OnboardingFlow } from "./onboarding/OnboardingFlow.js";
 import { VersionPage } from "./version/VersionPage.js";
 
 export function App() {
@@ -10,17 +13,17 @@ export function App() {
 
   return (
     <DeviceGuard fallback={<AccessRefused />}>
-      <div
-        style={{
-          maxWidth: 480,
-          margin: "0 auto",
-          padding: "2rem 1rem",
-          fontFamily: "system-ui, sans-serif",
-        }}
-      >
-        <h1>Juju l'aviatrice</h1>
-        <p>Bienvenue ! L'application est en construction.</p>
-      </div>
+      <AuthenticatedApp />
     </DeviceGuard>
   );
+}
+
+function AuthenticatedApp() {
+  const [onboardingDone, setOnboardingDone] = useState(false);
+
+  if (!onboardingDone) {
+    return <OnboardingFlow onComplete={() => setOnboardingDone(true)} />;
+  }
+
+  return <HomeScreen />;
 }

@@ -12,9 +12,9 @@ export function createVerifierDeviceService(repo: VerifierDeviceRepository) {
 
       repo.updateLastSeen(deviceId);
 
-      // M0 : pas de table onboarding encore — on renvoie "non_demarre" par défaut
-      // Sera enrichi par F3 (bc-onboarding)
-      const etatOnboarding: EtatOnboarding = "non_demarre";
+      const onboardingRow = repo.findOnboardingState(deviceId);
+      const etatOnboarding: EtatOnboarding =
+        (onboardingRow?.etat as EtatOnboarding) ?? "non_demarre";
 
       return { valide: true as const, etatOnboarding };
     },
