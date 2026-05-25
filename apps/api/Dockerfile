@@ -39,4 +39,4 @@ RUN pnpm install --frozen-lockfile --prod
 COPY --from=build /app/apps/api/dist apps/api/dist/
 COPY --from=build /app/apps/api/drizzle apps/api/drizzle/
 EXPOSE 3000
-CMD ["node", "apps/api/dist/index.js"]
+CMD ["sh", "-c", "node apps/api/dist/migrate.js && node apps/api/dist/index.js"]

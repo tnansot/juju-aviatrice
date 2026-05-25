@@ -197,20 +197,77 @@ curl -s http://localhost:3000/trpc/contenu.obtenirFlashcardEchantillon | jq .
 
 > Vérifications à effectuer après déploiement en production.
 
-**API production** :
+### Étape 1 — Vérifier l'API
 
 ```bash
-curl -s https://api.juju-aviatrice.uk/trpc/contenu.obtenirFlashcardEchantillon | jq .
-# Attendu : réponse JSON avec question/réponse flashcard
-
 curl -s https://api.juju-aviatrice.uk/health | jq .
 # Attendu : status "ok"
+
+curl -s https://api.juju-aviatrice.uk/trpc/contenu.obtenirFlashcardEchantillon | jq .
+# Attendu : réponse JSON avec question/réponse flashcard
 ```
 
-- [ ] OK — API production accessible et healthcheck OK
-- [ ] OK — Flashcard échantillon retournée correctement
+- [x] OK — API production accessible et healthcheck OK
+- [x] OK — Flashcard échantillon retournée correctement
 
-**Frontend production** : ouvrir `https://app.juju-aviatrice.uk/?invite=<JETON_PROD>`
+### Étape 2 — Préparer un jeton d'invitation utilisable
+
+Se connecter au VPS :
+
+```bash
+ssh juju-vps
+```
+
+Vérifier les jetons existants :
+
+```bash
+docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
+  exec api sqlite3 ./data/juju-aviatrice.sqlite \
+  'SELECT token, utilisations, max_utilisations FROM invite_tokens;'
+```
+
+**Lecture du résultat** — le format est `token|utilisations|max_utilisations` :
+
+| Situation | Exemple affiché | Action |
+|---|---|---|
+| Jeton avec places restantes | `juju-prod-2026\|1\|5` (1 sur 5 utilisé) | Noter le nom du jeton, l'utiliser à l'étape 4 |
+| Jeton épuisé | `juju-prod-2026\|5\|5` (5 sur 5 utilisé) | Remettre le compteur à zéro (voir ci-dessous) |
+| Aucun jeton | Résultat vide | Créer un jeton (voir ci-dessous) |
+
+**Si le jeton est épuisé** — remettre le compteur à zéro (remplacer `<JETON>` par le nom du jeton affiché par le SELECT) :
+
+```bash
+docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
+  exec api sqlite3 ./data/juju-aviatrice.sqlite \
+  'UPDATE invite_tokens SET utilisations = 0 WHERE token = "<JETON>";'
+```
+
+**Si aucun jeton n'existe** — en créer un :
+
+```bash
+docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
+  exec api pnpm seed
+# Crée "juju-aviatrice-2026" avec max 3 utilisations
+```
+
+Quitter la session SSH :
+
+```bash
+exit
+```
+
+- [x] OK — Jeton d'invitation disponible avec au moins 1 utilisation restante
+
+### Étape 3 — S'assurer que le device de test est vierge
+
+Si le navigateur a déjà un `device-id` enregistré en production, l'app affichera FO-04 directement au lieu de l'onboarding. Deux options :
+
+- **Option A** : supprimer `device-id` du localStorage (DevTools → Application → Local Storage → `https://app.juju-aviatrice.uk` → supprimer la clé `device-id`)
+- **Option B** : ouvrir une fenêtre de navigation privée
+
+### Étape 4 — Tester le parcours frontend
+
+Ouvrir `https://app.juju-aviatrice.uk/?invite=<JETON>` (remplacer `<JETON>` par le jeton vérifié à l'étape 2).
 
 - [ ] OK — Écran FO-01 "Salut Juju" s'affiche
 - [ ] OK — Parcours complet FO-01 → FO-02 → FO-03 → FO-04 fonctionne
