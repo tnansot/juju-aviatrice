@@ -147,7 +147,7 @@ THEN la section front s'affiche normalement et les sections API/DB affichent un 
 
 ---
 
-**Statut** : En revue
+**Statut** : Terminée
 
 ---
 

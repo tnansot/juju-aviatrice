@@ -22,7 +22,22 @@
       "Bash(echo \"EXIT: $?\")",
       "WebFetch(domain:developers.cloudflare.com)",
       "WebFetch(domain:community.cloudflare.com)",
-      "WebFetch(domain:blog.cloudflare.com)"
+      "WebFetch(domain:blog.cloudflare.com)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(npx biome *)",
+      "Bash(gh pr *)",
+      "Bash(gh run *)",
+      "Bash(pnpm test *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm -w run lint)",
+      "Bash(pnpm -w run lint:fix)",
+      "Bash(pnpm -w run typecheck)",
+      "Bash(pnpm -w run test)",
+      "Bash(npx vitest *)",
+      "Bash(pnpm typecheck *)",
+      "Bash(pnpm lint:fix)",
+      "Bash(pnpm --filter @juju-aviatrice/api test -- --reporter=verbose)"
     ]
   },
   "model": "claude-opus-4-6"

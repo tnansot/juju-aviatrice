@@ -256,6 +256,25 @@ THEN elle accède à l'écran de choix d'activité FO-09
 
 ---
 
+## Analyse de testabilité
+
+> Basée sur le [template de protocole de test](_test-protocol-template.md) — 19 règles.
+
+| Critère | Couverture | Notes |
+|---------|------------|-------|
+| Données de test disponibles | ✅ | Flashcard échantillon en seed, jeton d'invitation configurable |
+| Remise à zéro possible | ✅ | `pnpm reset:onboarding` (DB) + suppression localStorage côté navigateur |
+| Endpoints vérifiables via curl | ✅ | `onboarding.obtenirEtat`, `contenu.obtenirFlashcardEchantillon` |
+| Critères Gherkin dans les stories | ✅ | Toutes les stories ont des critères d'acceptation Gherkin |
+| Résultats mesurables (textes exacts) | ✅ | "Salut Juju", "Deux terrains d'entraînement", "Quelle est la dérivée de x²", "2x" |
+| Vérifiable en production | ✅ | URLs prod connues (`app.juju-aviatrice.uk`, `api.juju-aviatrice.uk`) |
+| Scénarios de régression identifiés | ✅ | Saut à chaque étape (S4), interruption/réouverture (S4), réouverture post-onboarding (S5) |
+
+**Protocole de test** : [f3-test-protocol.md](f3-test-protocol.md)
+**Bilan technique** : [f3-feature-onboarding-bienvenue-review.md](f3-feature-onboarding-bienvenue-review.md)
+
+---
+
 ## Traçabilité
 
 | Dépendance | Référence |

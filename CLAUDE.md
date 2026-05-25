@@ -134,6 +134,18 @@ Les artefacts PBM dans `docs/` sont chargés en contexte par Claude Code. **Réd
 - **Toujours conserver la section Traçabilité** en fin de document — c'est le graphe de dépendances entre livrables.
 - **Codes et abréviations lisibles** : utiliser des codes (ex. « Pilier 1 », « KR-1.0.1 ») mais éviter les raccourcis ambigus qui risquent la confusion avec une autre codification (ex. ne pas écrire « P1 » pour un pilier — pourrait être confondu avec une priorité).
 
+## Protocoles de test manuels
+
+Avant de rédiger un protocole de test (`f{N}-test-protocol.md`), **lire et respecter** le template de référence : [docs/04-plan/features/_test-protocol-template.md](docs/04-plan/features/_test-protocol-template.md). Ce fichier contient les 19 règles de structure, rédaction et traçabilité à appliquer systématiquement.
+
+## Analyse de testabilité des features
+
+Chaque feature spec (`f{N}-feature-*.md`) **doit inclure une section `## Analyse de testabilité`** avant la section Traçabilité. Cette analyse est réalisée dès la conception (phase Plan), pas après l'implémentation.
+
+**7 critères à évaluer** : données de test disponibles, remise à zéro possible, endpoints vérifiables via curl, critères Gherkin dans les stories, résultats mesurables, vérifiabilité en production, scénarios de régression identifiés.
+
+**Règle clé** : si un outillage de test est nécessaire (script de reset, seed de données, endpoint dev-only), il doit être **développé avec la feature** (intégré dans une story), pas bricolé après coup dans le protocole de test. Distinguer systématiquement ce qui relève de la **feature** (code) vs. du **protocole** (documentation).
+
 ## Conventions Markdown
 
 La doc du projet est rendue par plusieurs parsers (MkDocs Material, export PDF, aperçu IDE). Certains sont stricts sur l'espacement autour des blocs. **À respecter systématiquement lors de toute création ou modification de `.md`** :
