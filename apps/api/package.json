@@ -19,7 +19,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "reset:onboarding": "tsx scripts/reset-onboarding.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.14.1",

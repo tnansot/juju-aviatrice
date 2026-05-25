@@ -9,6 +9,7 @@ services:
     volumes:
       - ./apps/api/src:/app/apps/api/src
       - ./apps/api/drizzle:/app/apps/api/drizzle
+      - ./apps/api/scripts:/app/apps/api/scripts
       - ./packages/shared/src:/app/packages/shared/src
       - api-data:/app/apps/api/data
     environment:

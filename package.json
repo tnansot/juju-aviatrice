@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "docker compose up",
+    "dev": "docker compose up --build",
+    "dev:clean": "docker compose down -v && docker compose up --build",
+    "reset:onboarding": "docker compose exec api pnpm --filter @juju-aviatrice/api reset:onboarding",
     "build": "pnpm -r build",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
