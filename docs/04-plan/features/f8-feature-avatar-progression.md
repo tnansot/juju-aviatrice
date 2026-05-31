@@ -62,6 +62,8 @@ Avatar progressif à 3-4 états visuels, basé sur l'effort (pas le score). Méc
 **Objectif** : Créer le profil de progression à la complétion de l'onboarding, avec avatar stade 1 et états initiaux des chapitres.
 **Justification** : bc-progression consomme l'événement onboarding_complete pour initialiser le profil (chapitres débloqués/verrouillés).
 
+> ⚠️ **Prérequis — dette B3 héritée de F3** : à la clôture de F3 (2026-05-31), l'événement `onboarding_complete` **n'est pas émis** ; la micro-progression avatar de l'onboarding est simulée côté front. `bc-onboarding` le prescrit pourtant (cf. [bilan F3](f3-feature-onboarding-bienvenue-review.md), B3). Cette story doit donc **commencer par câbler l'émission de `onboarding_complete` dans le backend onboarding** avant de brancher la réaction bc-progression — sinon le 1er critère Gherkin ci-dessous ne peut pas être satisfait.
+
 **Critères d'acceptation :**
 
 ```gherkin
@@ -78,6 +80,7 @@ THEN avatar.stade = 1, compteurExercices = 0, compteurMiniSessions = 0
 
 **Implémentation :**
 
+- [ ] **Câbler l'émission de `onboarding_complete` dans le backend onboarding (dette B3 de F3)** — remplacer la micro-progression simulée côté front
 - [ ] Schéma Drizzle : tables profil_progression, avatars, etats_chapitres
 - [ ] Réaction à onboarding_complete : création profil + initialisation chapitres
 - [ ] Procédure progression.obtenirProfil (query)
