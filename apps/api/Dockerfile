@@ -4,6 +4,7 @@ WORKDIR /app
 
 # --- dev stage ---
 FROM base AS dev
+RUN apt-get update && apt-get install -y sqlite3 && rm -rf /var/lib/apt/lists/*
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY apps/api/package.json apps/api/
 COPY packages/shared/package.json packages/shared/

@@ -242,12 +242,14 @@ docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
   'UPDATE invite_tokens SET utilisations = 0 WHERE token = "<JETON>";'
 ```
 
-**Si aucun jeton n'existe** — en créer un :
+**Si aucun jeton n'existe** — en créer un via SQL (l'image prod n'embarque ni `tsx` ni `scripts/`, donc `pnpm seed` n'y fonctionne pas — c'est un script de dev uniquement) :
 
 ```bash
 docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
-  exec api pnpm seed
-# Crée "juju-aviatrice-2026" avec max 3 utilisations
+  exec api sqlite3 ./data/juju-aviatrice.sqlite \
+  "INSERT INTO invite_tokens (token, max_utilisations, utilisations, date_creation)
+   VALUES ('juju-prod-2026', 3, 0, strftime('%s','now'));"
+# Crée "juju-prod-2026" avec max 3 utilisations
 ```
 
 Quitter la session SSH :
@@ -260,26 +262,43 @@ exit
 
 ### Étape 3 — S'assurer que le device de test est vierge
 
-Si le navigateur a déjà un `device-id` enregistré en production, l'app affichera FO-04 directement au lieu de l'onboarding. Deux options :
+L'état onboarding est lié au `device-id`. Si le navigateur a déjà un `device-id` enregistré en production, l'app affichera FO-04 directement au lieu de l'onboarding. Pour repartir d'un onboarding vierge :
 
-- **Option A** : supprimer `device-id` du localStorage (DevTools → Application → Local Storage → `https://app.juju-aviatrice.uk` → supprimer la clé `device-id`)
-- **Option B** : ouvrir une fenêtre de navigation privée
+- **Option A (côté client, recommandé)** : supprimer `device-id` du localStorage (DevTools → Application → Local Storage → `https://app.juju-aviatrice.uk` → supprimer la clé `device-id`). Un nouveau `device-id` est généré → onboarding rejoué from scratch.
+- **Option B (côté client)** : ouvrir une fenêtre de navigation privée.
+- **Option C (côté serveur)** : purger l'état onboarding en base — utile pour re-tester avec le **même** `device-id` ou repartir totalement propre. L'équivalent prod de `pnpm reset:onboarding` (script de dev, absent de l'image prod) est un `DELETE` SQL direct :
+
+```bash
+ssh juju-vps
+
+# Purger TOUT l'onboarding (équivalent du script local reset:onboarding)
+docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
+  exec api sqlite3 ./data/juju-aviatrice.sqlite \
+  'DELETE FROM onboarding;'
+
+# OU cibler un seul device
+docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
+  exec api sqlite3 ./data/juju-aviatrice.sqlite \
+  'DELETE FROM onboarding WHERE device_id = "<DEVICE_ID>";'
+
+exit
+```
 
 ### Étape 4 — Tester le parcours frontend
 
 Ouvrir `https://app.juju-aviatrice.uk/?invite=<JETON>` (remplacer `<JETON>` par le jeton vérifié à l'étape 2).
 
-- [ ] OK — Écran FO-01 "Salut Juju" s'affiche
-- [ ] OK — Parcours complet FO-01 → FO-02 → FO-03 → FO-04 fonctionne
-- [ ] OK — Bouton "Passer" mène à FO-04 sans erreur
-- [ ] OK — Réouverture post-onboarding affiche FO-04 directement
+- [x] OK — Écran FO-01 "Salut Juju" s'affiche
+- [x] OK — Parcours complet FO-01 → FO-02 → FO-03 → FO-04 fonctionne
+- [x] OK — Bouton "Passer" mène à FO-04 sans erreur
+- [x] OK — Réouverture post-onboarding affiche FO-04 directement
 
 ## Résultat
 
-- [ ] Tous les scénarios locaux validés
-- [ ] Vérifications API directes validées
-- [ ] Vérifications post-deploy validées
-- [ ] Aucun message culpabilisant détecté
-- [ ] Zones tactiles ≥ 44×44px vérifiées visuellement
-- **Testeur** : _____________
-- **Date** : _____________
+- [x] Tous les scénarios locaux validés
+- [x] Vérifications API directes validées
+- [x] Vérifications post-deploy validées
+- [x] Aucun message culpabilisant détecté
+- [x] Zones tactiles ≥ 44×44px vérifiées visuellement
+- **Testeur** : Papa
+- **Date** : 31 mai
