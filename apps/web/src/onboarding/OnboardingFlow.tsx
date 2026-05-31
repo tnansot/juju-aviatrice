@@ -1,5 +1,5 @@
 // bc-onboarding — flow de routing onboarding (bc-onboarding, spec API onboarding)
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { trpc } from "../trpc.js";
 import { OnboardingFlashcard } from "./OnboardingFlashcard.js";
 import { PiliersScreen } from "./PiliersScreen.js";
@@ -35,12 +35,15 @@ export function OnboardingFlow({
 
   const currentStep = step ?? initialStep;
 
-  if (etatQuery.isLoading || !currentStep) {
-    return null;
-  }
+  // onComplete déclenche un setState dans le parent : à exécuter en effet,
+  // jamais pendant le render (sinon avertissement React + comportement fragile).
+  useEffect(() => {
+    if (currentStep === "done") {
+      onComplete();
+    }
+  }, [currentStep, onComplete]);
 
-  if (currentStep === "done") {
-    onComplete();
+  if (etatQuery.isLoading || !currentStep || currentStep === "done") {
     return null;
   }
 

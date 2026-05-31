@@ -91,7 +91,7 @@ THEN elle arrive directement sur l'écran d'accueil FO-04
 - [x] Frontend : composant WelcomeScreen (FO-01)
 - [x] Frontend : routing — redirection vers FO-01 si onboarding non fait
 - [x] Tests : affichage, bouton suivant, bouton passer
-- **Statut** : En cours
+- **Statut** : Terminée
 
 ---
 

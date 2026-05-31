@@ -2,6 +2,12 @@
 import { trpc } from "../trpc.js";
 import styles from "./PiliersScreen.module.css";
 
+// Habillage visuel par pilier (le contenu vient de contenu.listerPiliers)
+const PILIER_ICONS: Record<string, { label: string; className: string }> = {
+  sciences: { label: "SCI", className: styles.iconSciences },
+  psychotechniques: { label: "PSY", className: styles.iconPsy },
+};
+
 export function PiliersScreen({
   onContinue,
   onSkip,
@@ -9,6 +15,7 @@ export function PiliersScreen({
   onContinue: () => void;
   onSkip: () => void;
 }) {
+  const piliersQuery = trpc.contenu.listerPiliers.useQuery();
   const avancerEtape = trpc.onboarding.avancerEtape.useMutation();
   const sauter = trpc.onboarding.sauter.useMutation();
 
@@ -23,6 +30,10 @@ export function PiliersScreen({
     sauter.mutate(undefined, { onSuccess: () => onSkip() });
   }
 
+  if (piliersQuery.isLoading || !piliersQuery.data) {
+    return null;
+  }
+
   return (
     <div className={styles.screen}>
       <h2 className={styles.title}>Deux terrains d'entraînement</h2>
@@ -31,23 +42,18 @@ export function PiliersScreen({
         le temps.
       </p>
 
-      <div className={styles.pillarCard}>
-        <div className={`${styles.pillarIcon} ${styles.iconSciences}`}>SCI</div>
-        <div className={styles.pillarName}>Sciences</div>
-        <div className={styles.pillarDesc}>
-          Maths + physique-chimie de 1ère. Flashcards et QCM pour ancrer les
-          réflexes.
-        </div>
-      </div>
-
-      <div className={styles.pillarCard}>
-        <div className={`${styles.pillarIcon} ${styles.iconPsy}`}>PSY</div>
-        <div className={styles.pillarName}>Psychotechniques</div>
-        <div className={styles.pillarDesc}>
-          Logique et calcul mental. Fiches méthode pour comprendre, puis
-          exercices pour s'entraîner.
-        </div>
-      </div>
+      {piliersQuery.data.map((pilier) => {
+        const icon = PILIER_ICONS[pilier.id];
+        return (
+          <div key={pilier.id} className={styles.pillarCard}>
+            <div className={`${styles.pillarIcon} ${icon?.className ?? ""}`}>
+              {icon?.label ?? pilier.nom.slice(0, 3).toUpperCase()}
+            </div>
+            <div className={styles.pillarName}>{pilier.nom}</div>
+            <div className={styles.pillarDesc}>{pilier.description}</div>
+          </div>
+        );
+      })}
 
       <p className={styles.futureNote}>
         D'autres contenus arriveront au fil du temps.
