@@ -252,7 +252,7 @@ THEN elle accède à l'écran de choix d'activité FO-09
 
 ---
 
-**Statut** : En revue
+**Statut** : Terminée
 
 ---
 

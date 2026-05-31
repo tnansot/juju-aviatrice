@@ -47,6 +47,37 @@ Auto-revue DDD / tests / conventions / design system / DoD. Qualité de base sai
 
 État final : lint ✓, typecheck ✓, **55 tests passants** (32 API + 23 web).
 
+## Clôture (2026-05-31)
+
+| Métrique | Planifié | Réalisé |
+|----------|----------|---------|
+| Stories | 5 | 5 (100 %) |
+| Points | 11 | 11 |
+| Tests | — | 55 verts (32 API + 23 web) |
+
+**Critère de complétion** : ✅ Atteint — première ouverture → « Salut Juju » sans inscription, 2 piliers, flashcard maths à feedback neutre, avatar stade 1 + micro-progression, arrivée FO-04, parcours sauteable et tolérant aux interruptions.
+
+| Porte qualité | Valeur | Statut |
+|---------------|--------|--------|
+| Erreurs lint (Biome) | 0 | ✅ |
+| Typecheck (`tsc`) | 0 erreur | ✅ |
+| CI | Verte (run sur `9051b5e`) | ✅ |
+| CD / déploiement prod | Vert (`gitSha 9051b5e` en prod) | ✅ |
+| Vérification prod | Walkthrough FO-01→FO-04 OK (Papa) | ✅ |
+
+**Dette reportée** (à reprendre hors F3) :
+
+- **B3 → F8** : émission de l'événement `onboarding_complete` + micro-progression avatar réelle (aujourd'hui simulée côté front). À câbler lors de F8 (Avatar & Progression).
+- **B1, B2, B4** : harmonisations mineures acceptées pour M0 (cf. section Revue de code), sans story dédiée.
+
+**Reste différé par dépendance** : S5 — navigation `Go → session (F4)` et `Changer → FO-09` (écrans non encore construits). À brancher quand F4 sera livrée.
+
+**Points d'attention pour la suite :**
+
+1. Estimation S → calibrage juste : 5 stories S/M livrées sans dépassement, aucune story non terminée.
+2. La dette B3 crée un couplage F3↔F8 : penser à rejouer le parcours onboarding lors de F8 pour valider la progression réelle de l'avatar.
+3. Prochaine feature selon le planning : **F5 — Catalogue scientifique** (dépendances F1+F2 satisfaites), parallélisable.
+
 ## Traçabilité
 
 | Dépendance | Référence |
