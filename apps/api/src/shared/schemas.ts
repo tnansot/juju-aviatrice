@@ -1,4 +1,5 @@
-// bc-identite, bc-onboarding — schemas Zod partagés entre routers tRPC
+// bc-identite, bc-onboarding, bc-contenu, bc-entrainement — schemas Zod partagés
+// entre routers tRPC (schemas-partages)
 import { z } from "zod";
 
 export const zDeviceId = z.string().uuid();
@@ -11,3 +12,23 @@ export const zEtatOnboarding = z.enum([
   "saute",
 ]);
 export type EtatOnboarding = z.infer<typeof zEtatOnboarding>;
+
+// --- bc-contenu / bc-entrainement ---
+
+export const zChapitreId = z.string().regex(/^[a-z0-9-]+$/);
+export type ChapitreId = z.infer<typeof zChapitreId>;
+
+export const zExerciceId = z.string().min(1);
+export type ExerciceId = z.infer<typeof zExerciceId>;
+
+export const zFormat = z.enum(["flashcard", "qcm"]);
+export type Format = z.infer<typeof zFormat>;
+
+export const zEtatSession = z.enum(["en_cours", "terminee", "interrompue"]);
+export type EtatSession = z.infer<typeof zEtatSession>;
+
+export const zEtatMiniSession = z.enum(["en_cours", "terminee", "interrompue"]);
+export type EtatMiniSession = z.infer<typeof zEtatMiniSession>;
+
+export const zEtatExercice = z.enum(["en_attente", "complete", "saute"]);
+export type EtatExercice = z.infer<typeof zEtatExercice>;

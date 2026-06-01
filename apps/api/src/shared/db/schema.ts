@@ -34,3 +34,53 @@ export const onboarding = sqliteTable("onboarding", {
     .notNull()
     .$defaultFn(() => new Date()),
 });
+
+// bc-entrainement — période d'usage continue (model-session)
+export const sessions = sqliteTable("sessions", {
+  id: text("id").primaryKey(),
+  deviceId: text("device_id")
+    .notNull()
+    .references(() => devices.id),
+  debut: integer("debut", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  fin: integer("fin", { mode: "timestamp" }),
+  etat: text("etat").notNull().default("en_cours"),
+});
+
+// bc-entrainement — séquence de 3-5 exercices enchaînés (model-mini-session)
+export const miniSessions = sqliteTable("mini_sessions", {
+  id: text("id").primaryKey(),
+  sessionId: text("session_id")
+    .notNull()
+    .references(() => sessions.id),
+  chapitreId: text("chapitre_id").notNull(),
+  format: text("format").notNull(),
+  modeChrono: integer("mode_chrono", { mode: "boolean" })
+    .notNull()
+    .default(false),
+  dureeChrono: integer("duree_chrono"),
+  etat: text("etat").notNull().default("en_cours"),
+  nombreExercicesFaits: integer("nombre_exercices_faits").notNull().default(0),
+  debut: integer("debut", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  fin: integer("fin", { mode: "timestamp" }),
+});
+
+// bc-entrainement — instance d'exercice pendant l'exécution (model-exercice-en-cours)
+export const exercicesEnCours = sqliteTable("exercices_en_cours", {
+  id: text("id").primaryKey(),
+  miniSessionId: text("mini_session_id")
+    .notNull()
+    .references(() => miniSessions.id),
+  exerciceId: text("exercice_id").notNull(),
+  reponse: text("reponse"),
+  estCorrect: integer("est_correct", { mode: "boolean" }),
+  dureeReponseMs: integer("duree_reponse_ms"),
+  etat: text("etat").notNull().default("en_attente"),
+  ordre: integer("ordre").notNull(),
+  chargeA: integer("charge_a", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});

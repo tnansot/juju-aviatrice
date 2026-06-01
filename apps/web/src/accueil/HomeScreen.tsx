@@ -1,7 +1,13 @@
 // bc-onboarding, bc-suggestion, bc-progression — écran accueil FO-04 (spec-ecran-accueil)
 import styles from "./HomeScreen.module.css";
 
-export function HomeScreen() {
+export function HomeScreen({
+  onGo,
+  onChanger,
+}: {
+  onGo: () => void;
+  onChanger: () => void;
+}) {
   return (
     <div className={styles.screen}>
       <div className={styles.avatarZone}>
@@ -17,12 +23,12 @@ export function HomeScreen() {
         <p className={styles.suggestionText}>
           Lance ta première session : 4 flashcards maths
         </p>
-        <button type="button" className={styles.btnGo}>
+        <button type="button" className={styles.btnGo} onClick={onGo}>
           Go
         </button>
       </div>
 
-      <button type="button" className={styles.btnChange}>
+      <button type="button" className={styles.btnChange} onClick={onChanger}>
         Changer d'activité
       </button>
 

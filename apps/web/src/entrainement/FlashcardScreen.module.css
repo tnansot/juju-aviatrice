@@ -1,0 +1,131 @@
+/* bc-entrainement — styles FO-05 flashcard (direction-artistique, tokens) */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+}
+
+.chapterLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  color: var(--color-neutral-800);
+}
+
+.progress {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-400);
+}
+
+.flashcard {
+  flex: 1;
+  max-height: 420px;
+  width: 100%;
+  border: var(--border-medium) solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-neutral-50);
+  transition: background var(--duration-fast) var(--ease-out);
+  font-family: inherit;
+}
+
+.flashcard:hover {
+  background: var(--color-warm-50);
+}
+
+.flipped {
+  cursor: default;
+  background: var(--color-warm-50);
+  border-color: var(--color-accent-light);
+}
+
+.question {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-h3);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-4);
+}
+
+.hint {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-400);
+}
+
+.answerLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  color: var(--color-neutral-400);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: var(--space-2);
+}
+
+.answerText {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--space-5);
+}
+
+.explicationLabel {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-bold);
+  color: var(--color-neutral-400);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: var(--space-2);
+}
+
+.explicationText {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-neutral-600);
+}
+
+.actions {
+  margin-top: var(--space-6);
+}
+
+.btnNext {
+  display: block;
+  width: 100%;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-accent);
+  color: var(--color-warm-50);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+  min-height: var(--touch-min);
+}
+
+.btnNext:hover {
+  background: var(--color-accent-dark);
+}

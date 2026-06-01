@@ -155,9 +155,14 @@ scan_pattern "Adresse postale" \
   '[0-9]+[[:space:]]+(rue|avenue|boulevard|place|chemin|impasse|allée|route|square|cours)[[:space:]]+' \
   "Cat.C"
 
-scan_pattern "Téléphone FR" \
-  '(\+33[[:space:]]?|0)[1-9]([[:space:].-]?[0-9]{2}){4}' \
-  "Cat.C"
+# Téléphone FR — exige une frontière non-numérique autour pour éviter les faux
+# positifs sur de longues séquences de chiffres (ex : un epoch ms à 13 chiffres
+# dans _journal.json des migrations Drizzle contient une sous-séquence à 10
+# chiffres ressemblant à un numéro 0X XX XX XX XX).
+while IFS= read -r match; do
+  [[ -z "$match" ]] && continue
+  add_blocker "contenu — Cat.C — Téléphone FR : $(echo "$match" | head -c 120)"
+done < <(grep -noE '(^|[^0-9])(\+33[[:space:]]?|0)[1-9]([[:space:].-]?[0-9]{2}){4}([^0-9]|$)' "$SCAN_CONTENT" 2>/dev/null | head -5)
 
 scan_pattern "N° sécurité sociale" \
   '[12][[:space:]]?[0-9]{2}[[:space:]]?[0-9]{2}[[:space:]]?[0-9]{2}[[:space:]]?[0-9]{3}[[:space:]]?[0-9]{3}[[:space:]]?[0-9]{2}' \
