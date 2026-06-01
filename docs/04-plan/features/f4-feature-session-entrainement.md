@@ -293,7 +293,7 @@ THEN les 3 exercices sont chargés (minimum respecté)
 
 ---
 
-**Statut** : En revue
+**Statut** : Terminée
 
 ---
 

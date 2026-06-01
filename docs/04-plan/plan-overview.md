@@ -1,27 +1,27 @@
 # Plan — Vue d'ensemble — juju-aviatrice
 
 > Dashboard synthétique du plan d'implémentation M0. Mis à jour via `pbm-plan-overview`.
-> **2026-05-31** — Thomas (Papa) avec Claude
+> **2026-06-01** — Thomas (Papa) avec Claude
 
 ## Indicateurs
 
 | Métrique | Valeur |
 |----------|--------|
-| Features | 11 (4 terminées) |
+| Features | 11 (5 terminées) |
 | User stories (US) | 28 |
 | Stories techniques (TS) | 23 |
 | Total stories | 51 |
 | Points totaux | 122 |
-| **Points livrés** | **43 / 122 (35 %)** |
-| **Stories terminées** | **19 / 51 (37 %)** |
+| **Points livrés** | **57 / 122 (47 %)** |
+| **Stories terminées** | **25 / 51 (49 %)** |
 
 ## Avancement par statut
 
 | Statut | Features | Stories | Points |
 |--------|----------|---------|--------|
-| Terminée | 4 (F1, F2, F3, F11) | 19 | 43 |
+| Terminée | 5 (F1, F2, F3, F4, F11) | 25 | 57 |
 | En cours | 0 | 0 | 0 |
-| À faire | 7 (F4–F10) | 32 | 79 |
+| À faire | 6 (F5–F10) | 26 | 65 |
 | Bloquée | 0 | 0 | 0 |
 
 ## Features par priorité
@@ -31,7 +31,7 @@
 | **Must** | [F1 — Infrastructure & Stack](features/f1-feature-infra-stack.md) | 0 US + 7 TS | 18 | Terminée |
 | **Must** | [F2 — Accès sécurisé par device](features/f2-feature-auth-device.md) | 2 US + 2 TS | 8 | Terminée |
 | **Must** | [F3 — Parcours de bienvenue](features/f3-feature-onboarding-bienvenue.md) | 5 US + 0 TS | 11 | Terminée |
-| **Must** | [F4 — Session d'entraînement courte](features/f4-feature-session-entrainement.md) | 5 US + 1 TS | 14 | En revue |
+| **Must** | [F4 — Session d'entraînement courte](features/f4-feature-session-entrainement.md) | 5 US + 1 TS | 14 | Terminée |
 | **Must** | [F5 — Catalogue contenu scientifique](features/f5-feature-catalogue-scientifique.md) | 2 US + 3 TS | 13 | À faire |
 | **Must** | [F6 — Découverte psychotechniques](features/f6-feature-decouverte-psy.md) | 4 US + 1 TS | 12 | À faire |
 | **Must** | [F7 — Mode chronométré](features/f7-feature-mode-chrono.md) | 3 US + 0 TS | 7 | À faire |

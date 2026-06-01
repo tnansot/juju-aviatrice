@@ -46,7 +46,7 @@ pnpm seed
 
 **Résultat attendu** : la première flashcard de Géométrie s'affiche directement, topbar « Géométrie » + « 1 / 4 », aucun écran de transition entre le tap Go et l'exercice
 
-- [ ] OK
+- [x] OK
 
 ### 2. Exercice flashcard : retournement et explication (S2)
 
@@ -65,7 +65,7 @@ pnpm seed
 
 **Résultat attendu** : retournement révèle Réponse + Explication, « Suivant » n'apparaît qu'après retournement, et avance à l'exercice 2/4 sans délai perceptible
 
-- [ ] OK
+- [x] OK
 
 ### 3. Exercice QCM : sélection, validation, correction neutre (S3)
 
@@ -86,7 +86,7 @@ pnpm seed
 
 **Résultat attendu** : validation met la bonne réponse en vert, choix non retenu en gris neutre, panneau « Explication » affiché, vocabulaire exclusivement neutre, passage à l'exercice suivant
 
-- [ ] OK
+- [x] OK
 
 ### 4. Bilan sobre de fin de mini-session (S4)
 
@@ -107,7 +107,7 @@ pnpm seed
 
 **Résultat attendu** : bilan = nombre d'exercices + durée + message positif, sans note /N ni %, et les deux choix ramènent à FO-04 sereinement
 
-- [ ] OK
+- [x] OK
 
 ### 5. Choix d'activité alternatif en 2 taps (S1)
 
@@ -126,7 +126,7 @@ pnpm seed
 
 **Résultat attendu** : pilier → chapitre en 2 taps lance la session correspondante ; « Retour » revient au choix de pilier
 
-- [ ] OK
+- [x] OK
 
 ### 6. Tolérance aux interruptions (S5)
 
@@ -143,60 +143,77 @@ pnpm seed
 
 **Résultat attendu** : interruption comptabilise les 2 exercices faits (sans pénalité), réouverture = FO-04 propre sans reproche
 
-- [ ] OK
+- [x] OK
 
 ## Vérification API directe
 
-Remplacer `<DEVICE_ID>` par le `device-id` relevé dans le localStorage.
+Remplacer `<DEVICE_ID>` par le `device-id` relevé dans le localStorage, puis l'exporter une fois pour toute la session :
+
+```bash
+export DEVICE_ID="<DEVICE_ID>"
+```
+
+> **`demarrerMiniSession` est une mutation** : chaque appel crée une nouvelle mini-session avec de nouveaux `exerciceEnCoursId`. On capture donc la réponse complète dans une variable (`$RESP`) et on en dérive `exerciceEnCoursId`, `choixId` et `miniSessionId` — au lieu de rappeler la mutation entre les étapes.
 
 ```bash
 # 1. Démarrer une mini-session flashcard (mutation)
 curl -s -X POST http://localhost:3000/trpc/entrainement.demarrerMiniSession \
   -H "Content-Type: application/json" \
-  -H "X-Device-Id: <DEVICE_ID>" \
+  -H "X-Device-Id: $DEVICE_ID" \
   -d '{"json":{"chapitreId":"maths-geometrie","format":"flashcard","nombre":4}}' | jq .
 # Attendu : result.data.json avec sessionId, miniSessionId, exercices[4]
+#   chaque exercice porte id, exerciceEnCoursId, format, enonce, ordre
 #   chaque énoncé flashcard a faceQuestion + faceReponse + explication
 #   (aucun champ bonneReponseId)
 ```
 
-- [ ] OK — 4 exercices flashcard retournés, sans bonne réponse exposée
+- [x] OK — 4 exercices flashcard retournés, sans bonne réponse exposée
 
 ```bash
-# 2. Démarrer un QCM et vérifier que bonneReponseId N'EST PAS transmis
-curl -s -X POST http://localhost:3000/trpc/entrainement.demarrerMiniSession \
+# 2. Démarrer un QCM et CAPTURER la réponse complète dans $RESP
+RESP=$(curl -s -X POST http://localhost:3000/trpc/entrainement.demarrerMiniSession \
   -H "Content-Type: application/json" \
-  -H "X-Device-Id: <DEVICE_ID>" \
-  -d '{"json":{"chapitreId":"maths-geometrie","format":"qcm","nombre":4}}' | jq '.result.data.json.exercices[0].enonce'
+  -H "X-Device-Id: $DEVICE_ID" \
+  -d '{"json":{"chapitreId":"maths-geometrie","format":"qcm","nombre":4}}')
+
+# Vérifier que l'énoncé n'expose PAS bonneReponseId
+echo "$RESP" | jq '.result.data.json.exercices[0].enonce'
 # Attendu : { "question": "...", "choix": [ {id,libelle}, ... ] } — pas de bonneReponseId
+
+# Dériver les identifiants pour les étapes suivantes
+EEC_ID=$(echo "$RESP" | jq -r '.result.data.json.exercices[0].exerciceEnCoursId')
+CHOIX_ID=$(echo "$RESP" | jq -r '.result.data.json.exercices[0].enonce.choix[0].id')
+MS_ID=$(echo "$RESP" | jq -r '.result.data.json.miniSessionId')
+echo "EEC_ID=$EEC_ID  CHOIX_ID=$CHOIX_ID  MS_ID=$MS_ID"
 ```
 
-- [ ] OK — l'énoncé QCM ne contient que question + choix
+- [x] OK — l'énoncé QCM ne contient que question + choix
 
 ```bash
-# 3. Soumettre une réponse QCM (récupérer exerciceEnCoursId + un choixId de l'étape 2)
+# 3. Soumettre une réponse QCM (utilise $EEC_ID et $CHOIX_ID issus de l'étape 2)
 curl -s -X POST http://localhost:3000/trpc/entrainement.soumettreReponse \
   -H "Content-Type: application/json" \
-  -H "X-Device-Id: <DEVICE_ID>" \
-  -d '{"json":{"exerciceEnCoursId":"<EEC_ID>","choixId":"a"}}' | jq '.result.data.json'
+  -H "X-Device-Id: $DEVICE_ID" \
+  -d "{\"json\":{\"exerciceEnCoursId\":\"$EEC_ID\",\"choixId\":\"$CHOIX_ID\"}}" | jq '.result.data.json'
 # Attendu : { estCorrect, correction, bonneReponseId, exerciceSuivant }
 ```
 
-- [ ] OK — correction + bonneReponseId + estCorrect retournés
+- [x] OK — correction + bonneReponseId + estCorrect retournés
 
 ```bash
-# 4. Terminer la mini-session puis obtenir le bilan (récupérer miniSessionId)
+# 4. Terminer la mini-session puis obtenir le bilan (utilise $MS_ID issu de l'étape 2)
 curl -s -X POST http://localhost:3000/trpc/entrainement.terminerMiniSession \
-  -H "Content-Type: application/json" -H "X-Device-Id: <DEVICE_ID>" \
-  -d '{"json":{"miniSessionId":"<MS_ID>"}}' | jq '.result.data.json'
+  -H "Content-Type: application/json" -H "X-Device-Id: $DEVICE_ID" \
+  -d "{\"json\":{\"miniSessionId\":\"$MS_ID\"}}" | jq '.result.data.json'
 # Attendu : { etat: "terminee", nombreExercicesFaits, avatarProgresse:false, ... }
 
-curl -s "http://localhost:3000/trpc/entrainement.obtenirBilan?input=%7B%22json%22%3A%7B%22miniSessionId%22%3A%22<MS_ID>%22%7D%7D" \
-  -H "X-Device-Id: <DEVICE_ID>" | jq '.result.data.json'
+curl -s -G http://localhost:3000/trpc/entrainement.obtenirBilan \
+  --data-urlencode "input={\"json\":{\"miniSessionId\":\"$MS_ID\"}}" \
+  -H "X-Device-Id: $DEVICE_ID" | jq '.result.data.json'
 # Attendu : { chapitreNom, nombreExercicesFaits, dureeMinutes, messageBilan } — pas de note /N
 ```
 
-- [ ] OK — bilan sobre (nombre + durée + message positif), sans note /N
+- [x] OK — bilan sobre (nombre + durée + message positif), sans note /N
 
 ## Vérification post-deploy
 
@@ -215,24 +232,24 @@ curl -s -X POST https://api.juju-aviatrice.uk/trpc/entrainement.demarrerMiniSess
 # Attendu : miniSessionId présent, n = 4
 ```
 
-- [ ] OK — API prod accessible, healthcheck OK
-- [ ] OK — `demarrerMiniSession` fonctionne en prod (migration 0004 appliquée)
+- [x] OK — API prod accessible, healthcheck OK (gitSha c90e0e7)
+- [x] OK — `demarrerMiniSession` fonctionne en prod (migration 0004 appliquée — parcours Go validé)
 
 **Frontend production** : ouvrir `https://app.juju-aviatrice.uk/` (device ayant terminé/passé l'onboarding)
 
-- [ ] OK — Go lance une mini-session (flashcard FO-05)
-- [ ] OK — flip révèle Réponse + Explication, « Suivant » enchaîne
-- [ ] OK — QCM : validation, correction neutre (0 mot négatif)
-- [ ] OK — bilan FO-07 sans note /N, « Encore » / « Bonne nuit » ramènent à l'accueil
-- [ ] OK — « Changer d'activité » : pilier → chapitre en 2 taps
-- [ ] OK — masquer l'onglet en cours de session ne provoque aucun reproche au retour
+- [x] OK — Go lance une mini-session (flashcard FO-05)
+- [x] OK — flip révèle Réponse + Explication, « Suivant » enchaîne
+- [x] OK — QCM : validation, correction neutre (0 mot négatif)
+- [x] OK — bilan FO-07 sans note /N, « Encore » / « Bonne nuit » ramènent à l'accueil
+- [x] OK — « Changer d'activité » : pilier → chapitre en 2 taps
+- [x] OK — masquer l'onglet en cours de session ne provoque aucun reproche au retour
 
 ## Résultat
 
-- [ ] Tous les scénarios locaux validés
-- [ ] Vérifications API directes validées
-- [ ] Vérifications post-deploy validées
-- [ ] Aucun message culpabilisant ni note /N détecté (règle d'or)
-- [ ] Zones tactiles ≥ 44×44px vérifiées visuellement
-- **Testeur** : _____________
-- **Date** : _____________
+- [x] Tous les scénarios locaux validés
+- [x] Vérifications API directes validées
+- [x] Vérifications post-deploy validées
+- [x] Aucun message culpabilisant ni note /N détecté (règle d'or)
+- [x] Zones tactiles ≥ 44×44px vérifiées visuellement
+- **Testeur** : Papa
+- **Date** : 1er juin 2026
