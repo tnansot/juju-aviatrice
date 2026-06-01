@@ -93,12 +93,12 @@ THEN l'écran FO-09 propose un choix simple : pilier → chapitre (2 taps max)
 
 **Implémentation :**
 
-- [ ] Backend : procédure entrainement.demarrerMiniSession(chapitre_id, format, mode_chrono)
-- [ ] Backend : modèle Session + MiniSession + ExerciceEnCours (tables Drizzle)
-- [ ] Frontend : démarrage de session depuis Go (charge exercices + lance le premier)
-- [ ] Frontend : composant ChoixActivite (FO-09) — sélection pilier → chapitre
-- [ ] Tests : démarrage nominal, choix alternatif
-- **Statut** : À faire
+- [x] Backend : procédure entrainement.demarrerMiniSession(chapitre_id, format, mode_chrono) — slice `demarrer-mini-session`
+- [x] Backend : modèle Session + MiniSession + ExerciceEnCours (tables Drizzle, migration 0004)
+- [x] Frontend : démarrage de session depuis Go (`SessionFlow` + `useSession`, charge exercices + lance le premier)
+- [x] Frontend : composant ChoixActivite (FO-09) — sélection pilier → chapitre (2 taps)
+- [x] Tests : démarrage nominal, réutilisation session, chapitre invalide, ChoixActivite, callbacks Go/Changer
+- **Statut** : Terminée
 
 ---
 
@@ -126,12 +126,13 @@ THEN l'exercice suivant s'affiche sans délai perceptible (< 300ms)
 
 **Implémentation :**
 
-- [ ] Backend : procédure entrainement.retournerFlashcard (émet exercice_effectue)
-- [ ] Frontend : composant FlashcardScreen (FO-05) avec animation flip
-- [ ] Frontend : affichage correction sous la réponse
-- [ ] Frontend : transition fluide vers l'exercice suivant (< 300ms)
-- [ ] Tests : flip, correction, transition, événement exercice_effectue
-- **Statut** : À faire
+- [x] Backend : procédure entrainement.retournerFlashcard (émet exercice_effectue via le bus)
+- [x] Frontend : composant FlashcardScreen (FO-05) avec retournement
+- [x] Frontend : affichage de l'explication sous la réponse (libellé « Explication »)
+- [x] Frontend : transition vers l'exercice suivant (navigation locale, sans réseau)
+- [x] Tests : flip, explication, bouton Suivant, événement exercice_effectue
+- **Note** : l'énoncé flashcard renvoie `explication` (REQ-SESSION-006) — spec `entrainement.md` mise à jour
+- **Statut** : Terminée
 
 ---
 
@@ -165,12 +166,12 @@ THEN l'exercice suivant s'affiche en < 300ms
 
 **Implémentation :**
 
-- [ ] Backend : procédure entrainement.soumettreReponse (émet exercice_effectue)
-- [ ] Frontend : composant QCMScreen (FO-06) — options tactiles ≥ 44×44px
-- [ ] Frontend : affichage correction (bonne réponse + raisonnement, formulation charte de ton)
-- [ ] Frontend : indicateur de progression discret ("2/4")
-- [ ] Tests : sélection, validation, correction neutre, transition
-- **Statut** : À faire
+- [x] Backend : procédure entrainement.soumettreReponse (émet exercice_effectue ; bonne réponse calculée backend)
+- [x] Frontend : composant QCMScreen (FO-06) — options tactiles ≥ 44×44px (min-height token)
+- [x] Frontend : affichage correction (bonne réponse en vert, choix non retenu neutre, libellé « Explication »)
+- [x] Frontend : indicateur de progression discret ("3 / 4")
+- [x] Tests : sélection, Valider désactivé/activé, correction neutre (0 mot interdit), transition
+- **Statut** : Terminée
 
 ---
 
@@ -204,12 +205,13 @@ THEN un message neutre et chaleureux s'affiche ("À bientôt") sans relance ni n
 
 **Implémentation :**
 
-- [ ] Backend : procédure entrainement.terminerMiniSession (émet mini_session_terminee)
-- [ ] Backend : procédure entrainement.obtenirBilan
-- [ ] Frontend : composant BilanScreen (FO-07) — nombre d'exercices, pas de score
-- [ ] Frontend : boutons "Encore" et "Bonne nuit"
-- [ ] Tests : bilan correct, choix encore/stop, formulation positive
-- **Statut** : À faire
+- [x] Backend : procédure entrainement.terminerMiniSession (émet mini_session_terminee ; avatar/déblocage en stub neutre — bc-progression/F8)
+- [x] Backend : procédure entrainement.obtenirBilan (message positif, sans note /N)
+- [x] Frontend : composant BilanScreen (FO-07) — nombre d'exercices + durée, pas de score
+- [x] Frontend : boutons "Encore une session" et "Bonne nuit"
+- [x] Tests : bilan sobre (0 note /N, 0 mot interdit), choix encore/stop
+- **Note** : barre « prochain déblocage » FO-07 différée à bc-progression (F8)
+- **Statut** : Terminée
 
 ---
 
@@ -237,11 +239,11 @@ THEN l'écran d'accueil FO-04 s'affiche normalement sans mention de la session i
 
 **Implémentation :**
 
-- [ ] Backend : procédure entrainement.signalerInterruption (émet session_interrompue)
-- [ ] Frontend : détection de fermeture (beforeunload / visibilitychange) → signaler interruption
-- [ ] Frontend : aucun message de reproche au retour
-- [ ] Tests : interruption, comptabilisation, réouverture propre
-- **Statut** : À faire
+- [x] Backend : procédure entrainement.signalerInterruption (émet session_interrompue ; clôt aussi la session si plus de mini en cours)
+- [x] Frontend : détection de fermeture (visibilitychange / pagehide) → signaler interruption (une seule fois)
+- [x] Frontend : aucun message de reproche au retour (retour à l'accueil neutre, aucune UI de session inachevée)
+- [x] Tests : interruption comptabilise les faits, idempotence sur l'état
+- **Statut** : Terminée
 
 ---
 
@@ -268,10 +270,11 @@ THEN les 3 exercices sont chargés (minimum respecté)
 
 **Implémentation :**
 
-- [ ] Backend : procédure contenu.chargerExercices(chapitre_id, format, nombre)
-- [ ] Backend : logique de sélection (aléatoire ou séquentiel, à définir)
-- [ ] Tests : nombre correct, format respecté, chapitre valide/invalide
-- **Statut** : À faire
+- [x] Backend : procédure contenu.chargerExercices(chapitre_id, format, nombre) — service `charger-exercices.service.ts` (appel in-process depuis bc-entrainement)
+- [x] Backend : logique de sélection — mélange Fisher-Yates, bornage 3-5 selon contenu disponible
+- [x] Tests : nombre correct, format respecté, min/max bornés, chapitre invalide → vide
+- **Note** : catalogue stub en mémoire (`contenu/catalogue.ts`) en attendant le loader Markdown ADR-015 (F5)
+- **Statut** : Terminée
 
 ---
 
@@ -279,18 +282,18 @@ THEN les 3 exercices sont chargés (minimum respecté)
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Démarrage de mini-session (Go) | US | M (3 pts) | À faire |
-| S2 | Exercice flashcard (FO-05) | US | S (2 pts) | À faire |
-| S3 | Exercice QCM (FO-06) | US | M (3 pts) | À faire |
-| S4 | Bilan de mini-session (FO-07) | US | S (2 pts) | À faire |
-| S5 | Tolérance aux interruptions | US | S (2 pts) | À faire |
-| S6 | Chargement des exercices depuis le catalogue | TS | S (2 pts) | À faire |
+| S1 | Démarrage de mini-session (Go) | US | M (3 pts) | Terminée |
+| S2 | Exercice flashcard (FO-05) | US | S (2 pts) | Terminée |
+| S3 | Exercice QCM (FO-06) | US | M (3 pts) | Terminée |
+| S4 | Bilan de mini-session (FO-07) | US | S (2 pts) | Terminée |
+| S5 | Tolérance aux interruptions | US | S (2 pts) | Terminée |
+| S6 | Chargement des exercices depuis le catalogue | TS | S (2 pts) | Terminée |
 
 **Total** : 6 stories — 14 points
 
 ---
 
-**Statut** : À faire
+**Statut** : En revue
 
 ---
 

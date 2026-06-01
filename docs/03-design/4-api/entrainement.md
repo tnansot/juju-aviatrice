@@ -52,6 +52,10 @@ z.object({
       z.object({
         faceQuestion: z.string(),
         faceReponse: z.string(),
+        explication: z.string(),
+        // Raisonnement affiché après retournement (REQ-SESSION-006).
+        // Libellé UI : « Explication ». La bonne réponse QCM, elle, n'est
+        // jamais envoyée ici (révélée via soumettreReponse).
       }),
       z.object({
         question: z.string(),

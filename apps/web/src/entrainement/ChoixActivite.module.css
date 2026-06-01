@@ -1,0 +1,121 @@
+/* bc-entrainement — styles FO-09 choix activité (direction-artistique, tokens) */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--leading-h2);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--space-2);
+}
+
+.sub {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--color-neutral-600);
+  margin-bottom: var(--space-6);
+}
+
+.pillarChoice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.pillarBtn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border: var(--border-medium) solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  text-align: left;
+  cursor: pointer;
+  background: var(--color-neutral-50);
+  transition: border-color var(--duration-fast) var(--ease-out);
+  min-height: var(--touch-min);
+}
+
+.pillarBtn:hover {
+  border-color: var(--color-accent-light);
+}
+
+.pillarName {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-neutral-900);
+}
+
+.pillarDesc {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-600);
+}
+
+.chapterList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.chapterItem {
+  width: 100%;
+  border: var(--border-medium) solid var(--color-neutral-200);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-neutral-50);
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out);
+  min-height: var(--touch-min);
+}
+
+.chapterItem:hover {
+  border-color: var(--color-accent-light);
+}
+
+.chapterName {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--color-neutral-800);
+}
+
+.chapterStatus {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-400);
+}
+
+.btnBack {
+  align-self: flex-start;
+  margin-top: var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-400);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--touch-min);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.btnBack:hover {
+  color: var(--color-neutral-600);
+}
