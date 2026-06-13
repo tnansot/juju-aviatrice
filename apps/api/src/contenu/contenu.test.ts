@@ -80,3 +80,58 @@ describe("contenu.obtenirChapitre", () => {
     ).rejects.toThrow("NON_TROUVE");
   });
 });
+
+describe("contenu.chargerExercices", () => {
+  it("retourne le nombre demandé de flashcards avec leurs deux faces", async () => {
+    const { caller } = setup();
+
+    const exercices = await caller.contenu.chargerExercices({
+      chapitreId: "maths-geometrie",
+      format: "flashcard",
+      nombre: 4,
+    });
+
+    expect(exercices).toHaveLength(4);
+    for (const ex of exercices) {
+      expect(ex.format).toBe("flashcard");
+      expect(ex.enonce).toHaveProperty("faceQuestion");
+      expect(ex.enonce).toHaveProperty("faceReponse");
+    }
+  });
+
+  it("ne transmet jamais la bonne réponse ni la correction d'un QCM", async () => {
+    const { caller } = setup();
+
+    const exercices = await caller.contenu.chargerExercices({
+      chapitreId: "maths-geometrie",
+      format: "qcm",
+      nombre: 5,
+    });
+
+    for (const ex of exercices) {
+      expect(ex.enonce).toHaveProperty("question");
+      expect(ex.enonce).toHaveProperty("choix");
+      expect(ex.enonce).not.toHaveProperty("bonneReponseId");
+      expect(ex.enonce).not.toHaveProperty("correction");
+      if ("choix" in ex.enonce) {
+        for (const choix of ex.enonce.choix) {
+          expect(choix).not.toHaveProperty("est_correct");
+        }
+      }
+      expect(ex).not.toHaveProperty("correction");
+    }
+  });
+
+  it("borne le nombre d'exercices entre 3 et 5", async () => {
+    const { caller } = setup();
+
+    const trop = await caller.contenu.chargerExercices({
+      chapitreId: "maths-geometrie",
+      format: "qcm",
+      nombre: 5,
+    });
+
+    expect(trop.length).toBeLessThanOrEqual(5);
+    expect(trop.length).toBeGreaterThanOrEqual(3);
+  });
+});

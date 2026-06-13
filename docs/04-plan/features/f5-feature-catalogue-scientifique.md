@@ -150,10 +150,12 @@ THEN l'ordre est mélangé aléatoirement
 
 **Implémentation :**
 
-- [ ] Procédure contenu.chargerExercices (query, sélection aléatoire depuis le catalogue en mémoire, bonne réponse non exposée)
-- [ ] Validation : nombre min/max (3-5), format valide, chapitre existant
-- [ ] Tests : nombre correct, mélange, bonne réponse absente côté client
-- **Statut** : À faire
+- [x] Procédure contenu.chargerExercices (query, sélection aléatoire depuis le catalogue en mémoire, bonne réponse non exposée)
+- [x] Validation : nombre min/max (3-5), format valide, chapitre existant
+- [x] Tests : nombre correct, énoncé sûr (ni `bonneReponseId` ni `correction` côté client), bornage 3-5 (`contenu.test.ts`)
+- **Statut** : Terminée
+
+> **Note** : la procédure réutilise `createChargerExercicesService` (sélection/mélange) et mappe vers un énoncé sûr (`enonceSansReponse`). Le mélange aléatoire est déjà couvert au niveau du service.
 
 ---
 
@@ -233,7 +235,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 |---|-------|------|------------|--------|
 | S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | Terminée |
 | S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | Terminée |
-| S3 | API contenu.chargerExercices | TS | S (2 pts) | À faire |
+| S3 | API contenu.chargerExercices | TS | S (2 pts) | Terminée |
 | S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | Terminée |
 | S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | Terminée |
 
