@@ -5,17 +5,10 @@
 
 ## Prérequis
 
-```bash
-# Terminal 1 — API
-cd apps/api
-pnpm drizzle-kit push
-pnpm tsx scripts/seed.ts juju-aviatrice-2026   # crée le jeton (max 3 utilisations)
-pnpm dev                   # http://localhost:3000
+- Démarrer l'environnement local → [Runbook — Test manuel §1](../../06-run/runbook-test-manuel.md#1-démarrer-lenvironnement-de-test-local).
+- Créer le jeton `juju-aviatrice-2026` (max 3 utilisations) → [§2](../../06-run/runbook-test-manuel.md#2-créer-un-jeton-dinvitation-local).
 
-# Terminal 2 — Frontend
-cd apps/web
-pnpm dev                   # http://localhost:5173
-```
+**Spécifique F2** : ces scénarios testent l'accès par device en amont de l'onboarding. Partir d'un navigateur propre (navigation privée ou localStorage vidé, cf. [§3](../../06-run/runbook-test-manuel.md#3-remettre-létat-à-zéro-local)) pour le scénario 1.
 
 ## Scénarios
 
@@ -53,6 +46,8 @@ pnpm dev                   # http://localhost:5173
 - [x] **OK**
 
 ### 6. Vérification API directe
+
+> Conventions tRPC (encodage superjson, query vs mutation) : voir [Runbook §5](../../06-run/runbook-test-manuel.md#5-conventions-dappel-api-trpc-curl).
 
 ```bash
 # Device inconnu (input wrappé superjson)

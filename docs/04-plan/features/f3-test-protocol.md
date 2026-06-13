@@ -6,24 +6,11 @@
 
 ## Prérequis
 
-```bash
-# Repartir d'un état propre puis démarrer (proche de la prod)
-pnpm dev:clean
-# Attendre les logs de démarrage (API sur :3000, frontend sur :5173)
-```
+Procédures communes dans le [Runbook — Test manuel](../../06-run/runbook-test-manuel.md) :
 
-**Création d'un jeton d'invitation** : après un `dev:clean` (volumes purgés), la DB est vide. Créer un jeton via le script seed :
-
-```bash
-pnpm seed
-# Crée le jeton par défaut "juju-aviatrice-2026" (max 3 utilisations)
-```
-
-**Remise à zéro entre scénarios** :
-
-1. Réinitialiser l'état onboarding en DB : `pnpm reset:onboarding`
-2. Supprimer la clé `device-id` du localStorage (DevTools → Application → Local Storage)
-3. Recharger avec le jeton créé : `http://localhost:5173/?invite=juju-aviatrice-2026`
+- Démarrer l'environnement local → [§1](../../06-run/runbook-test-manuel.md#1-démarrer-lenvironnement-de-test-local).
+- Créer le jeton → [§2](../../06-run/runbook-test-manuel.md#2-créer-un-jeton-dinvitation-local).
+- Remise à zéro entre scénarios (localStorage `device-id`, `pnpm reset:onboarding`, rechargement avec `?invite=`) → [§3](../../06-run/runbook-test-manuel.md#3-remettre-létat-à-zéro-local).
 
 ## Scénarios
 
@@ -179,6 +166,8 @@ pnpm seed
 
 ## Vérification API directe
 
+> Conventions tRPC (superjson, header `X-Device-Id`, `$DEVICE_ID`) : voir [Runbook §5](../../06-run/runbook-test-manuel.md#5-conventions-dappel-api-trpc-curl) et [§4](../../06-run/runbook-test-manuel.md#4-récupérer-le-device-id).
+
 ```bash
 # Vérifier l'état onboarding d'un device
 curl -s http://localhost:3000/trpc/onboarding.obtenirEtat \
@@ -195,14 +184,13 @@ curl -s http://localhost:3000/trpc/contenu.obtenirFlashcardEchantillon | jq .
 
 ## Vérification post-deploy
 
-> Vérifications à effectuer après déploiement en production.
+> Vérifications à effectuer après déploiement en production. Procédures communes : voir [Runbook §6](../../06-run/runbook-test-manuel.md#6-vérification-post-déploiement-production).
 
 ### Étape 1 — Vérifier l'API
 
-```bash
-curl -s https://api.juju-aviatrice.uk/health | jq .
-# Attendu : status "ok"
+Healthcheck → [Runbook §6.1](../../06-run/runbook-test-manuel.md#61-healthcheck-de-lapi). Puis la flashcard échantillon (spécifique F3) :
 
+```bash
 curl -s https://api.juju-aviatrice.uk/trpc/contenu.obtenirFlashcardEchantillon | jq .
 # Attendu : réponse JSON avec question/réponse flashcard
 ```
@@ -212,77 +200,13 @@ curl -s https://api.juju-aviatrice.uk/trpc/contenu.obtenirFlashcardEchantillon |
 
 ### Étape 2 — Préparer un jeton d'invitation utilisable
 
-Se connecter au VPS :
-
-```bash
-ssh juju-vps
-```
-
-Vérifier les jetons existants :
-
-```bash
-docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
-  exec api sqlite3 ./data/juju-aviatrice.sqlite \
-  'SELECT token, utilisations, max_utilisations FROM invite_tokens;'
-```
-
-**Lecture du résultat** — le format est `token|utilisations|max_utilisations` :
-
-| Situation | Exemple affiché | Action |
-|---|---|---|
-| Jeton avec places restantes | `juju-prod-2026\|1\|5` (1 sur 5 utilisé) | Noter le nom du jeton, l'utiliser à l'étape 4 |
-| Jeton épuisé | `juju-prod-2026\|5\|5` (5 sur 5 utilisé) | Remettre le compteur à zéro (voir ci-dessous) |
-| Aucun jeton | Résultat vide | Créer un jeton (voir ci-dessous) |
-
-**Si le jeton est épuisé** — remettre le compteur à zéro (remplacer `<JETON>` par le nom du jeton affiché par le SELECT) :
-
-```bash
-docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
-  exec api sqlite3 ./data/juju-aviatrice.sqlite \
-  'UPDATE invite_tokens SET utilisations = 0 WHERE token = "<JETON>";'
-```
-
-**Si aucun jeton n'existe** — en créer un via SQL (l'image prod n'embarque ni `tsx` ni `scripts/`, donc `pnpm seed` n'y fonctionne pas — c'est un script de dev uniquement) :
-
-```bash
-docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
-  exec api sqlite3 ./data/juju-aviatrice.sqlite \
-  "INSERT INTO invite_tokens (token, max_utilisations, utilisations, date_creation)
-   VALUES ('juju-prod-2026', 3, 0, strftime('%s','now'));"
-# Crée "juju-prod-2026" avec max 3 utilisations
-```
-
-Quitter la session SSH :
-
-```bash
-exit
-```
+Vérifier/réinitialiser/créer un jeton prod → [Runbook §6.3](../../06-run/runbook-test-manuel.md#63-gérer-un-jeton-dinvitation-en-prod).
 
 - [x] OK — Jeton d'invitation disponible avec au moins 1 utilisation restante
 
 ### Étape 3 — S'assurer que le device de test est vierge
 
-L'état onboarding est lié au `device-id`. Si le navigateur a déjà un `device-id` enregistré en production, l'app affichera FO-04 directement au lieu de l'onboarding. Pour repartir d'un onboarding vierge :
-
-- **Option A (côté client, recommandé)** : supprimer `device-id` du localStorage (DevTools → Application → Local Storage → `https://app.juju-aviatrice.uk` → supprimer la clé `device-id`). Un nouveau `device-id` est généré → onboarding rejoué from scratch.
-- **Option B (côté client)** : ouvrir une fenêtre de navigation privée.
-- **Option C (côté serveur)** : purger l'état onboarding en base — utile pour re-tester avec le **même** `device-id` ou repartir totalement propre. L'équivalent prod de `pnpm reset:onboarding` (script de dev, absent de l'image prod) est un `DELETE` SQL direct :
-
-```bash
-ssh juju-vps
-
-# Purger TOUT l'onboarding (équivalent du script local reset:onboarding)
-docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
-  exec api sqlite3 ./data/juju-aviatrice.sqlite \
-  'DELETE FROM onboarding;'
-
-# OU cibler un seul device
-docker compose -f /opt/juju-aviatrice/docker-compose.prod.yml \
-  exec api sqlite3 ./data/juju-aviatrice.sqlite \
-  'DELETE FROM onboarding WHERE device_id = "<DEVICE_ID>";'
-
-exit
-```
+Repartir d'un onboarding vierge (client ou serveur) → [Runbook §6.4](../../06-run/runbook-test-manuel.md#64-repartir-dun-device--onboarding-vierge-en-prod).
 
 ### Étape 4 — Tester le parcours frontend
 

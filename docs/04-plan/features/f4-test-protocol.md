@@ -6,30 +6,19 @@
 
 ## Prérequis
 
-```bash
-# Repartir d'un état propre puis démarrer (proche de la prod)
-pnpm dev:clean
-# Attendre les logs de démarrage (API sur :3000, frontend sur :5173)
-# Les migrations (dont 0004 sessions/mini_sessions/exercices_en_cours) sont
-# appliquées automatiquement au démarrage dev.
-```
+Procédures communes dans le [Runbook — Test manuel](../../06-run/runbook-test-manuel.md) :
 
-**Création d'un jeton d'invitation** (DB vide après `dev:clean`) :
+- Démarrer l'environnement local → [§1](../../06-run/runbook-test-manuel.md#1-démarrer-lenvironnement-de-test-local). Les migrations (dont 0004 `sessions`/`mini_sessions`/`exercices_en_cours`) sont appliquées automatiquement.
+- Créer le jeton → [§2](../../06-run/runbook-test-manuel.md#2-créer-un-jeton-dinvitation-local).
+- Récupérer le `device-id` (pour la section API) → [§4](../../06-run/runbook-test-manuel.md#4-récupérer-le-device-id).
 
-```bash
-pnpm seed
-# Crée le jeton par défaut "juju-aviatrice-2026" (max 3 utilisations)
-```
-
-**Atteindre l'accueil FO-04** : F4 démarre depuis l'accueil post-onboarding.
+**Spécifique F4 — atteindre l'accueil FO-04** : F4 démarre depuis l'accueil post-onboarding.
 
 1. Supprimer la clé `device-id` du localStorage (DevTools → Application → Local Storage)
 2. Ouvrir `http://localhost:5173/?invite=juju-aviatrice-2026`
 3. Cliquer « Passer » sur l'onboarding (ou le compléter) pour arriver sur FO-04
 
-**Récupérer le `device-id`** (pour les vérifications API) : DevTools → Application → Local Storage → clé `device-id`. Le noter pour la section « Vérification API directe ».
-
-**Remise à zéro de l'entraînement entre scénarios** : les sessions sont conservées en DB mais sans effet visible sur l'accueil (pas encore de compteur branché — bc-progression/F8). Pour repartir totalement propre, relancer `pnpm dev:clean` + `pnpm seed`.
+**Remise à zéro de l'entraînement entre scénarios** : les sessions sont conservées en DB mais sans effet visible sur l'accueil (pas encore de compteur branché — bc-progression/F8). Pour repartir totalement propre, refaire [§1](../../06-run/runbook-test-manuel.md#1-démarrer-lenvironnement-de-test-local) + [§2](../../06-run/runbook-test-manuel.md#2-créer-un-jeton-dinvitation-local).
 
 ## Scénarios
 
@@ -147,13 +136,9 @@ pnpm seed
 
 ## Vérification API directe
 
-Remplacer `<DEVICE_ID>` par le `device-id` relevé dans le localStorage, puis l'exporter une fois pour toute la session :
+> Conventions tRPC (superjson, header `X-Device-Id`, `$DEVICE_ID`, query vs mutation) : voir [Runbook §5](../../06-run/runbook-test-manuel.md#5-conventions-dappel-api-trpc-curl). Exporter `DEVICE_ID` au préalable ([Runbook §4](../../06-run/runbook-test-manuel.md#4-récupérer-le-device-id)).
 
-```bash
-export DEVICE_ID="<DEVICE_ID>"
-```
-
-> **`demarrerMiniSession` est une mutation** : chaque appel crée une nouvelle mini-session avec de nouveaux `exerciceEnCoursId`. On capture donc la réponse complète dans une variable (`$RESP`) et on en dérive `exerciceEnCoursId`, `choixId` et `miniSessionId` — au lieu de rappeler la mutation entre les étapes.
+`demarrerMiniSession` étant une mutation (chaque appel crée une nouvelle mini-session avec de nouveaux `exerciceEnCoursId`), on capture la réponse complète dans `$RESP` et on en dérive `exerciceEnCoursId`, `choixId` et `miniSessionId` — au lieu de rappeler la mutation entre les étapes.
 
 ```bash
 # 1. Démarrer une mini-session flashcard (mutation)
@@ -217,14 +202,11 @@ curl -s -G http://localhost:3000/trpc/entrainement.obtenirBilan \
 
 ## Vérification post-deploy
 
-> Vérifications à effectuer après déploiement en production (CD verte).
+> Vérifications à effectuer après déploiement en production (CD verte). Procédures communes (healthcheck, accès VPS/base, jeton prod, device vierge) : voir [Runbook §6](../../06-run/runbook-test-manuel.md#6-vérification-post-déploiement-production).
 
-**API production** :
+**API production** ([healthcheck → Runbook §6.1](../../06-run/runbook-test-manuel.md#61-healthcheck-de-lapi)) :
 
 ```bash
-curl -s https://api.juju-aviatrice.uk/health | jq .
-# Attendu : status "ok"
-
 # Démarrer une mini-session (device prod enregistré requis)
 curl -s -X POST https://api.juju-aviatrice.uk/trpc/entrainement.demarrerMiniSession \
   -H "Content-Type: application/json" -H "X-Device-Id: <DEVICE_ID_PROD>" \

@@ -42,6 +42,11 @@ L'agent doit le lire avant d'écrire un nouveau protocole et en respecter toutes
 - **R16 — Section post-deploy systématique** : chaque protocole inclut une section `## Vérification post-deploy` avec les URLs de production et les vérifications à effectuer après déploiement.
 - **R17 — Checkboxes prod séparées** : les vérifications prod ont leurs propres checkboxes, distinctes des tests locaux.
 
+### Runbook transverse (anti-redites)
+
+- **R20 — Renvoyer au runbook** : ne jamais recopier une procédure **transverse** (démarrage de l'environnement, seed du jeton, remise à zéro, récupération du `device-id`, conventions d'appel API tRPC, healthcheck/accès prod, gestion du jeton prod, device vierge). Renvoyer vers la section concernée du [Runbook — Test manuel](../../06-run/runbook-test-manuel.md) via un lien d'ancre, et ne décrire dans le protocole que le **spécifique feature** (scénarios, énoncés, endpoints propres).
+- **R21 — Maintenir le runbook** : si la feature introduit ou modifie une procédure transverse (nouveau script de reset, nouvelle convention API, changement d'URL ou de stack de déploiement), **mettre à jour le runbook** dans le même mouvement que la rédaction du protocole — pas après coup. Une procédure obsolète se corrige dans le runbook en priorité, les protocoles en héritent par renvoi.
+
 ### Résultat global
 
 - **R18 — Checklist récapitulative** : la section `## Résultat` contient une checklist résumant le verdict.
@@ -62,14 +67,13 @@ Copier le gabarit ci-dessous et l'adapter à la feature.
 
 ## Prérequis
 
-```bash
-# Repartir d'un état propre puis démarrer (proche de la prod)
-docker compose down -v
-docker compose up --build
-# Attendre les logs de démarrage
-```
+Procédures communes dans le [Runbook — Test manuel](../../06-run/runbook-test-manuel.md) :
 
-{Manipulations de remise à zéro spécifiques (localStorage, jeton, etc.)}
+- Démarrer l'environnement local → [§1](../../06-run/runbook-test-manuel.md#1-démarrer-lenvironnement-de-test-local).
+- Créer le jeton → [§2](../../06-run/runbook-test-manuel.md#2-créer-un-jeton-dinvitation-local).
+- Remise à zéro → [§3](../../06-run/runbook-test-manuel.md#3-remettre-létat-à-zéro-local).
+
+**Spécifique F{N}** : {manipulations propres à la feature pour atteindre le point de départ des scénarios}
 
 ## Scénarios
 
@@ -112,12 +116,12 @@ curl -s http://localhost:3000/{endpoint} | jq .
 
 ## Vérification post-deploy
 
-> Vérifications à effectuer après déploiement en production.
+> Vérifications à effectuer après déploiement en production. Procédures communes (healthcheck, accès VPS/base, jeton prod, device vierge) : voir [Runbook §6](../../06-run/runbook-test-manuel.md#6-vérification-post-déploiement-production).
 
-**API production** :
+**API production** (healthcheck → [Runbook §6.1](../../06-run/runbook-test-manuel.md#61-healthcheck-de-lapi)) :
 
 ```bash
-curl -s https://api.juju-aviatrice.uk/{endpoint} | jq .
+curl -s https://api.juju-aviatrice.uk/{endpoint propre à la feature} | jq .
 ```
 
 - [ ] OK — {point de vérification prod 1}

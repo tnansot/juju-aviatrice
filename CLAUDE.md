@@ -136,7 +136,9 @@ Les artefacts PBM dans `docs/` sont chargés en contexte par Claude Code. **Réd
 
 ## Protocoles de test manuels
 
-Avant de rédiger un protocole de test (`f{N}-test-protocol.md`), **lire et respecter** le template de référence : [docs/04-plan/features/_test-protocol-template.md](docs/04-plan/features/_test-protocol-template.md). Ce fichier contient les 19 règles de structure, rédaction et traçabilité à appliquer systématiquement.
+Avant de rédiger un protocole de test (`f{N}-test-protocol.md`), **lire et respecter** le template de référence : [docs/04-plan/features/_test-protocol-template.md](docs/04-plan/features/_test-protocol-template.md). Ce fichier contient les règles de structure, rédaction et traçabilité à appliquer systématiquement.
+
+Les procédures **transverses** (démarrage de l'environnement, seed du jeton, remise à zéro, conventions d'appel API tRPC, vérification post-déploiement, gestion du jeton prod) sont centralisées dans le [Runbook — Test manuel](docs/06-run/runbook-test-manuel.md). Un protocole **renvoie** à ce runbook (règle R20) au lieu de recopier ces procédures ; tout skill PBM qui rédige un protocole **met à jour le runbook** quand la feature fait évoluer une procédure transverse (règle R21).
 
 ## Analyse de testabilité des features
 
