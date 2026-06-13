@@ -20,8 +20,8 @@
 | Statut | Features | Stories | Points |
 |--------|----------|---------|--------|
 | Terminée | 5 (F1, F2, F3, F4, F11) | 25 | 57 |
-| En cours | 0 | 0 | 0 |
-| À faire | 6 (F5–F10) | 26 | 65 |
+| En cours | 1 (F5) | 0 | 0 |
+| À faire | 5 (F6–F10) | 26 | 65 |
 | Bloquée | 0 | 0 | 0 |
 
 ## Features par priorité
@@ -32,7 +32,7 @@
 | **Must** | [F2 — Accès sécurisé par device](features/f2-feature-auth-device.md) | 2 US + 2 TS | 8 | Terminée |
 | **Must** | [F3 — Parcours de bienvenue](features/f3-feature-onboarding-bienvenue.md) | 5 US + 0 TS | 11 | Terminée |
 | **Must** | [F4 — Session d'entraînement courte](features/f4-feature-session-entrainement.md) | 5 US + 1 TS | 14 | Terminée |
-| **Must** | [F5 — Catalogue contenu scientifique](features/f5-feature-catalogue-scientifique.md) | 2 US + 3 TS | 13 | À faire |
+| **Must** | [F5 — Catalogue contenu scientifique](features/f5-feature-catalogue-scientifique.md) | 2 US + 3 TS | 13 | En cours |
 | **Must** | [F6 — Découverte psychotechniques](features/f6-feature-decouverte-psy.md) | 4 US + 1 TS | 12 | À faire |
 | **Must** | [F7 — Mode chronométré](features/f7-feature-mode-chrono.md) | 3 US + 0 TS | 7 | À faire |
 | **Must** | [F8 — Avatar & Progression](features/f8-feature-avatar-progression.md) | 3 US + 3 TS | 15 | À faire |

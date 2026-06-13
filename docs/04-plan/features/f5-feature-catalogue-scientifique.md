@@ -77,13 +77,15 @@ THEN une erreur explicite est levée avec le chemin du fichier fautif
 
 **Implémentation :**
 
-- [ ] Créer la structure `src/content/` avec les répertoires piliers/ et chapitres/
-- [ ] Loader TypeScript : parse frontmatter YAML + corps Markdown des piliers et chapitres
-- [ ] Loader TypeScript : parse les exercices (flashcard et QCM), extraction de `est_correct` depuis `[x]`
-- [ ] Validation au chargement : frontmatter conforme aux modèles domaine, erreur explicite si invalide
-- [ ] Export d'un catalogue typé en mémoire (piliers, chapitres, exercices) consommable par les procédures tRPC
-- [ ] Tests : chargement d'un jeu de fixtures MD, validation du parsing, erreur sur fichier malformé
-- **Statut** : À faire
+- [x] Créer la structure `src/content/` avec les répertoires piliers/ et chapitres/
+- [x] Loader TypeScript : parse frontmatter YAML + corps Markdown des piliers et chapitres
+- [x] Loader TypeScript : parse les exercices (flashcard et QCM), extraction de `est_correct` depuis `[x]`
+- [x] Validation au chargement : frontmatter conforme aux modèles domaine, erreur explicite si invalide
+- [x] Export d'un catalogue typé en mémoire (piliers, chapitres, exercices) consommable par les procédures tRPC
+- [x] Tests : chargement d'un jeu de fixtures MD, validation du parsing, erreur sur fichier malformé (10 tests, `loader.test.ts`)
+- **Statut** : Terminée
+
+> **Note d'implémentation** : le stub `catalogue.ts` codé en dur est remplacé par le loader (`loader.ts`, parser `gray-matter`) sans changer son interface publique (`listerChapitres`, `obtenirChapitre`, `obtenirExercice`, `exercicesDuChapitre`) — les 5 consommateurs (bc-entrainement, services bc-contenu) restent verts. Le contenu existant a été migré en MD. Le build copie `src/content` → `dist/content` (`scripts/copy-content.mjs`) car le stage prod du Dockerfile ne copie que `dist/`.
 
 ---
 
@@ -223,7 +225,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | À faire |
+| S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | Terminée |
 | S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | À faire |
 | S3 | API contenu.chargerExercices | TS | S (2 pts) | À faire |
 | S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | À faire |
@@ -233,7 +235,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 ---
 
-**Statut** : À faire
+**Statut** : En cours
 
 ---
 
