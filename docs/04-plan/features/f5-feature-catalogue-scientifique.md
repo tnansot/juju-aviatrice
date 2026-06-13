@@ -243,7 +243,11 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 ---
 
-**Statut** : En revue
+**Statut** : Terminée
+**Points livrés** : 13 / 13 pts
+**Date de fin** : 2026-06-13 (PR #18, prod `gitSha ee2e026`)
+
+→ Bilan technique : [f5-feature-catalogue-scientifique-review.md](f5-feature-catalogue-scientifique-review.md)
 
 ---
 
