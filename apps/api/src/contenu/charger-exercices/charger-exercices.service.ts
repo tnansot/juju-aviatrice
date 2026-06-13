@@ -9,6 +9,10 @@ export const NOMBRE_MIN_EXERCICES = 3;
 export const NOMBRE_MAX_EXERCICES = 5;
 
 type Shuffle = <T>(items: T[]) => T[];
+type ExercicesProvider = (
+  chapitreId: string,
+  format: Format,
+) => ExerciceCatalogue[];
 
 function melangeAleatoire<T>(items: T[]): T[] {
   const copie = [...items];
@@ -21,6 +25,7 @@ function melangeAleatoire<T>(items: T[]): T[] {
 
 export function createChargerExercicesService(
   shuffle: Shuffle = melangeAleatoire,
+  exercices: ExercicesProvider = exercicesDuChapitre,
 ) {
   return {
     /**
@@ -33,7 +38,7 @@ export function createChargerExercicesService(
       format: Format,
       nombre: number,
     ): ExerciceCatalogue[] {
-      const disponibles = exercicesDuChapitre(chapitreId, format);
+      const disponibles = exercices(chapitreId, format);
       const cible = Math.min(
         Math.max(nombre, NOMBRE_MIN_EXERCICES),
         NOMBRE_MAX_EXERCICES,

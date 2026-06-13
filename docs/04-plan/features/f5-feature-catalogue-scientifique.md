@@ -179,12 +179,14 @@ THEN le raisonnement est détaillé étape par étape, formulé de manière péd
 
 **Implémentation :**
 
-- [ ] Création du skill Claude Code `gen-exercices-maths` : génère les fichiers MD pour 3 chapitres maths (algèbre + analyse + géométrie, programme BO spé maths 1ère)
-- [ ] Le skill produit ≥ 5 flashcards par chapitre (formules, théorèmes, propriétés)
-- [ ] Le skill produit ≥ 5 QCM par chapitre avec 3-5 choix et correction expliquée
-- [ ] Les corrections respectent la charte de ton : neutres et pédagogiques
-- [ ] Exécution du skill, relecture diff git, commit
-- **Statut** : À faire
+- [x] Création du skill Claude Code `gen-exercices-maths` (`.claude/skills/gen-exercices-maths/SKILL.md`) : génère les fichiers MD pour 3 chapitres maths (algèbre + analyse + géométrie, programme BO spé maths 1ère)
+- [x] Le skill produit ≥ 5 flashcards par chapitre (formules, théorèmes, propriétés)
+- [x] Le skill produit ≥ 5 QCM par chapitre avec 3-5 choix et correction expliquée
+- [x] Les corrections respectent la charte de ton : neutres et pédagogiques (aucun « faux / raté / mauvais »)
+- [x] Exécution du skill, relecture diff git, commit
+- **Statut** : Terminée
+
+> **Note** : les 3 chapitres atteignent 5 flashcards + 5 QCM. `maths-analyse` passe en `formats_disponibles: [flashcard, qcm]`. Le test `charger-exercices` du bornage « minimum 3 » a été découplé du contenu réel (provider injectable).
 
 ---
 
@@ -228,7 +230,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 | S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | Terminée |
 | S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | À faire |
 | S3 | API contenu.chargerExercices | TS | S (2 pts) | À faire |
-| S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | À faire |
+| S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | Terminée |
 | S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | À faire |
 
 **Total** : 5 stories — 13 points

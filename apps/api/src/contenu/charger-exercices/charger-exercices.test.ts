@@ -1,9 +1,28 @@
 // bc-contenu — tests sélection d'exercices (ADR-010)
 import { describe, expect, it } from "vitest";
+import type { ExerciceCatalogue } from "../catalogue.js";
 import { createChargerExercicesService } from "./charger-exercices.service.js";
 
 // Shuffle identité : rend la sélection déterministe pour les assertions.
 const noShuffle = <T>(items: T[]): T[] => items;
+
+// Provider stub : N flashcards factices, pour tester le bornage indépendamment
+// du contenu réel du catalogue.
+function providerDe(nombre: number) {
+  const exercices: ExerciceCatalogue[] = Array.from(
+    { length: nombre },
+    (_, i) => ({
+      id: `fc-${i + 1}`,
+      chapitreId: "ch-stub",
+      format: "flashcard",
+      ordre: i + 1,
+      enonce: { faceQuestion: `Q${i + 1}`, faceReponse: `R${i + 1}` },
+      correction: `C${i + 1}`,
+      typologiePsy: null,
+    }),
+  );
+  return () => exercices;
+}
 
 describe("contenu.chargerExercices", () => {
   it("sélectionne le nombre demandé quand le chapitre a ≥ 5 exercices", () => {
@@ -18,10 +37,10 @@ describe("contenu.chargerExercices", () => {
     }
   });
 
-  it("retourne les 3 exercices d'un chapitre qui en compte exactement 3 (minimum respecté)", () => {
-    const service = createChargerExercicesService(noShuffle);
+  it("retourne tout le contenu disponible quand le chapitre n'a que le minimum (3)", () => {
+    const service = createChargerExercicesService(noShuffle, providerDe(3));
 
-    const result = service.execute("maths-algebre", "flashcard", 4);
+    const result = service.execute("ch-stub", "flashcard", 4);
 
     expect(result).toHaveLength(3);
   });
