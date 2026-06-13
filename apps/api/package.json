@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "tsx src/migrate.ts && NODE_ENV=development tsx watch src/index.ts",
-    "build": "tsc --build",
+    "build": "tsc --build && node scripts/copy-content.mjs",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -29,6 +29,7 @@
     "@trpc/server": "^11.1.0",
     "better-sqlite3": "^11.8.1",
     "drizzle-orm": "^0.41.0",
+    "gray-matter": "^4.0.3",
     "hono": "^4.7.6",
     "pino": "^9.6.0",
     "superjson": "^2.2.2",

@@ -77,13 +77,15 @@ THEN une erreur explicite est levée avec le chemin du fichier fautif
 
 **Implémentation :**
 
-- [ ] Créer la structure `src/content/` avec les répertoires piliers/ et chapitres/
-- [ ] Loader TypeScript : parse frontmatter YAML + corps Markdown des piliers et chapitres
-- [ ] Loader TypeScript : parse les exercices (flashcard et QCM), extraction de `est_correct` depuis `[x]`
-- [ ] Validation au chargement : frontmatter conforme aux modèles domaine, erreur explicite si invalide
-- [ ] Export d'un catalogue typé en mémoire (piliers, chapitres, exercices) consommable par les procédures tRPC
-- [ ] Tests : chargement d'un jeu de fixtures MD, validation du parsing, erreur sur fichier malformé
-- **Statut** : À faire
+- [x] Créer la structure `src/content/` avec les répertoires piliers/ et chapitres/
+- [x] Loader TypeScript : parse frontmatter YAML + corps Markdown des piliers et chapitres
+- [x] Loader TypeScript : parse les exercices (flashcard et QCM), extraction de `est_correct` depuis `[x]`
+- [x] Validation au chargement : frontmatter conforme aux modèles domaine, erreur explicite si invalide
+- [x] Export d'un catalogue typé en mémoire (piliers, chapitres, exercices) consommable par les procédures tRPC
+- [x] Tests : chargement d'un jeu de fixtures MD, validation du parsing, erreur sur fichier malformé (10 tests, `loader.test.ts`)
+- **Statut** : Terminée
+
+> **Note d'implémentation** : le stub `catalogue.ts` codé en dur est remplacé par le loader (`loader.ts`, parser `gray-matter`) sans changer son interface publique (`listerChapitres`, `obtenirChapitre`, `obtenirExercice`, `exercicesDuChapitre`) — les 5 consommateurs (bc-entrainement, services bc-contenu) restent verts. Le contenu existant a été migré en MD. Le build copie `src/content` → `dist/content` (`scripts/copy-content.mjs`) car le stage prod du Dockerfile ne copie que `dist/`.
 
 ---
 
@@ -110,10 +112,12 @@ THEN je reçois les métadonnées : nom, matière, formats disponibles, nombre d
 
 **Implémentation :**
 
-- [ ] Procédure contenu.listerPiliers (query, lit le catalogue en mémoire, retourne piliers + chapitres ordonnés)
-- [ ] Procédure contenu.obtenirChapitre (query, retourne métadonnées + compteur exercices par format)
-- [ ] Tests : réponses conformes au schéma, chapitre inexistant → NON_TROUVE
-- **Statut** : À faire
+- [x] Procédure contenu.listerPiliers (query, lit le catalogue en mémoire, retourne piliers + chapitres ordonnés, enrichie avec `matiere` + `formatsDisponibles`)
+- [x] Procédure contenu.obtenirChapitre (query, retourne métadonnées + `nombreExercicesParFormat` + `ficheMethodeDisponible`)
+- [x] Tests : réponses conformes au schéma, chapitre inexistant → NON_TROUVE (`contenu.test.ts`, 4 tests)
+- **Statut** : Terminée
+
+> **Note** : `zMatiere` ajouté aux schémas partagés. `listerPiliers` (préexistante, partielle) enrichie au contrat OpenAPI ; `obtenirChapitre` créée.
 
 ---
 
@@ -146,10 +150,12 @@ THEN l'ordre est mélangé aléatoirement
 
 **Implémentation :**
 
-- [ ] Procédure contenu.chargerExercices (query, sélection aléatoire depuis le catalogue en mémoire, bonne réponse non exposée)
-- [ ] Validation : nombre min/max (3-5), format valide, chapitre existant
-- [ ] Tests : nombre correct, mélange, bonne réponse absente côté client
-- **Statut** : À faire
+- [x] Procédure contenu.chargerExercices (query, sélection aléatoire depuis le catalogue en mémoire, bonne réponse non exposée)
+- [x] Validation : nombre min/max (3-5), format valide, chapitre existant
+- [x] Tests : nombre correct, énoncé sûr (ni `bonneReponseId` ni `correction` côté client), bornage 3-5 (`contenu.test.ts`)
+- **Statut** : Terminée
+
+> **Note** : la procédure réutilise `createChargerExercicesService` (sélection/mélange) et mappe vers un énoncé sûr (`enonceSansReponse`). Le mélange aléatoire est déjà couvert au niveau du service.
 
 ---
 
@@ -177,12 +183,14 @@ THEN le raisonnement est détaillé étape par étape, formulé de manière péd
 
 **Implémentation :**
 
-- [ ] Création du skill Claude Code `gen-exercices-maths` : génère les fichiers MD pour 3 chapitres maths (algèbre + analyse + géométrie, programme BO spé maths 1ère)
-- [ ] Le skill produit ≥ 5 flashcards par chapitre (formules, théorèmes, propriétés)
-- [ ] Le skill produit ≥ 5 QCM par chapitre avec 3-5 choix et correction expliquée
-- [ ] Les corrections respectent la charte de ton : neutres et pédagogiques
-- [ ] Exécution du skill, relecture diff git, commit
-- **Statut** : À faire
+- [x] Création du skill Claude Code `gen-exercices-maths` (`.claude/skills/gen-exercices-maths/SKILL.md`) : génère les fichiers MD pour 3 chapitres maths (algèbre + analyse + géométrie, programme BO spé maths 1ère)
+- [x] Le skill produit ≥ 5 flashcards par chapitre (formules, théorèmes, propriétés)
+- [x] Le skill produit ≥ 5 QCM par chapitre avec 3-5 choix et correction expliquée
+- [x] Les corrections respectent la charte de ton : neutres et pédagogiques (aucun « faux / raté / mauvais »)
+- [x] Exécution du skill, relecture diff git, commit
+- **Statut** : Terminée
+
+> **Note** : les 3 chapitres atteignent 5 flashcards + 5 QCM. `maths-analyse` passe en `formats_disponibles: [flashcard, qcm]`. Le test `charger-exercices` du bornage « minimum 3 » a été découplé du contenu réel (provider injectable).
 
 ---
 
@@ -210,12 +218,14 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 **Implémentation :**
 
-- [ ] Création du skill Claude Code `gen-exercices-physique-chimie` : génère les fichiers MD pour 3 chapitres physique-chimie (variété typologique, programme BO spé physique-chimie 1ère)
-- [ ] Le skill produit ≥ 5 flashcards par chapitre (formules, unités, lois)
-- [ ] Le skill produit ≥ 5 QCM par chapitre avec correction expliquée
-- [ ] Les corrections respectent la charte de ton
-- [ ] Exécution du skill, relecture diff git, commit
-- **Statut** : À faire
+- [x] Création du skill Claude Code `gen-exercices-physique-chimie` (`.claude/skills/gen-exercices-physique-chimie/SKILL.md`) : génère les fichiers MD pour 3 chapitres physique-chimie (programme BO spé physique-chimie 1ère)
+- [x] Le skill produit ≥ 5 flashcards par chapitre (formules, unités, lois)
+- [x] Le skill produit ≥ 5 QCM par chapitre avec correction expliquée
+- [x] Les corrections respectent la charte de ton
+- [x] Exécution du skill, relecture diff git, commit
+- **Statut** : Terminée
+
+> **Note** : 3 chapitres PC créés (`pc-constitution-matiere`, `pc-ondes-signaux`, `pc-energie`), 5 fc + 5 qcm chacun. Le pilier Sciences expose désormais **6 chapitres** (critère de complétion #1 ✅). Total catalogue : 8 chapitres (6 sciences + 2 psy provisoires).
 
 ---
 
@@ -223,17 +233,17 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | À faire |
-| S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | À faire |
-| S3 | API contenu.chargerExercices | TS | S (2 pts) | À faire |
-| S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | À faire |
-| S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | À faire |
+| S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | Terminée |
+| S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | Terminée |
+| S3 | API contenu.chargerExercices | TS | S (2 pts) | Terminée |
+| S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | Terminée |
+| S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | Terminée |
 
 **Total** : 5 stories — 13 points
 
 ---
 
-**Statut** : À faire
+**Statut** : En revue
 
 ---
 
