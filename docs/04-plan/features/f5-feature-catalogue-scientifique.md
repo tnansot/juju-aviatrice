@@ -214,12 +214,14 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 **Implémentation :**
 
-- [ ] Création du skill Claude Code `gen-exercices-physique-chimie` : génère les fichiers MD pour 3 chapitres physique-chimie (variété typologique, programme BO spé physique-chimie 1ère)
-- [ ] Le skill produit ≥ 5 flashcards par chapitre (formules, unités, lois)
-- [ ] Le skill produit ≥ 5 QCM par chapitre avec correction expliquée
-- [ ] Les corrections respectent la charte de ton
-- [ ] Exécution du skill, relecture diff git, commit
-- **Statut** : À faire
+- [x] Création du skill Claude Code `gen-exercices-physique-chimie` (`.claude/skills/gen-exercices-physique-chimie/SKILL.md`) : génère les fichiers MD pour 3 chapitres physique-chimie (programme BO spé physique-chimie 1ère)
+- [x] Le skill produit ≥ 5 flashcards par chapitre (formules, unités, lois)
+- [x] Le skill produit ≥ 5 QCM par chapitre avec correction expliquée
+- [x] Les corrections respectent la charte de ton
+- [x] Exécution du skill, relecture diff git, commit
+- **Statut** : Terminée
+
+> **Note** : 3 chapitres PC créés (`pc-constitution-matiere`, `pc-ondes-signaux`, `pc-energie`), 5 fc + 5 qcm chacun. Le pilier Sciences expose désormais **6 chapitres** (critère de complétion #1 ✅). Total catalogue : 8 chapitres (6 sciences + 2 psy provisoires).
 
 ---
 
@@ -231,7 +233,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 | S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | À faire |
 | S3 | API contenu.chargerExercices | TS | S (2 pts) | À faire |
 | S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | Terminée |
-| S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | À faire |
+| S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | Terminée |
 
 **Total** : 5 stories — 13 points
 
