@@ -243,7 +243,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 
 ---
 
-**Statut** : En cours
+**Statut** : En revue
 
 ---
 
