@@ -25,7 +25,13 @@ export function createListerPiliersService() {
         chapitres: chapitres
           .filter((c) => c.pilierId === pilier.id)
           .sort((a, b) => a.ordre - b.ordre)
-          .map((c) => ({ id: c.id, nom: c.nom, ordre: c.ordre })),
+          .map((c) => ({
+            id: c.id,
+            nom: c.nom,
+            matiere: c.matiere,
+            formatsDisponibles: c.formatsDisponibles,
+            ordre: c.ordre,
+          })),
       }));
     },
   };

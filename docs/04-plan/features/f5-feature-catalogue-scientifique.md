@@ -112,10 +112,12 @@ THEN je reçois les métadonnées : nom, matière, formats disponibles, nombre d
 
 **Implémentation :**
 
-- [ ] Procédure contenu.listerPiliers (query, lit le catalogue en mémoire, retourne piliers + chapitres ordonnés)
-- [ ] Procédure contenu.obtenirChapitre (query, retourne métadonnées + compteur exercices par format)
-- [ ] Tests : réponses conformes au schéma, chapitre inexistant → NON_TROUVE
-- **Statut** : À faire
+- [x] Procédure contenu.listerPiliers (query, lit le catalogue en mémoire, retourne piliers + chapitres ordonnés, enrichie avec `matiere` + `formatsDisponibles`)
+- [x] Procédure contenu.obtenirChapitre (query, retourne métadonnées + `nombreExercicesParFormat` + `ficheMethodeDisponible`)
+- [x] Tests : réponses conformes au schéma, chapitre inexistant → NON_TROUVE (`contenu.test.ts`, 4 tests)
+- **Statut** : Terminée
+
+> **Note** : `zMatiere` ajouté aux schémas partagés. `listerPiliers` (préexistante, partielle) enrichie au contrat OpenAPI ; `obtenirChapitre` créée.
 
 ---
 
@@ -230,7 +232,7 @@ THEN la réponse inclut la formule et une explication concise du concept sous-ja
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
 | S1 | Structure de fichiers et loader du catalogue | TS | M (3 pts) | Terminée |
-| S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | À faire |
+| S2 | API contenu.listerPiliers et contenu.obtenirChapitre | TS | S (2 pts) | Terminée |
 | S3 | API contenu.chargerExercices | TS | S (2 pts) | À faire |
 | S4 | Génération des exercices maths — skill Claude Code | US | M (3 pts) | Terminée |
 | S5 | Génération des exercices physique-chimie — skill Claude Code | US | M (3 pts) | Terminée |

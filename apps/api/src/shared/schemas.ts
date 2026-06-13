@@ -24,6 +24,14 @@ export type ExerciceId = z.infer<typeof zExerciceId>;
 export const zFormat = z.enum(["flashcard", "qcm"]);
 export type Format = z.infer<typeof zFormat>;
 
+export const zMatiere = z.enum([
+  "maths",
+  "physique_chimie",
+  "logique",
+  "calcul_mental",
+]);
+export type Matiere = z.infer<typeof zMatiere>;
+
 export const zEtatSession = z.enum(["en_cours", "terminee", "interrompue"]);
 export type EtatSession = z.infer<typeof zEtatSession>;
 

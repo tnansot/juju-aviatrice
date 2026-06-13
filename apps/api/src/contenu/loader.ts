@@ -11,14 +11,20 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { z } from "zod";
-import { type Format, zFormat } from "../shared/schemas.js";
+import {
+  type Format,
+  type Matiere,
+  zFormat,
+  zMatiere,
+} from "../shared/schemas.js";
+
+export type { Matiere } from "../shared/schemas.js";
 
 const CONTENT_DIR = resolve(
   dirname(fileURLToPath(import.meta.url)),
   "../content",
 );
 
-export type Matiere = "maths" | "physique_chimie" | "logique" | "calcul_mental";
 export type TypologiePsy = "serie" | "analogie" | "syllogisme" | "deductif";
 
 export interface PilierCatalogue {
@@ -84,13 +90,6 @@ export interface Catalogue {
 }
 
 // --- Schémas de validation des frontmatter (alignés sur les modèles domaine) ---
-
-const zMatiere = z.enum([
-  "maths",
-  "physique_chimie",
-  "logique",
-  "calcul_mental",
-]);
 
 const zPilierFrontmatter = z.object({
   id: z.string().min(1),
