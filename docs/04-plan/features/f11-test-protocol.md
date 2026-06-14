@@ -38,15 +38,24 @@ curl -s http://localhost:3000/health | jq .
     "buildDate": "unknown"
   },
   "db": {
-    "lastMigration": "0002_rename_columns_french"
+    "migrations": {
+      "appliedInDB": 5,
+      "availableInBuild": 5,
+      "currentInDB": "0004_curly_crusher_hogan",
+      "latestInBuild": "0004_curly_crusher_hogan"
+    }
   }
 }
 ```
 
+> **Dernière migration attendue** : `0004_curly_crusher_hogan` (5 migrations au total). Cette valeur de référence est la dernière entrée de [`apps/api/drizzle/meta/_journal.json`](../../../apps/api/drizzle/meta/_journal.json) — à mettre à jour ici à chaque nouvelle migration. Elle permet de contrôler que le **build embarque bien la migration la plus récente** : si `latestInBuild` ne correspond pas à cette valeur, le build est en retard sur le code (artefact reconstruit sans la dernière migration).
+
 - [ ] OK — status "ok"
 - [ ] OK — version.gitSha présent (en dev local : "dev")
 - [ ] OK — version.buildDate présent (en dev local : "unknown")
-- [ ] OK — db.lastMigration contient un hash (migrations auto au démarrage Docker)
+- [ ] OK — `latestInBuild` == `0004_curly_crusher_hogan` (la migration la plus récente du repo) → le build est à jour
+- [ ] OK — `currentInDB` == `latestInBuild` → la base a bien appliqué la dernière migration livrée
+- [ ] OK — `appliedInDB` == `availableInBuild` (== 5) → toutes les migrations du build sont appliquées
 
 ---
 
@@ -65,12 +74,12 @@ curl -s http://localhost:3000/health | jq .
 
 - Section "Frontend" avec Git SHA "dev" et Build "unknown" (en dev local)
 - Section "API" avec Status "ok", Git SHA et Build
-- Section "Base de données" avec la dernière migration
+- Section "Base de données" avec migration appliquée (base), migration livrée (build) et le compteur base / build
 
 - [x] OK — Page /version accessible
 - [x] OK — Section Frontend affichée
 - [x] OK — Section API affichée avec données du healthcheck
-- [x] OK — Section Base de données affichée avec dernière migration
+- [x] OK — Section Base de données affichée avec migration base/build (les deux noms concordent si la base est à jour)
 
 **Test erreur API** : arrêter l'API (`docker compose stop api`) puis recharger /version
 
@@ -93,6 +102,8 @@ curl -s https://api.juju-aviatrice.uk/health | jq .
 
 - [ ] OK — version.gitSha contient un SHA court (7 caractères, pas "dev")
 - [ ] OK — version.buildDate contient une date ISO (pas "unknown")
+- [ ] OK — `db.migrations.latestInBuild` == `0004_curly_crusher_hogan` → l'artefact prod embarque bien la migration la plus récente (sinon : image reconstruite sans la dernière migration)
+- [ ] OK — `db.migrations.currentInDB` == `latestInBuild` et `appliedInDB` == `availableInBuild` → la base prod est à jour
 
 **Page /version en production** : ouvrir https://app.juju-aviatrice.uk/version
 

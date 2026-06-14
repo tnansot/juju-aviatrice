@@ -6,7 +6,7 @@ Exposer un identifiant de version (git SHA court) pour le frontend, le backend e
 
 ## Critère de complétion
 
-1. `GET /health` retourne le git SHA du build API, la date de build et la dernière migration DB appliquée
+1. `GET /health` retourne le git SHA du build API, la date de build et l'état des migrations DB (appliquées en base vs livrées dans le build, avec noms lisibles)
 2. La page `/version` de la SPA affiche le git SHA du build front, la date de build, et les infos du healthcheck (API + DB)
 3. Le pipeline CI/CD injecte automatiquement le git SHA dans les deux builds (Docker API + Vite web)
 
@@ -31,7 +31,7 @@ Exposer un identifiant de version (git SHA court) pour le frontend, le backend e
 
 ### API
 
-- **Health check enrichi** : `GET /health` retourne `{ status, version: { gitSha, buildDate }, db: { lastMigration } }`
+- **Health check enrichi** : `GET /health` retourne `{ status, version: { gitSha, buildDate }, db: { migrations: { appliedInDB, availableInBuild, currentInDB, latestInBuild } } }`. Les suffixes `InDB` / `InBuild` distinguent ce qui est réellement appliqué en base de ce que le build embarque — comparer les deux indique si la base est à jour avec le code déployé.
 
 ---
 
@@ -41,29 +41,31 @@ Exposer un identifiant de version (git SHA court) pour le frontend, le backend e
 
 **Type** : TS — **Estimation** : S (2 pts)
 
-**Objectif** : Ajouter au endpoint `/health` les informations de version de l'API (git SHA, date de build) et de la base de données (dernière migration Drizzle appliquée).
-**Justification** : Permet de vérifier en un `curl` que le bon code et le bon schéma sont déployés.
+**Objectif** : Ajouter au endpoint `/health` les informations de version de l'API (git SHA, date de build) et l'état des migrations DB (appliquées en base vs livrées dans le build).
+**Justification** : Permet de vérifier en un `curl` que le bon code et le bon schéma sont déployés, et de détecter une base en retard sur le code.
+
+> **Note (correctif post-livraison)** : la première version exposait `db.lastMigration` = le hash SHA256 du SQL de la dernière migration (ce que stocke `__drizzle_migrations`), illisible et inexploitable pour vérifier qu'une migration donnée est passée. Remplacé par l'objet `migrations` avec noms lisibles. Le nom (`0004_curly_crusher_hogan`) n'est pas en base mais dans `drizzle/meta/_journal.json` (livré avec le build) ; on le retrouve en croisant `__drizzle_migrations.created_at` avec le champ `when` du journal.
 
 **Critères d'acceptation :**
 
 ```gherkin
-GIVEN l'API démarrée avec GIT_SHA=abc1234 et BUILD_DATE=2026-05-20T12:00:00Z
+GIVEN l'API démarrée avec GIT_SHA=abc1234 et BUILD_DATE=2026-05-20T12:00:00Z, base à jour
 WHEN j'appelle GET /health
-THEN je reçois 200 avec { status: "ok", version: { gitSha: "abc1234", buildDate: "2026-05-20T12:00:00Z" }, db: { lastMigration: "0002_rename_columns_french" } }
+THEN je reçois 200 avec { status: "ok", version: { gitSha: "abc1234", buildDate: "2026-05-20T12:00:00Z" }, db: { migrations: { appliedInDB: 5, availableInBuild: 5, currentInDB: "0004_curly_crusher_hogan", latestInBuild: "0004_curly_crusher_hogan" } } }
 ```
 
 ```gherkin
-GIVEN l'API démarrée sans GIT_SHA ni BUILD_DATE
+GIVEN l'API démarrée avec un build embarquant une migration que la base n'a pas appliquée
 WHEN j'appelle GET /health
-THEN je reçois 200 avec { status: "ok", version: { gitSha: "dev", buildDate: "unknown" }, db: { lastMigration: "..." } }
+THEN appliedInDB < availableInBuild et currentInDB ≠ latestInBuild (base en retard, visible sans booléen)
 ```
 
 **Implémentation :**
 
 - [x] Lire `GIT_SHA` et `BUILD_DATE` depuis les variables d'environnement (fallback "dev" / "unknown")
-- [x] Requêter la table `__drizzle_migrations` pour obtenir le nom de la dernière migration appliquée
-- [x] Enrichir la réponse de `GET /health` avec `version` et `db`
-- [x] Tests : healthcheck enrichi avec et sans variables d'environnement
+- [x] Compter les migrations appliquées (`__drizzle_migrations`) et retrouver leur nom lisible via le journal embarqué (`drizzle/meta/_journal.json`)
+- [x] Enrichir la réponse de `GET /health` avec `version` et `db.migrations`
+- [x] Tests : statut des migrations (base à jour, base en retard, table absente) + healthcheck avec/sans variables d'environnement
 - **Statut** : Terminée
 
 ---
@@ -114,7 +116,7 @@ THEN les defines VITE_GIT_SHA et VITE_BUILD_DATE sont injectés dans le bundle
 ```gherkin
 GIVEN la SPA déployée
 WHEN j'accède à /version
-THEN je vois la version front (git SHA, date de build), la version API (git SHA, date de build) et la dernière migration DB
+THEN je vois la version front (git SHA, date de build), la version API (git SHA, date de build) et l'état des migrations DB (appliquée en base, livrée dans le build, compteur base/build)
 ```
 
 ```gherkin

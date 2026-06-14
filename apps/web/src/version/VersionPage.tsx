@@ -3,7 +3,14 @@ import { useEffect, useState } from "react";
 interface HealthResponse {
   status: string;
   version: { gitSha: string; buildDate: string };
-  db: { lastMigration: string };
+  db: {
+    migrations: {
+      appliedInDB: number;
+      availableInBuild: number;
+      currentInDB: string | null;
+      latestInBuild: string | null;
+    };
+  };
 }
 
 const apiUrl = import.meta.env.VITE_API_URL ?? "";
@@ -58,7 +65,20 @@ export function VersionPage() {
         {error ? (
           <p style={{ color: "#c53030" }}>Indisponible</p>
         ) : health ? (
-          <Row label="Dernière migration" value={health.db.lastMigration} />
+          <>
+            <Row
+              label="Migration appliquée (base)"
+              value={health.db.migrations.currentInDB ?? "aucune"}
+            />
+            <Row
+              label="Migration livrée (build)"
+              value={health.db.migrations.latestInBuild ?? "aucune"}
+            />
+            <Row
+              label="Migrations base / build"
+              value={`${health.db.migrations.appliedInDB} / ${health.db.migrations.availableInBuild}`}
+            />
+          </>
         ) : (
           <p>Chargement…</p>
         )}

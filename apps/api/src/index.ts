@@ -1,13 +1,21 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { serve } from "@hono/node-server";
 import { trpcServer } from "@hono/trpc-server";
-import { sql } from "drizzle-orm";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { healthHandler, loadJournalEntries } from "./health.js";
 import { db } from "./shared/db/client.js";
 import { createContext } from "./trpc/context.js";
 import { appRouter } from "./trpc/router.js";
 
 const app = new Hono();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Même chemin que migrate.ts : le dossier drizzle/ est livré à côté de dist/.
+const journalEntries = loadJournalEntries(
+  path.resolve(__dirname, "../drizzle"),
+);
 
 const allowedOrigins = process.env.CORS_ORIGIN?.split(",") ?? [
   "http://localhost:5173",
@@ -26,29 +34,7 @@ const apiVersion = {
   buildDate: process.env.BUILD_DATE || "unknown",
 };
 
-app.get("/health", (c) => {
-  try {
-    db.run(sql`SELECT 1`);
-  } catch {
-    return c.json({ status: "error", version: apiVersion }, 503);
-  }
-
-  let lastMigration = "unknown";
-  try {
-    const row = db.get<{ hash: string }>(
-      sql`SELECT hash FROM __drizzle_migrations ORDER BY id DESC LIMIT 1`,
-    );
-    lastMigration = row?.hash ?? "none";
-  } catch {
-    // table absente (migrations non exécutées)
-  }
-
-  return c.json({
-    status: "ok",
-    version: apiVersion,
-    db: { lastMigration },
-  });
-});
+app.get("/health", healthHandler({ db, journalEntries, version: apiVersion }));
 
 app.use(
   "/trpc/*",

@@ -88,6 +88,13 @@ curl -s https://api.juju-aviatrice.uk/health | jq .
 # Attendu : status "ok"
 ```
 
+Vérifier que le schéma déployé est à jour via `db.migrations` :
+
+- `currentInDB` (dernière migration appliquée en base) == `latestInBuild` (dernière migration livrée dans le build) ;
+- `appliedInDB` == `availableInBuild`.
+
+Si `appliedInDB < availableInBuild` (ou les noms diffèrent), la base est **en retard** sur le code déployé : les migrations ne sont pas passées au démarrage du conteneur. Les noms sont lisibles (ex. `0004_curly_crusher_hogan`), pas le hash SHA256 brut de `__drizzle_migrations`.
+
 ### 6.2 Accès au VPS et à la base prod
 
 ```bash

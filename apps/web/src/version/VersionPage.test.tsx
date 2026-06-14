@@ -18,7 +18,14 @@ describe("VersionPage", () => {
         Promise.resolve({
           status: "ok",
           version: { gitSha: "abc1234", buildDate: "2026-05-20T12:00:00Z" },
-          db: { lastMigration: "0002_rename_columns_french" },
+          db: {
+            migrations: {
+              appliedInDB: 3,
+              availableInBuild: 3,
+              currentInDB: "0002_rename_columns_french",
+              latestInBuild: "0002_rename_columns_french",
+            },
+          },
         }),
     } as Response);
 
@@ -29,7 +36,8 @@ describe("VersionPage", () => {
 
     await waitFor(() => {
       expect(screen.getByText("abc1234")).toBeTruthy();
-      expect(screen.getByText("0002_rename_columns_french")).toBeTruthy();
+      expect(screen.getAllByText("0002_rename_columns_french").length).toBe(2);
+      expect(screen.getByText("3 / 3")).toBeTruthy();
     });
   });
 

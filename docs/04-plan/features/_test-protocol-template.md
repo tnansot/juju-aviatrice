@@ -31,6 +31,7 @@ L'agent doit le lire avant d'écrire un nouveau protocole et en respecter toutes
 - **R11 — Séparation actions / résultats** : les **Actions** décrivent ce que fait le testeur. Le **Résultat attendu** décrit ce que fait le système. Les deux sont dans des blocs distincts.
 - **R12 — Résultats mesurables** : le résultat attendu doit être spécifique et vérifiable (texte exact, valeur JSON, état visuel). Deux testeurs doivent arriver au même verdict sans discussion.
 - **R13 — Checkboxes** : chaque point de validation a une checkbox `- [ ] OK` ou `- [ ] OK — détail`. Cocher `[x]` une fois validé.
+- **R22 — Valeurs de référence figées** : quand un résultat attendu dépend d'une valeur qui vit dans le code comme **source de vérité** (nom de la dernière migration, numéro de version, identifiant de seed, hash de contenu…), figer la valeur concrète attendue dans le protocole, **citer le fichier source** (lien relatif) et **rappeler de la mettre à jour** quand la source évolue. Objectif : un écart entre la valeur observée et la valeur figée détecte qu'un artefact (build, image Docker, bundle) est **en retard sur le code** — anomalie invisible si l'on se contente de comparer le système à lui-même. Ex. : `latestInBuild` du `/health` comparé à la dernière entrée de `apps/api/drizzle/meta/_journal.json`.
 
 ### Traçabilité
 
