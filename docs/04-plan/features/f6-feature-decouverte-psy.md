@@ -202,13 +202,13 @@ THEN le raisonnement est détaillé étape par étape, formulé de manière péd
 
 **Implémentation :**
 
-- [ ] Création du skill Claude Code `gen-exercices-psy` : génère les fichiers MD pour 2 types psy (logique + calcul mental)
-- [ ] Le skill produit 2 fiches méthode (3 sections chacune : cest_quoi + ce_que_ca_evalue + comment_aborder)
-- [ ] Le skill produit ≥ 5 exercices QCM logique (variété typologique) avec correction expliquée
-- [ ] Le skill produit ≥ 5 exercices QCM calcul mental (variété typologique) avec correction expliquée
-- [ ] Les fiches et corrections respectent la charte de ton : neutres, pédagogiques, sans jargon
-- [ ] Exécution du skill, relecture diff git, commit
-- **Statut** : À faire
+- [x] Création du skill Claude Code `gen-exercices-psy` : génère les fichiers MD pour 2 types psy (logique + calcul mental)
+- [x] Le skill produit 2 fiches méthode (3 sections chacune : cest_quoi + ce_que_ca_evalue + comment_aborder)
+- [x] Le skill produit ≥ 5 exercices QCM logique (variété typologique) avec correction expliquée
+- [x] Le skill produit ≥ 5 exercices QCM calcul mental (variété typologique) avec correction expliquée
+- [x] Les fiches et corrections respectent la charte de ton : neutres, pédagogiques, sans jargon
+- [x] Exécution du skill, relecture diff git, commit
+- **Statut** : Terminée
 
 ---
 
@@ -257,14 +257,14 @@ THEN retour sur FO-04 avec avatar mis à jour
 | S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | À faire |
 | S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | À faire |
 | S3 | Exercices psy sans chrono | US | M (3 pts) | À faire |
-| S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | À faire |
+| S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | Terminée |
 | S5 | Récap séquence psy (FO-13) | US | S (2 pts) | À faire |
 
 **Total** : 5 stories — 12 points
 
 ---
 
-**Statut** : À faire
+**Statut** : En cours
 
 ---
 
