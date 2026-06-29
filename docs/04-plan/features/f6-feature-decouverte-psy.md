@@ -158,11 +158,11 @@ THEN la proposition de QCM chrono (FO-12) s'affiche, ou le récap (FO-13) si le 
 
 **Implémentation :**
 
-- [ ] Frontend : réutilisation QCMScreen (FO-06) avec flag modeChrono = false (chrono masqué)
-- [ ] Frontend : enchaînement exercices psy sans chrono → proposition chrono ou récap
-- [ ] Backend : demarrerMiniSession avec modeChrono = false pour les sessions psy initiales
-- [ ] Tests : absence de chrono, corrections, transition vers proposition chrono
-- **Statut** : À faire
+- [x] Frontend : réutilisation QCMScreen (FO-06) avec flag modeChrono = false (chrono masqué) — via PsyFlow (S2)
+- [x] Frontend : enchaînement exercices psy sans chrono → récap (FO-13, finalisé en S5 ; FO-12 chrono relève de F7)
+- [x] Backend : demarrerMiniSession avec modeChrono = false pour les sessions psy initiales — infra F4 réutilisée
+- [x] Tests : absence de chrono, corrections (QCMScreen.test), transition (PsyFlow.test)
+- **Statut** : Terminée
 
 ---
 
@@ -256,7 +256,7 @@ THEN retour sur FO-04 avec avatar mis à jour
 |---|-------|------|------------|--------|
 | S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | Terminée |
 | S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | Terminée |
-| S3 | Exercices psy sans chrono | US | M (3 pts) | À faire |
+| S3 | Exercices psy sans chrono | US | M (3 pts) | Terminée |
 | S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | Terminée |
 | S5 | Récap séquence psy (FO-13) | US | S (2 pts) | À faire |
 
