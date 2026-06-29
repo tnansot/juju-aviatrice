@@ -120,11 +120,11 @@ THEN retour à l'accueil FO-04 sans reproche
 
 **Implémentation :**
 
-- [ ] Backend : procédure contenu.obtenirFicheMethode(chapitreId)
-- [ ] Frontend : composant FicheMethodeScreen (FO-11) — 3 sections, lisible < 3 min
-- [ ] Frontend : transition vers exercices sans chrono ou retour accueil
-- [ ] Tests : affichage sections, navigation, pas de chrono sur cet écran
-- **Statut** : À faire
+- [x] Backend : procédure contenu.obtenirFicheMethode(chapitreId)
+- [x] Frontend : composant FicheMethodeScreen (FO-11) — 3 sections, lisible < 3 min
+- [x] Frontend : transition vers exercices sans chrono ou retour accueil
+- [x] Tests : affichage sections, navigation, pas de chrono sur cet écran
+- **Statut** : Terminée
 
 ---
 
@@ -255,7 +255,7 @@ THEN retour sur FO-04 avec avatar mis à jour
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
 | S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | Terminée |
-| S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | À faire |
+| S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | Terminée |
 | S3 | Exercices psy sans chrono | US | M (3 pts) | À faire |
 | S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | Terminée |
 | S5 | Récap séquence psy (FO-13) | US | S (2 pts) | À faire |

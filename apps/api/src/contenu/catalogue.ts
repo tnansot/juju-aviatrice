@@ -11,6 +11,7 @@ import {
   type Catalogue,
   type ChapitreCatalogue,
   type ExerciceCatalogue,
+  type FicheMethodeCatalogue,
   type PilierCatalogue,
   chargerCatalogue,
 } from "./loader.js";
@@ -18,7 +19,9 @@ import {
 export type {
   ChapitreCatalogue,
   ExerciceCatalogue,
+  FicheMethodeCatalogue,
   PilierCatalogue,
+  TypePsy,
 } from "./loader.js";
 
 const catalogue: Catalogue = chargerCatalogue();
@@ -35,6 +38,12 @@ export function obtenirChapitre(
   chapitreId: string,
 ): ChapitreCatalogue | undefined {
   return catalogue.chapitres.find((c) => c.id === chapitreId);
+}
+
+export function obtenirFicheMethode(
+  chapitreId: string,
+): FicheMethodeCatalogue | undefined {
+  return catalogue.fichesMethode.find((f) => f.chapitreId === chapitreId);
 }
 
 export function obtenirExercice(

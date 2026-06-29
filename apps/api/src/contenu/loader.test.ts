@@ -85,6 +85,29 @@ La suite u_n = 3n + 2 est :
 u_(n+1) − u_n = 3, différence constante : arithmétique.
 `;
 
+const FICHE_VALIDE = `---
+id: maths-suites-fiche
+chapitre_id: maths-suites
+type_psy: logique
+---
+
+## C'est quoi ?
+
+Un test de logique évalue ta capacité à trouver une règle.
+
+## Ce que ça évalue
+
+- Raisonnement inductif
+- Reconnaissance de patterns
+- Capacité d'abstraction
+
+## Comment l'aborder
+
+- Cherche les écarts entre éléments
+- Teste arithmétique ou géométrique
+- Passe et reviens si tu bloques
+`;
+
 /** Pose un catalogue minimal valide ; les overrides remplacent un fichier. */
 function poserCatalogueValide(overrides: Record<string, string> = {}) {
   const fichiers: Record<string, string> = {
@@ -175,12 +198,40 @@ describe("chargerCatalogue — cas nominal", () => {
 
   it("détecte la présence d'une fiche méthode", () => {
     poserCatalogueValide({
-      "chapitres/maths-suites/fiche-methode.md": "---\nid: x\n---\n",
+      "chapitres/maths-suites/fiche-methode.md": FICHE_VALIDE,
     });
 
     const [chapitre] = chargerCatalogue(racine).chapitres;
 
     expect(chapitre.ficheMethodeDisponible).toBe(true);
+  });
+
+  it("parse une fiche méthode (3 sections + puces)", () => {
+    poserCatalogueValide({
+      "chapitres/maths-suites/fiche-methode.md": FICHE_VALIDE,
+    });
+
+    const { fichesMethode } = chargerCatalogue(racine);
+
+    expect(fichesMethode).toHaveLength(1);
+    expect(fichesMethode[0]).toMatchObject({
+      id: "maths-suites-fiche",
+      chapitreId: "maths-suites",
+      typePsy: "logique",
+      cestQuoi: "Un test de logique évalue ta capacité à trouver une règle.",
+      ceQueCaEvalue: [
+        "Raisonnement inductif",
+        "Reconnaissance de patterns",
+        "Capacité d'abstraction",
+      ],
+    });
+    expect(fichesMethode[0].commentAborder).toHaveLength(3);
+  });
+
+  it("n'expose aucune fiche méthode si aucun fichier n'est présent", () => {
+    poserCatalogueValide();
+
+    expect(chargerCatalogue(racine).fichesMethode).toHaveLength(0);
   });
 });
 
@@ -251,6 +302,66 @@ Q ?
     });
 
     expect(() => chargerCatalogue(racine)).toThrow(/flashcard-001\.md/);
+  });
+
+  it("lève une erreur sur une fiche méthode avec trop peu de puces", () => {
+    poserCatalogueValide({
+      "chapitres/maths-suites/fiche-methode.md": `---
+id: maths-suites-fiche
+chapitre_id: maths-suites
+type_psy: logique
+---
+
+## C'est quoi ?
+
+Texte.
+
+## Ce que ça évalue
+
+- Une seule puce
+
+## Comment l'aborder
+
+- A
+- B
+- C
+`,
+    });
+
+    expect(() => chargerCatalogue(racine)).toThrow(
+      /fiche-methode\.md.*3 à 5 puces/s,
+    );
+  });
+
+  it("lève une erreur si le chapitre_id de la fiche ne correspond pas", () => {
+    poserCatalogueValide({
+      "chapitres/maths-suites/fiche-methode.md": `---
+id: x-fiche
+chapitre_id: autre-chapitre
+type_psy: logique
+---
+
+## C'est quoi ?
+
+Texte.
+
+## Ce que ça évalue
+
+- A
+- B
+- C
+
+## Comment l'aborder
+
+- A
+- B
+- C
+`,
+    });
+
+    expect(() => chargerCatalogue(racine)).toThrow(
+      /fiche-methode\.md.*ne correspond pas/s,
+    );
   });
 
   it("lève une erreur si un format d'exercice n'est pas déclaré au chapitre", () => {

@@ -81,6 +81,30 @@ describe("contenu.obtenirChapitre", () => {
   });
 });
 
+describe("contenu.obtenirFicheMethode", () => {
+  it("retourne la fiche méthode d'un chapitre psy avec ses 3 sections", async () => {
+    const { caller } = setup();
+
+    const fiche = await caller.contenu.obtenirFicheMethode({
+      chapitreId: "psy-logique",
+    });
+
+    expect(fiche.chapitreId).toBe("psy-logique");
+    expect(fiche.typePsy).toBe("logique");
+    expect(fiche.cestQuoi.length).toBeGreaterThan(0);
+    expect(fiche.ceQueCaEvalue.length).toBeGreaterThanOrEqual(3);
+    expect(fiche.commentAborder.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("rejette un chapitre sciences (sans fiche) avec NON_TROUVE", async () => {
+    const { caller } = setup();
+
+    await expect(
+      caller.contenu.obtenirFicheMethode({ chapitreId: "maths-geometrie" }),
+    ).rejects.toThrow("NON_TROUVE");
+  });
+});
+
 describe("contenu.chargerExercices", () => {
   it("retourne le nombre demandé de flashcards avec leurs deux faces", async () => {
     const { caller } = setup();
