@@ -82,11 +82,11 @@ THEN FO-10 n'apparaît pas — navigation directe vers les exercices ou la fiche
 
 **Implémentation :**
 
-- [ ] Backend : procédure onboarding.marquerPremierAccesPsy
-- [ ] Frontend : composant PsyBienvenueScreen (FO-10) — 2 cartes type, badge « Recommandé »
-- [ ] Frontend : routing conditionnel (premier_acces_psy ? FO-10 : exercices)
-- [ ] Tests : affichage 1ère fois, non-réaffichage, choix logique/calcul mental
-- **Statut** : À faire
+- [x] Backend : procédure onboarding.marquerPremierAccesPsy
+- [x] Frontend : composant PsyBienvenueScreen (FO-10) — 2 cartes type, badge « Recommandé »
+- [x] Frontend : routing conditionnel (premier_acces_psy ? FO-10 : exercices)
+- [x] Tests : affichage 1ère fois, non-réaffichage, choix logique/calcul mental
+- **Statut** : Terminée
 
 ---
 
@@ -254,7 +254,7 @@ THEN retour sur FO-04 avec avatar mis à jour
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | À faire |
+| S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | Terminée |
 | S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | À faire |
 | S3 | Exercices psy sans chrono | US | M (3 pts) | À faire |
 | S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | Terminée |

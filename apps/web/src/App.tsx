@@ -51,6 +51,16 @@ function AuthenticatedApp() {
           setParams({ chapitreId, chapitreNom, format });
           setVue("session");
         }}
+        onChoisirPsy={(chapitreId, chapitreNom) => {
+          // Entraînement psy : QCM sans chronomètre (REQ-SESSION-004).
+          setParams({
+            chapitreId,
+            chapitreNom,
+            format: "qcm",
+            modeChrono: false,
+          });
+          setVue("session");
+        }}
         onRetour={() => setVue("accueil")}
       />
     );
