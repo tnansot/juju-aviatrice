@@ -264,7 +264,7 @@ THEN retour sur FO-04 avec avatar mis à jour
 
 ---
 
-**Statut** : En cours
+**Statut** : En revue
 
 ---
 
