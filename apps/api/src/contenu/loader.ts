@@ -83,10 +83,22 @@ export interface ExerciceQcm {
 
 export type ExerciceCatalogue = ExerciceFlashcard | ExerciceQcm;
 
+export type TypePsy = "logique" | "calcul_mental";
+
+export interface FicheMethodeCatalogue {
+  id: string;
+  chapitreId: string;
+  typePsy: TypePsy;
+  cestQuoi: string;
+  ceQueCaEvalue: string[];
+  commentAborder: string[];
+}
+
 export interface Catalogue {
   piliers: PilierCatalogue[];
   chapitres: ChapitreCatalogue[];
   exercices: ExerciceCatalogue[];
+  fichesMethode: FicheMethodeCatalogue[];
 }
 
 // --- Schémas de validation des frontmatter (alignés sur les modèles domaine) ---
@@ -115,6 +127,12 @@ const zExerciceFrontmatter = z.object({
   typologie_psy: z
     .enum(["serie", "analogie", "syllogisme", "deductif"])
     .optional(),
+});
+
+const zFicheMethodeFrontmatter = z.object({
+  id: z.string().min(1),
+  chapitre_id: z.string().min(1),
+  type_psy: z.enum(["logique", "calcul_mental"]),
 });
 
 // --- Helpers de parsing du corps Markdown ---
@@ -182,6 +200,16 @@ function parserChoix(brut: string, chemin: string) {
     );
   }
   return { choix, bonneReponseId };
+}
+
+/** Extrait les puces (`- texte`) d'un bloc Markdown, dans l'ordre. */
+function parserPuces(brut: string): string[] {
+  const puces: string[] = [];
+  for (const ligne of brut.split("\n")) {
+    const m = ligne.match(/^-\s+(.+?)\s*$/);
+    if (m) puces.push(m[1]);
+  }
+  return puces;
 }
 
 /** Formate une erreur de validation Zod avec le chemin du fichier fautif. */
@@ -265,12 +293,61 @@ function chargerExercice(
   };
 }
 
+/** Parse une fiche méthode psy (frontmatter + 3 sections), cf. model-fiche-methode. */
+function chargerFicheMethode(
+  chemin: string,
+  chapitreId: string,
+): FicheMethodeCatalogue {
+  const { data, content } = matter(readFileSync(chemin, "utf-8"));
+  const parsed = zFicheMethodeFrontmatter.safeParse(data);
+  if (!parsed.success) throw erreurFrontmatter(chemin, parsed.error);
+  const fm = parsed.data;
+
+  if (fm.chapitre_id !== chapitreId) {
+    throw new Error(
+      `Fiche méthode invalide (${chemin}) : chapitre_id « ${fm.chapitre_id} » ne correspond pas au chapitre « ${chapitreId} ».`,
+    );
+  }
+
+  const sections = parserSections(content);
+  const cestQuoi = sections["c'est quoi ?"];
+  const ceQueCaEvalue = parserPuces(sections["ce que ca evalue"] ?? "");
+  const commentAborder = parserPuces(sections["comment l'aborder"] ?? "");
+
+  if (!cestQuoi || ceQueCaEvalue.length === 0 || commentAborder.length === 0) {
+    throw new Error(
+      `Fiche méthode invalide (${chemin}) : sections ## C'est quoi ?, ## Ce que ça évalue et ## Comment l'aborder obligatoires.`,
+    );
+  }
+  for (const [nom, puces] of [
+    ["Ce que ça évalue", ceQueCaEvalue],
+    ["Comment l'aborder", commentAborder],
+  ] as const) {
+    if (puces.length < 3 || puces.length > 5) {
+      throw new Error(
+        `Fiche méthode invalide (${chemin}) : « ${nom} » doit compter 3 à 5 puces (trouvé ${puces.length}).`,
+      );
+    }
+  }
+
+  return {
+    id: fm.id,
+    chapitreId,
+    typePsy: fm.type_psy,
+    cestQuoi,
+    ceQueCaEvalue,
+    commentAborder,
+  };
+}
+
 function chargerChapitres(dir: string): {
   chapitres: ChapitreCatalogue[];
   exercices: ExerciceCatalogue[];
+  fichesMethode: FicheMethodeCatalogue[];
 } {
   const chapitres: ChapitreCatalogue[] = [];
   const exercices: ExerciceCatalogue[] = [];
+  const fichesMethode: FicheMethodeCatalogue[] = [];
 
   const sousDirs = readdirSync(dir)
     .filter((nom) => statSync(join(dir, nom)).isDirectory())
@@ -284,6 +361,9 @@ function chargerChapitres(dir: string): {
     if (!parsed.success) throw erreurFrontmatter(cheminIndex, parsed.error);
     const fm = parsed.data;
 
+    const cheminFiche = join(chapitreDir, "fiche-methode.md");
+    const ficheMethodeDisponible = existsSync(cheminFiche);
+
     chapitres.push({
       id: fm.id,
       pilierId: fm.pilier_id,
@@ -293,8 +373,12 @@ function chargerChapitres(dir: string): {
       formatsDisponibles: fm.formats_disponibles,
       etatInitial: fm.etat_initial,
       ordre: fm.ordre,
-      ficheMethodeDisponible: existsSync(join(chapitreDir, "fiche-methode.md")),
+      ficheMethodeDisponible,
     });
+
+    if (ficheMethodeDisponible) {
+      fichesMethode.push(chargerFicheMethode(cheminFiche, fm.id));
+    }
 
     const fichiersExercices = readdirSync(chapitreDir)
       .filter((f) => /^(flashcard|qcm)-.*\.md$/.test(f))
@@ -310,7 +394,7 @@ function chargerChapitres(dir: string): {
     }
   }
 
-  return { chapitres, exercices };
+  return { chapitres, exercices, fichesMethode };
 }
 
 /**
@@ -320,7 +404,9 @@ function chargerChapitres(dir: string): {
  */
 export function chargerCatalogue(rootDir: string = CONTENT_DIR): Catalogue {
   const piliers = chargerPiliers(join(rootDir, "piliers"));
-  const { chapitres, exercices } = chargerChapitres(join(rootDir, "chapitres"));
+  const { chapitres, exercices, fichesMethode } = chargerChapitres(
+    join(rootDir, "chapitres"),
+  );
 
   for (const chapitre of chapitres) {
     if (!piliers.some((p) => p.id === chapitre.pilierId)) {
@@ -342,5 +428,5 @@ export function chargerCatalogue(rootDir: string = CONTENT_DIR): Catalogue {
     }
   }
 
-  return { piliers, chapitres, exercices };
+  return { piliers, chapitres, exercices, fichesMethode };
 }

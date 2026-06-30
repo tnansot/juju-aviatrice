@@ -6,6 +6,8 @@ import { zEtatOnboarding } from "../shared/schemas.js";
 import { createProtectedProcedure, router } from "../trpc/trpc.js";
 import { createAvancerEtapeRepository } from "./avancer-etape/avancer-etape.repository.js";
 import { createAvancerEtapeService } from "./avancer-etape/avancer-etape.service.js";
+import { createMarquerPremierAccesPsyRepository } from "./marquer-premier-acces-psy/marquer-premier-acces-psy.repository.js";
+import { createMarquerPremierAccesPsyService } from "./marquer-premier-acces-psy/marquer-premier-acces-psy.service.js";
 import { createObtenirEtatRepository } from "./obtenir-etat/obtenir-etat.repository.js";
 import { createObtenirEtatService } from "./obtenir-etat/obtenir-etat.service.js";
 import { createSauterRepository } from "./sauter/sauter.repository.js";
@@ -21,6 +23,9 @@ export function createOnboardingRouter(db: Db) {
     createAvancerEtapeRepository(db),
   );
   const sauterService = createSauterService(createSauterRepository(db));
+  const marquerPremierAccesPsyService = createMarquerPremierAccesPsyService(
+    createMarquerPremierAccesPsyRepository(db),
+  );
 
   return router({
     obtenirEtat: protectedProcedure
@@ -59,6 +64,17 @@ export function createOnboardingRouter(db: Db) {
       )
       .mutation(({ ctx }) => {
         return sauterService.execute(ctx.deviceId);
+      }),
+
+    marquerPremierAccesPsy: protectedProcedure
+      .output(
+        z.object({
+          premierAccesPsyFait: z.literal(true),
+          messageAccueil: z.string(),
+        }),
+      )
+      .mutation(({ ctx }) => {
+        return marquerPremierAccesPsyService.execute(ctx.deviceId);
       }),
   });
 }

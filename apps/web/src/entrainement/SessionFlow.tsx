@@ -4,6 +4,7 @@
 // intermédiaire. Délègue le rendu à FlashcardScreen (FO-05), QCMScreen (FO-06)
 // et BilanScreen (FO-07). Signale les interruptions (fermeture/onglet masqué)
 // pour comptabiliser les exercices faits sans pénalité (REQ-SESSION-008).
+import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import { trpc } from "../trpc.js";
 import { BilanScreen } from "./BilanScreen.js";
@@ -15,9 +16,12 @@ import { useSession } from "./useSession.js";
 export function SessionFlow({
   params,
   onQuitter,
+  renderFin,
 }: {
   params: ParamsDemarrage;
   onQuitter: () => void;
+  // Écran de fin personnalisé (ex. récap psy FO-13). À défaut, le bilan FO-07.
+  renderFin?: (miniSessionId: string) => ReactNode;
 }) {
   const session = useSession();
   const { start } = session;
@@ -56,6 +60,9 @@ export function SessionFlow({
   }
 
   if (session.termine) {
+    if (renderFin) {
+      return <>{renderFin(session.session.miniSessionId)}</>;
+    }
     return (
       <BilanScreen
         miniSessionId={session.session.miniSessionId}

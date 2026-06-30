@@ -158,6 +158,53 @@ describe("onboarding.sauter", () => {
   });
 });
 
+describe("onboarding.marquerPremierAccesPsy", () => {
+  it("marque le premier accès psy et retourne le message d'accueil", async () => {
+    const { db, caller } = setup();
+    seedDevice(db);
+    await caller.onboarding.avancerEtape({ etapeCompletee: 1 });
+
+    const result = await caller.onboarding.marquerPremierAccesPsy();
+
+    expect(result.premierAccesPsyFait).toBe(true);
+    expect(result.messageAccueil.length).toBeGreaterThan(0);
+  });
+
+  it("persiste le flag premierAccesPsyFait pour les accès suivants", async () => {
+    const { db, caller } = setup();
+    seedDevice(db);
+
+    await caller.onboarding.marquerPremierAccesPsy();
+    const etat = await caller.onboarding.obtenirEtat();
+
+    expect(etat.premierAccesPsyFait).toBe(true);
+  });
+
+  it("est idempotent si le premier accès psy est déjà marqué", async () => {
+    const { db, caller } = setup();
+    seedDevice(db);
+
+    await caller.onboarding.marquerPremierAccesPsy();
+    const result = await caller.onboarding.marquerPremierAccesPsy();
+
+    expect(result.premierAccesPsyFait).toBe(true);
+  });
+
+  it("ne perturbe pas un onboarding déjà complété", async () => {
+    const { db, caller } = setup();
+    seedDevice(db);
+    await caller.onboarding.avancerEtape({ etapeCompletee: 1 });
+    await caller.onboarding.avancerEtape({ etapeCompletee: 2 });
+    await caller.onboarding.avancerEtape({ etapeCompletee: 3 });
+
+    await caller.onboarding.marquerPremierAccesPsy();
+    const etat = await caller.onboarding.obtenirEtat();
+
+    expect(etat.etat).toBe("complete");
+    expect(etat.premierAccesPsyFait).toBe(true);
+  });
+});
+
 describe("interruption et réouverture", () => {
   it("onboarding en_cours → réouverture = état conservé", async () => {
     const { db, caller } = setup();

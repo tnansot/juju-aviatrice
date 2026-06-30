@@ -1,0 +1,125 @@
+/* bc-contenu — styles FO-11 Fiche Méthode (direction-artistique, tokens) */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8) var(--space-6);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--leading-h2);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-neutral-900);
+}
+
+.section {
+  margin-bottom: var(--space-6);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: var(--leading-h3);
+  font-weight: var(--weight-semibold);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--space-3);
+}
+
+.sectionBody {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-neutral-700);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.listItem {
+  position: relative;
+  padding-left: var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--color-neutral-700);
+}
+
+.listItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(var(--leading-body) * 0.5em - var(--space-1) / 2);
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-secondary-light);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--space-8);
+}
+
+.btnPrimary {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-accent);
+  color: var(--color-warm-50);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  margin-bottom: var(--space-4);
+  transition: background var(--duration-fast) var(--ease-out);
+  min-height: var(--touch-min);
+}
+
+.btnPrimary:hover {
+  background: var(--color-accent-dark);
+}
+
+.btnSkip {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  color: var(--color-neutral-400);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--touch-min);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.btnSkip:hover {
+  color: var(--color-neutral-600);
+}

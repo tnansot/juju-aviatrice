@@ -12,6 +12,7 @@ import type { ExerciceCatalogue } from "./catalogue.js";
 import { createChargerExercicesService } from "./charger-exercices/charger-exercices.service.js";
 import { createListerPiliersService } from "./lister-piliers/lister-piliers.service.js";
 import { createObtenirChapitreService } from "./obtenir-chapitre/obtenir-chapitre.service.js";
+import { createObtenirFicheMethodeService } from "./obtenir-fiche-methode/obtenir-fiche-methode.service.js";
 import { createObtenirFlashcardEchantillonService } from "./obtenir-flashcard-echantillon/obtenir-flashcard-echantillon.service.js";
 
 // Énoncé sûr pour le frontend : ni la bonne réponse QCM ni la correction ne sont
@@ -34,6 +35,7 @@ export function createContenuRouter(db: Db) {
   const listerPiliersService = createListerPiliersService();
   const obtenirChapitreService = createObtenirChapitreService();
   const chargerExercicesService = createChargerExercicesService();
+  const ficheMethodeService = createObtenirFicheMethodeService();
   const flashcardService = createObtenirFlashcardEchantillonService();
 
   return router({
@@ -121,6 +123,22 @@ export function createContenuRouter(db: Db) {
             typologiePsy: ex.typologiePsy,
             ordre: ex.ordre,
           }));
+      }),
+
+    obtenirFicheMethode: protectedProcedure
+      .input(z.object({ chapitreId: zChapitreId }))
+      .output(
+        z.object({
+          id: z.string(),
+          chapitreId: zChapitreId,
+          typePsy: z.enum(["logique", "calcul_mental"]),
+          cestQuoi: z.string(),
+          ceQueCaEvalue: z.array(z.string()).min(3).max(5),
+          commentAborder: z.array(z.string()).min(3).max(5),
+        }),
+      )
+      .query(({ input }) => {
+        return ficheMethodeService.execute(input.chapitreId);
       }),
 
     obtenirFlashcardEchantillon: publicProcedure

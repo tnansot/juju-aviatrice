@@ -82,11 +82,11 @@ THEN FO-10 n'apparaît pas — navigation directe vers les exercices ou la fiche
 
 **Implémentation :**
 
-- [ ] Backend : procédure onboarding.marquerPremierAccesPsy
-- [ ] Frontend : composant PsyBienvenueScreen (FO-10) — 2 cartes type, badge « Recommandé »
-- [ ] Frontend : routing conditionnel (premier_acces_psy ? FO-10 : exercices)
-- [ ] Tests : affichage 1ère fois, non-réaffichage, choix logique/calcul mental
-- **Statut** : À faire
+- [x] Backend : procédure onboarding.marquerPremierAccesPsy
+- [x] Frontend : composant PsyBienvenueScreen (FO-10) — 2 cartes type, badge « Recommandé »
+- [x] Frontend : routing conditionnel (premier_acces_psy ? FO-10 : exercices)
+- [x] Tests : affichage 1ère fois, non-réaffichage, choix logique/calcul mental
+- **Statut** : Terminée
 
 ---
 
@@ -120,11 +120,11 @@ THEN retour à l'accueil FO-04 sans reproche
 
 **Implémentation :**
 
-- [ ] Backend : procédure contenu.obtenirFicheMethode(chapitreId)
-- [ ] Frontend : composant FicheMethodeScreen (FO-11) — 3 sections, lisible < 3 min
-- [ ] Frontend : transition vers exercices sans chrono ou retour accueil
-- [ ] Tests : affichage sections, navigation, pas de chrono sur cet écran
-- **Statut** : À faire
+- [x] Backend : procédure contenu.obtenirFicheMethode(chapitreId)
+- [x] Frontend : composant FicheMethodeScreen (FO-11) — 3 sections, lisible < 3 min
+- [x] Frontend : transition vers exercices sans chrono ou retour accueil
+- [x] Tests : affichage sections, navigation, pas de chrono sur cet écran
+- **Statut** : Terminée
 
 ---
 
@@ -158,11 +158,11 @@ THEN la proposition de QCM chrono (FO-12) s'affiche, ou le récap (FO-13) si le 
 
 **Implémentation :**
 
-- [ ] Frontend : réutilisation QCMScreen (FO-06) avec flag modeChrono = false (chrono masqué)
-- [ ] Frontend : enchaînement exercices psy sans chrono → proposition chrono ou récap
-- [ ] Backend : demarrerMiniSession avec modeChrono = false pour les sessions psy initiales
-- [ ] Tests : absence de chrono, corrections, transition vers proposition chrono
-- **Statut** : À faire
+- [x] Frontend : réutilisation QCMScreen (FO-06) avec flag modeChrono = false (chrono masqué) — via PsyFlow (S2)
+- [x] Frontend : enchaînement exercices psy sans chrono → récap (FO-13, finalisé en S5 ; FO-12 chrono relève de F7)
+- [x] Backend : demarrerMiniSession avec modeChrono = false pour les sessions psy initiales — infra F4 réutilisée
+- [x] Tests : absence de chrono, corrections (QCMScreen.test), transition (PsyFlow.test)
+- **Statut** : Terminée
 
 ---
 
@@ -202,13 +202,13 @@ THEN le raisonnement est détaillé étape par étape, formulé de manière péd
 
 **Implémentation :**
 
-- [ ] Création du skill Claude Code `gen-exercices-psy` : génère les fichiers MD pour 2 types psy (logique + calcul mental)
-- [ ] Le skill produit 2 fiches méthode (3 sections chacune : cest_quoi + ce_que_ca_evalue + comment_aborder)
-- [ ] Le skill produit ≥ 5 exercices QCM logique (variété typologique) avec correction expliquée
-- [ ] Le skill produit ≥ 5 exercices QCM calcul mental (variété typologique) avec correction expliquée
-- [ ] Les fiches et corrections respectent la charte de ton : neutres, pédagogiques, sans jargon
-- [ ] Exécution du skill, relecture diff git, commit
-- **Statut** : À faire
+- [x] Création du skill Claude Code `gen-exercices-psy` : génère les fichiers MD pour 2 types psy (logique + calcul mental)
+- [x] Le skill produit 2 fiches méthode (3 sections chacune : cest_quoi + ce_que_ca_evalue + comment_aborder)
+- [x] Le skill produit ≥ 5 exercices QCM logique (variété typologique) avec correction expliquée
+- [x] Le skill produit ≥ 5 exercices QCM calcul mental (variété typologique) avec correction expliquée
+- [x] Les fiches et corrections respectent la charte de ton : neutres, pédagogiques, sans jargon
+- [x] Exécution du skill, relecture diff git, commit
+- **Statut** : Terminée
 
 ---
 
@@ -242,11 +242,11 @@ THEN retour sur FO-04 avec avatar mis à jour
 
 **Implémentation :**
 
-- [ ] Frontend : composant RecapPsyScreen (FO-13) — checklist, résultat chrono factuel si applicable
-- [ ] Frontend : message avatar progression (1er passage psy)
-- [ ] Frontend : navigation vers autre type psy ou accueil
-- [ ] Tests : checklist correcte, résultat chrono factuel (pas de note), navigation
-- **Statut** : À faire
+- [x] Frontend : composant RecapPsyScreen (FO-13) — checklist factuelle (résultat chrono = F7, non applicable en F6)
+- [x] Frontend : message avatar progression (1er passage psy) — message sobre (stade avatar = F8)
+- [x] Frontend : navigation vers autre type psy ou accueil
+- [x] Tests : checklist correcte, pas de note /N, navigation autre type + accueil
+- **Statut** : Terminée
 
 ---
 
@@ -254,17 +254,17 @@ THEN retour sur FO-04 avec avatar mis à jour
 
 | # | Story | Type | Estimation | Statut |
 |---|-------|------|------------|--------|
-| S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | À faire |
-| S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | À faire |
-| S3 | Exercices psy sans chrono | US | M (3 pts) | À faire |
-| S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | À faire |
-| S5 | Récap séquence psy (FO-13) | US | S (2 pts) | À faire |
+| S1 | Écran de bienvenue psy (FO-10) | US | S (2 pts) | Terminée |
+| S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | Terminée |
+| S3 | Exercices psy sans chrono | US | M (3 pts) | Terminée |
+| S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | Terminée |
+| S5 | Récap séquence psy (FO-13) | US | S (2 pts) | Terminée |
 
 **Total** : 5 stories — 12 points
 
 ---
 
-**Statut** : À faire
+**Statut** : En revue
 
 ---
 
