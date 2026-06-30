@@ -242,11 +242,11 @@ THEN retour sur FO-04 avec avatar mis à jour
 
 **Implémentation :**
 
-- [ ] Frontend : composant RecapPsyScreen (FO-13) — checklist, résultat chrono factuel si applicable
-- [ ] Frontend : message avatar progression (1er passage psy)
-- [ ] Frontend : navigation vers autre type psy ou accueil
-- [ ] Tests : checklist correcte, résultat chrono factuel (pas de note), navigation
-- **Statut** : À faire
+- [x] Frontend : composant RecapPsyScreen (FO-13) — checklist factuelle (résultat chrono = F7, non applicable en F6)
+- [x] Frontend : message avatar progression (1er passage psy) — message sobre (stade avatar = F8)
+- [x] Frontend : navigation vers autre type psy ou accueil
+- [x] Tests : checklist correcte, pas de note /N, navigation autre type + accueil
+- **Statut** : Terminée
 
 ---
 
@@ -258,7 +258,7 @@ THEN retour sur FO-04 avec avatar mis à jour
 | S2 | Fiche méthode psy (FO-11) | US | S (2 pts) | Terminée |
 | S3 | Exercices psy sans chrono | US | M (3 pts) | Terminée |
 | S4 | Génération contenu psy — skill Claude Code | US | M (3 pts) | Terminée |
-| S5 | Récap séquence psy (FO-13) | US | S (2 pts) | À faire |
+| S5 | Récap séquence psy (FO-13) | US | S (2 pts) | Terminée |
 
 **Total** : 5 stories — 12 points
 
